@@ -4,11 +4,10 @@ site_description: |
 site_author: FAIRmat consortium
 nav:
   - Overview: index.md
-  # - Part 1 - Intro to NOMAD: intro.md
-  # - Part 2 - NOMAD-Simulations: nomad_simulations.md
-  # - Part 3 - Parser Plugins: parser_plugins.md
-  # - Part 4 - Schema Plugins: schema_plugins.md
-  # - Part 5 - Custom Workflows: custom_workflows.md
+  - Part 1 - Core Functionalities: core.md
+  - Part 2 - Python API: api.md
+  - Part 3 - Custom Entries: custom.md
+  - Part 4 - Workflows: workflows.md
 theme:
   name: material
   palette:
@@ -31,6 +30,9 @@ theme:
   features:
     - navigation.instant
     - navigation.footer
+    - content.code.copy
+
+
   icon:
     repo: fontawesome/brands/github
 plugins:
