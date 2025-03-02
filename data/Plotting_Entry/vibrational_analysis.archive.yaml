@@ -1,0 +1,3 @@
+data:
+  m_def: '../upload/raw/vibrational_plot_schema.archive.yaml#Vibrational_Analysis'
+  data_file: 'result-vibrational-analysis-DFT.csv'

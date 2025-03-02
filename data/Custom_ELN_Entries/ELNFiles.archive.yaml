@@ -1,0 +1,32 @@
+definitions: # Use the defintions section to create your schema
+  name: 'ELN-Annotated-File-List'
+  sections:
+    AnnotatedFile: # A subsection for storing an annotated file
+      m_annotations:
+        eln:
+          overview: True # Displays this quantity in the overview page of the entry
+      quantities:
+        file: # a quantity for storing the actualy file reference
+          type: str
+          description: single workflow files
+          m_annotations:
+            browser:
+              adaptor: RawFileAdaptor  # Allows to navigate to files in the data browser
+            eln:
+              component: FileEditQuantity # Allows editing with the GUI
+        description: # a quantity for storing the annotation
+          type: str
+          description: describe the file
+          m_annotations:
+            eln:
+              component: StringEditQuantity # Allows editing within the GUI
+    ELNAnnotatedFiles: # Define a subsection for storing files
+      base_sections:
+      - 'nomad.datamodel.metainfo.eln.ElnBaseSection' # inherits from the basic ELN class
+      m_annotations:
+        eln:
+          hide: ['lab_id'] # hides the lab_id quantity that we will not use
+      sub_sections:
+        Files:
+          repeats: True # makes the subsection repeating (i.e., a list)
+          section: '#/AnnotatedFile' # this subsection will include the quantities defined within the `AnnotedFile` class defined above

@@ -1,0 +1,46 @@
+'workflow2':
+  'name': 'MD Setup workflow'
+  'inputs':
+  - 'name': 'workflow parameters'
+    'section': '../upload/archive/mainfile/Custom_ELN_Entries/workflow_parameters.archive.yaml#/data'
+  - 'name': 'workflow scripts'
+    'section': '../upload/archive/mainfile/Custom_ELN_Entries/workflow_scripts.archive.yaml#/data/Files'
+  'outputs':
+  - 'name': 'structure file'
+    'section': '../upload/archive/mainfile/Custom_ELN_Entries/insert_water.archive.yaml#/data/Files/0/file'
+  - 'name': 'force field file'
+    'section': '../upload/archive/mainfile/Custom_ELN_Entries/create_force_field.archive.yaml#/data/Files/0/file'
+  'tasks':
+  - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
+    'name': 'create box'
+    'task': '../upload/archive/mainfile/Custom_ELN_Entries/create_box.archive.yaml#/data'
+    'inputs':
+    - 'name': 'workflow parameters'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/workflow_parameters.archive.yaml#/data'
+    - 'name': 'workflow script 1'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/workflow_scripts.archive.yaml#/data/Files/0/file'
+    'outputs':
+    - 'name': 'initial box'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/create_box.archive.yaml#/data/Files/0/file'
+  - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
+    'name': 'insert water'
+    'task': '../upload/archive/mainfile/Custom_ELN_Entries/insert_water.archive.yaml#/data'
+    'inputs':
+    - 'name': 'initial box'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/create_box.archive.yaml#/data/Files/0/file'
+    - 'name': 'workflow script 1'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/workflow_scripts.archive.yaml#/data/Files/0/file'
+    'outputs':
+    - 'name': 'structure file'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/insert_water.archive.yaml#/data/Files/0/file'
+  - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
+    'name': 'create force field'
+    'task': '../upload/archive/mainfile/Custom_ELN_Entries/create_force_field.archive.yaml#/data'
+    'inputs':
+    - 'name': 'workflow parameters'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/workflow_parameters.archive.yaml#/data'
+    - 'name': 'workflow script 2'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/workflow_scripts.archive.yaml#/data/Files/1/file'
+    'outputs':
+    - 'name': 'force field file'
+      'section': '../upload/archive/mainfile/Custom_ELN_Entries/create_force_field.archive.yaml#/data/Files/0/file'

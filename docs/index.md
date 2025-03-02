@@ -7,11 +7,51 @@ NOMAD [[nomad-lab.eu](nomad-lab.eu){:target="_blank"}] [1] is an open-source, co
 
 [2] Scheffler, M. et al., Nature 604, 635-642 (2022).
 
-## Tutorial information and preparation
+## **Tutorial preparation**
 
-!!! Warning "Attention"
+### 1. Create a NOMAD account at [NOMAD Central Deployment](https://nomad-lab.eu/prod/v1/gui/about/information){:target="_blank"}
 
-    Tutorial preparation instructions will be provided at least 1 week in advance, i.e., by 09.03.2025.
+Click `LOGIN/REGISTER` at the top right.
+
+
+### 2. Install the nomad-utility-workflows module
+
+Open a terminal and create a virtual environment with python==3.11 (It may be possible to use python>=3.9, but the module has only been fully tested with 3.11):
+
+```sh
+python3.11 -m venv .pyenv
+. .pyenv/bin/activate
+```
+
+Upgrade pip and install uv (recommended):
+
+```sh
+pip install --upgrade pip
+pip install uv
+```
+
+Install the latest pypi version of the plugin using pip:
+
+```bash
+uv pip install nomad-utility-workflows>=0.0.9 --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+```
+
+In order to use a Jupyter notebook in the following, install ipython and then create a Jupyter kernel for this venv (this kernel can then be be identified and loaded into your IDE):
+
+```bash
+uv pip install --upgrade ipython
+uv pip install --upgrade ipykernel
+ipython kernel install --user --name=DPG-tutorial
+```
+<!-- python -m ipykernel install --user --name=DPG-tutorial -->
+
+Now you can simply launch a Jupyter notebook with `Jupyter notebook` in the terminal, and then select `DPG-tutorial` from the kernel list.
+
+## **Resources**
+
+### 1. Explore the [NOMAD documentation](https://nomad-lab.eu/prod/v1/docs/){:target="_blank"}.
+
+### 2. Join our vibrant Discord community! [Invitation to Discord :fontawesome-brands-discord:](https://discord.gg/Gyzx3ukUw8){:target="_blank"}
 
 
 

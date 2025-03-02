@@ -1,0 +1,12 @@
+
+data:
+  m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+  name: 'Workflow Scripts'
+  description: 'All the scripts run during setup of the MD simulation.'
+  Files:
+  - file: 'Custom_ELN_Entries/workflow_script_1.py'
+    description: 'Creates the simulation box and inserts water molecules.'
+  - file: 'Custom_ELN_Entries/workflow_script_2.py'
+    description: 'Creates the appropriate force field files for the simulation engine.'
+
+

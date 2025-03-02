@@ -1,0 +1,28 @@
+                                  
+================================= 
+Global information about the job: 
+================================= 
+  
+Job owner: seko(30787)
+Job name:  test_slurm
+Node list: ravc[3076-3077,3079]
+Job start: Thu Jun  8 23:00:20 CEST 2023
+Job end:   Thu Jun  8 23:20:10 CEST 2023
+Work dir:  /u/seko/elsi-benchmark-tests-for-hybrids/benchmark/20/intermediate/forces_stress/3/./
+Command:   /raven/u/seko/elsi-benchmark-tests-for-hybrids/benchmark/20/intermediate/forces_stress/3/run-raven.sh
+  
+  
+  
+==========================================================================================
+Information on jobsteps (Note: MaxRSS/AveRSS is the maximum/average over all 
+tasks of the per-task memory high-water marks; cf. "man sacct"): 
+==========================================================================================
+  
+JobID            JobName NNodes NTasks  NCPUS       MaxRSS       AveRSS    Elapsed ExitCode
+------------- ---------- ------ ------ ------ ------------ ------------ ---------- --------
+5119595       test_slurm      3           432                             00:19:50      0:0
+5119595.0     aims.23052      3    216    432     6948.89M     2980.57M   00:19:47      0:0
+  
+Maximum memory per node: 524.623749 GB (defined as MaxRSS*Ntasks/NNodes)
+CPU utilization: 99.0 %
+  

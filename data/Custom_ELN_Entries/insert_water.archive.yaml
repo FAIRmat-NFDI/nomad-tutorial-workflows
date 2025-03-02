@@ -1,0 +1,7 @@
+data:
+  m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+  name: 'Insert water'
+  description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
+  Files:
+  - file: 'Custom_ELN_Entries/water.gro'
+    description: 'The structure file for simulation input.'
