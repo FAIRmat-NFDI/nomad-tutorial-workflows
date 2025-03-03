@@ -317,6 +317,7 @@ This should return a list of 3 entry ids. Copy the list into your `PIDs.json` fi
   "entry_ids": {
     "md": "<your md workflow entry id from Part 1>",
     "DFT": "<copy the list of dft entry ids>",
+    "eln": "",
     "parameters": "",
     "analysis": ""
   },
@@ -343,11 +344,12 @@ Copy the `dataset_id` into `PIDs.json`) for later use. (You can always find it b
 ```json
 {
   "upload_ids": {
-    "md": "<your md workflow upload id from Part 1>"
+    "md-workflow": "<your md workflow upload id from Part 1>"
 	 },
   "entry_ids": {
-    "md": "<your md workflow entry id from Part 1>",
-    "DFT": "<your list of dft entry ids from above>",
+    "md-workflow": "<your md workflow entry id from Part 1>",
+    "DFT": ["<your list of dft entry ids from above>"],
+    "setup-workflow": "",
     "parameters": "",
     "analysis": ""
   },

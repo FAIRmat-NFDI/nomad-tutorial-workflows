@@ -24,7 +24,7 @@
 
 ## Plotting Entry
 
-You have performed some vibrational analysis of the DFT configurations obtained from your simulations. The results are stored in `result-vibrational-analysis-DFT.csv` as follows:
+You have performed some vibrational analysis of the DFT configurations obtained from your simulations. The results are shown below. Create a file `result-vibrational-analysis-DFT.csv` tos store the results:
 
 ```
 electron_density,oh_stretch_frequency
@@ -93,37 +93,41 @@ definitions:
                   title: Vibrational Analysis
 ```
 
-TODO - explain briefly, reference docs,...
+**TODO - explain briefly, reference docs,...**
 
-TODO - intro/explain the below
+See [NOMAD Docs > Plot Annotations](https://nomad-lab.eu/prod/v1/test/docs/reference/annotations.html#plot){:target="blank"} for more information.
 
-`vibrational_analysis.archive.yaml`
+To create an entry according to this schema, create the file `vibrational_analysis.archive.yaml` with the following contents:
+
 ```yaml
 data:
   m_def: '../upload/raw/vibrational_plot_schema.archive.yaml#Vibrational_Analysis'
   data_file: 'result-vibrational-analysis-DFT.csv'
 ```
 
+Alternatively, you can download all 3 files here:
+
 <center>
 [Download Vibrational Analysis Files](assets/vibrational-analysis-files.zip){:target="_blank" .md-button}
 </center>
 
-Now we can once again use either the GUI or the API to upload, edit metadata (add a title and link to the dataset), and publish. We will not repeat the steps here, but encourage you to try to repeat the API steps on your own. You can also download the prefilled `Vibrational_Analysis.ipynb`:
+Now we can once again use either the GUI or the API to upload, edit metadata (add a title and link to the dataset), and publish. We will not repeat the steps here, but encourage you to try to repeat the API steps on your own. You can also download the prefilled `Vibrational_Analysis.ipynb` to perform these steps:
 
 <center>
-[Download Vibrational Analysis Upload and Publish Notebook](assets/Vibrational_Analysis.ipynb){:target="_blank" .md-button}
+[Download Vibrational Analysis Upload and Publish Notebook](assets/Vibrational_Analysis_Entry.ipynb){:target="_blank" .md-button}
 </center>
 
-Save the `entry_id` to your `PIDs.json`, as we will need it in the final section of the tutorial below:
+After you have completed the publishing, save the `entry_id` to your `PIDs.json`, as we will need it in the final section of the tutorial below:
 
 ```json
 {
   "upload_ids": {
-    "md": "<your md workflow upload id from Part 1>"
+    "md-workflow": "<your md workflow upload id from Part 1>"
 	 },
   "entry_ids": {
-    "md": "<your md workflow entry id from Part 1>",
-    "DFT": "<your list of dft entry ids from above>",
+    "md-workflow": "<your md workflow entry id from Part 1>",
+    "DFT": ["<your list of dft entry ids from above>"],
+    "setup-workflow": "",
     "parameters": "<your workflow parameters entry id here>",
     "analysis": "<copy the vibrational analysis entry id here>"
   },
@@ -131,7 +135,9 @@ Save the `entry_id` to your `PIDs.json`, as we will need it in the final section
 }
 ```
 
-## Desired Workflow Visualization
+## Creating the overarching project workflow
+
+Now that we have upload to NOMAD and published all the individual tasks and sub-workflows for the project, we need to create an overarching workflow to connect these components. The final workflow graph should look as follows:
 
 <div class="click-zoom">
     <label>
@@ -140,95 +146,197 @@ Save the `entry_id` to your `PIDs.json`, as we will need it in the final section
     </label>
 </div>
 
-## Creating a networkx workflow graph to represent your workflow
+As in Part 3, we could create the necessary `archive.yaml` manually. However, there are many cases where this can be quite tedious and require detailed knowledge of the NOMAD schema. For that reason `nomad-utility-workflows` includes some tools for automating the generation of this file. In the following, we will demonstrate the basic functionalities of these tools. For more details see [`nomad-utility-workflow` Docs](https://fairmat-nfdi.github.io/nomad-utility-workflows/index.html){:target="blank"}.
+
+## Creating a graph representation of the project workflow
+
+Create a new notebook `Generate_Workflow_Yaml.ipynb` to work step by step or download the prefilled notebook:
+
+<center>
+[Download Generate_Workflow_Yaml.ipynb](assets/Generate_Workflow_Yaml.ipynb.ipynb){:target="_blank" .md-button }
+</center>
+
 
 Make the imports:
 
-`Generate_Workflow_Yaml.ipynb`
-
 ```python
+import json
 import gravis as gv
 import networkx as nx
 from nomad_utility_workflows.utils.workflows import build_nomad_workflow, nodes_to_graph
 ```
 
-Create
+Load the saved PIDs:
+
+```python
+with open('../PIDs.json') as f:
+    pids_dict = json.load(f)
+entry_ids = pids_dict.get('entry_ids')
+print(entry_ids)
+```
+
+Create a dictionary with inputs, outputs, and tasks as follows:
+
 ```python
 node_attributes = {
-0: {'name': 'Workflow Parameters',
-    'type': 'input',
-    'path_info': {
-        'upload_id': '<upload_id_from_part_3>',
-        'mainfile_path': 'workflow_parameters.archive.yaml',
-        'archive_path': 'data'
-    }
-},
-
-1: {'name': 'MD Setup',
+    0: {'name': 'Workflow Parameters',
+        'type': 'input',
+        'path_info': {
+            'entry_id': entry_ids.get('parameters'),
+            'mainfile_path': 'workflow_parameters.archive.yaml',
+            'archive_path': 'data',}
+       },
+    1: {'name': 'MD Setup',
+        'type': 'workflow',
+        'path_info': {
+            'entry_id': entry_ids.get('eln'),
+            'mainfile_path': 'setup_workflow.archive.yaml'},
+        'in_edge_nodes': [0],
+       },
+    2: {'name': 'MD Equilibration',
     'type': 'workflow',
     'path_info': {
-        'upload_id': '<eupload_id_from_part_3>',
-        'mainfile_path': 'setup_workflow.archive.yaml'
-    }
-},
-
-2: {'name': 'MD Equilibration',
-    'type': 'workflow',
-    'path_info': {
-        'upload_id': '<upload_id_from_part_1>'
-        'mainfile_path': 'workflow.archive.yaml'
-    }
+        'entry_id': entry_ids.get('md-workflow'),
+        'mainfile_path': 'workflow.archive.yaml'},
     'in_edge_nodes': [1],
-},
-
-3: {'name': 'DFT-1',
+       },
+    3: {'name': 'DFT-1',
     'type': 'workflow',
-    'entry_type': 'simulation',
     'path_info': {
-        'upload_id': '<upload_id_from_part_2_DFT-1>'
+        'entry_id': entry_ids.get('DFT')[0],
         'mainfile_path': 'aims.out'
     },
     'in_edge_nodes': [2],
     'out_edge_nodes': [6],
 },
-
 4: {'name': 'DFT-2',
     'type': 'workflow',
-    'entry_type': 'simulation',
     'path_info': {
-        'upload_id': '<upload_id_from_part_2_DFT-2>'
+        'entry_id': entry_ids.get('DFT')[1],
         'mainfile_path': 'aims.out'
     },
     'in_edge_nodes': [2],
     'out_edge_nodes': [6],
 },
-
 5: {'name': 'DFT-3',
     'type': 'workflow',
-    'entry_type': 'simulation',
     'path_info': {
-        'upload_id': '<upload_id_from_part_2_DFT-3>'
+        'entry_id': entry_ids.get('DFT')[2],
         'mainfile_path': 'aims.out'
     },
     'in_edge_nodes': [2],
     'out_edge_nodes': [6],
 },
-
 6: {'name': 'Vibrational Analysis',
     'type': 'output',
     'path_info': {
-        'upload_id': '<upload_id_from_part_4_analysis>',
-        'mainfile_path': 'vibrational_analysis.archive.yaml'
+        'entry_id': entry_ids.get('analysis'),
+        'mainfile_path': 'vibrational_analysis.archive.yaml',
+        'archive_path': 'data'
     },
 }
 }
 ```
 
-Now, simply run:
+**TODO - add a short explanation here and link to the module docs.**
+
+??? success "Add the proper connections - this will not be necessary in the future"
+
+    ```python
+    proxy_attributes = node_attributes.copy()
+    for key, node in proxy_attributes.items():
+        if node.get('out_edge_nodes'):
+            # create a new output section for linking the node in the visualizer
+            new_output = {
+                'name': f'workflow2 section of node {key}',
+                'path_info': {
+                    'entry_id': node_attributes[key].get('path_info').get('entry_id'),
+                    'mainfile_path': node_attributes[key].get('path_info').get('mainfile_path'),
+                    'archive_path': 'workflow2'
+                },
+            }
+
+            # add the same section to the inputs list of all destination nodes
+            for edge in node.get('out_edge_nodes', []):
+                edge_type = node_attributes[edge].get('type')
+                if edge_type == 'output':
+                    new_output = {
+                        'name': f'Link to global output',
+                        'path_info': {
+                            'entry_id': node_attributes[edge].get('path_info').get('entry_id'),
+                            'mainfile_path': node_attributes[edge].get('path_info').get('mainfile_path'),
+                            'archive_path': node_attributes[edge].get('path_info').get('archive_path')
+                        },
+                    }
+                    if not node_attributes[key].get('outputs'):
+                        node_attributes[key]['outputs'] = []
+                    node_attributes[key]['outputs'].append(new_output)
+                else:
+                    archive_path = node_attributes[edge].get('path_info').get('archive_path')
+                    if archive_path:
+                        new_output['path_info']['archive_path'] = archive_path
+                    if not node_attributes[edge].get('inputs'):
+                        node_attributes[edge]['inputs'] = []
+                    node_attributes[edge]['inputs'].append(new_output)
+                    new_output['path_info']['archive_path'] = 'workflow2'
+
+                    # add the section to the outputs list of the node itself
+                    if not node_attributes[key].get('outputs'):
+                        node_attributes[key]['outputs'] = []
+                    node_attributes[key]['outputs'].append(new_output)
+
+
+
+        if node.get('in_edge_nodes'):
+            # create a new input section for linking the node in the visualizer
+            new_output = {
+                'name': f'workflow2 section of node {key}',
+                'path_info': {
+                    'entry_id': node_attributes[key].get('path_info').get('entry_id'),
+                    'mainfile_path': node_attributes[key].get('path_info').get('mainfile_path'),
+                    'archive_path': 'workflow2'
+                },
+            }
+
+            # add the same section to the outputs list of all destination nodes
+            for edge in node.get('in_edge_nodes', []):
+                edge_type = node_attributes[edge].get('type')
+                if edge_type == 'input':
+                    new_output = {
+                        'name': f'Link to global input',
+                        'path_info': {
+                            'entry_id': node_attributes[edge].get('path_info').get('entry_id'),
+                            'mainfile_path': node_attributes[edge].get('path_info').get('mainfile_path'),
+                            'archive_path': node_attributes[edge].get('path_info').get('archive_path')
+                        },
+                    }
+                    if not node_attributes[key].get('inputs'):
+                        node_attributes[key]['inputs'] = []
+                    node_attributes[key]['inputs'].append(new_output)
+                else:
+                    archive_path = node_attributes[edge].get('path_info').get('archive_path')
+                    if archive_path:
+                        new_output['path_info']['archive_path'] = archive_path
+                    if not node_attributes[edge].get('outputs'):
+                        node_attributes[edge]['outputs'] = []
+                    node_attributes[edge]['outputs'].append(new_output)
+                    new_output['path_info']['archive_path'] = 'workflow2'
+
+                    # add the section to the inputs list of the node itself
+                    if not node_attributes[key].get('inputs'):
+                        node_attributes[key]['inputs'] = []
+                    node_attributes[key]['inputs'].append(new_output)
+    ```
+
+**TODO - Integrate this into the utility module**
+
+Now, to create a graph of your workflow simply run:
 
 ```python
 workflow_graph_input = nodes_to_graph(node_attributes)
 ```
+
+The result can be visualized with:
 
 ```python
 gv.d3(
@@ -249,12 +357,20 @@ gv.d3(
 
 ## Generate the workflow yaml
 
+First designate the full path and filename for your YAML and a name for your workflow:
+
 ```python
 workflow_metadata = {
     'destination_filename': './project_workflow.archive.yaml',
     'workflow_name': 'DPG Tutorial 2025 Project Workflow',
 }
+```
 
+The workflow name will show up on top of the workflow graph visualization on the overview page of the workflow entry that we will create.
+
+We can now use the generated graph to create the workflow YAML using the `build_nomad_workflow()` function:
+
+```
 workflow_graph_output = build_nomad_workflow(
     workflow_metadata=workflow_metadata,
     workflow_graph=nx.DiGraph(workflow_graph_input),
@@ -262,7 +378,7 @@ workflow_graph_output = build_nomad_workflow(
 )
 ```
 
-Here we provide the full path and name of the output yaml in `destination_filename` and the overarching workflow name that will show up on top of the workflow graph visualization in `workflow_name`. The output workflow looks like:
+Another workflow graph is returned by this function:
 
 ```python
 gv.d3(
@@ -281,8 +397,10 @@ gv.d3(
     </label>
 </div>
 
+**TODO - Explain why the output graph differs from the input graph**
 
-`project_workflow.archive.yaml`
+Open the generated `project_workflow.archive.yaml`:
+
 ```yaml
 'workflow2':
   'name': 'DPG Tutorial 2025 Project Workflow'
@@ -344,9 +462,16 @@ gv.d3(
       'section': '/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data'
 ```
 
+**TODOs**
+
+- add short explanation
+
 - publish the workflow entry
+
 - add everything to the dataset
+
 - publish the dataset and get the DOI
+
 - browse the final product
 
 

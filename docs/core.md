@@ -104,11 +104,12 @@ We will need both the `upload_id` and the `entry_id` for this entry later. Copy 
 ```json
 {
   "upload_ids": {
-    "md": "<enter the copied upload_id here>"
+    "md-workflow": "<enter the copied upload_id here>"
 	 },
   "entry_ids": {
-    "md": "<enter the copied entry_id here>",
+    "md-workflow": "<enter the copied entry_id here>",
     "DFT": "",
+    "setup-workflow": "",
     "parameters": "",
     "analysis": ""
   },

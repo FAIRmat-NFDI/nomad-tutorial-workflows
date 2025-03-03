@@ -431,16 +431,17 @@ Create a new notebook `Custom_ELN_Entries.ipynb` to try the steps below on your 
 
 ## Saving the PIDs
 
-For Part 4, we will need the entry ids for the workflow parameters entry (input for the md setup workflow). Find the proper entry id using the GUI or the `get_entries_of_upload()` method as in Part 2. Copy the `entry_id` into your `PIDs.json` file:
+For Part 4, we will need the entry ids for the setup workflow entry and the workflow parameters entry (input for the md setup workflow). Find the proper entry ids using the GUI or the `get_entries_of_upload()` method as in Part 2. Copy the `entry_id` for each into your `PIDs.json` file:
 
 ```json
 {
   "upload_ids": {
-    "md": "<your md workflow upload id from Part 1>"
+    "md-workflow": "<your md workflow upload id from Part 1>"
 	 },
   "entry_ids": {
-    "md": "<your md workflow entry id from Part 1>",
-    "DFT": "<your list of dft entry ids from above>",
+    "md-workflow": "<your md workflow entry id from Part 1>",
+    "DFT": ["<your list of dft entry ids from above>"],
+    "setup-workflow": "",
     "parameters": "<copy the workflow parameters entry id here>",
     "analysis": ""
   },
