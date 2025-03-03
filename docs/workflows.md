@@ -8,6 +8,8 @@
 
     Preliminary draft.
 
+    Note that the overarching workflow yaml generation below will only work with version 0.0.15 of `nomad-utility-workflows`. Please report any issues that you have as recent changes may still contain bugs.
+
 ## Workflow tasks executed manually or with custom scripts
 
 *Challenge:*
