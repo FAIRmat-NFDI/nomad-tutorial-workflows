@@ -153,7 +153,7 @@ As in Part 3, we could create the necessary `archive.yaml` manually. However, th
 Create a new notebook `Generate_Workflow_Yaml.ipynb` to work step by step or download the prefilled notebook:
 
 <center>
-[Download Generate_Workflow_Yaml.ipynb](assets/Generate_Workflow_Yaml.ipynb.ipynb){:target="_blank" .md-button }
+[Download Generate_Workflow_Yaml.ipynb](assets/Generate_Workflow_Yaml.ipynb){:target="_blank" .md-button }
 </center>
 
 
