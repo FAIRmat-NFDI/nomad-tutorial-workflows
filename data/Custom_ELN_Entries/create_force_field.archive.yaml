@@ -1,0 +1,7 @@
+data:
+  m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+  name: 'Create force field'
+  description: 'The force field is defined for input to the MD simulation engine.'
+  Files:
+  - file: 'Custom_ELN_Entries/water.top'
+    description: 'The force field file for simulation input.'

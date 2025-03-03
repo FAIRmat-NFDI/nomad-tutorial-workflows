@@ -1,0 +1,4 @@
+data:
+  m_def: nomad.datamodel.metainfo.eln.ElnBaseSection
+  name: 'Workflow Parameters'
+  description: 'This is a description of the overall workflow parameters, or alternatively standard workflow specification...'

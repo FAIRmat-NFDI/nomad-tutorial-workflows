@@ -1,0 +1,5 @@
+data:
+  m_def: 'nomad.datamodel.metainfo.eln.ElnBaseSection'
+  name: 'ELN entry from YAML'
+  description: 'A test ELN entry...'
+

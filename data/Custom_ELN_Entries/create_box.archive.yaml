@@ -1,0 +1,7 @@
+data:
+  m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+  name: 'Create box'
+  description: 'The initial simulation box is created.'
+  Files:
+  - file: 'Custom_ELN_Entries/box.gro'
+    description: 'An empty structure file with the box vectors.'
