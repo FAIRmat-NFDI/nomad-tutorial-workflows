@@ -33,7 +33,7 @@ pip install uv
 Install the latest pypi version of the plugin using pip:
 
 ```bash
-uv pip install "nomad-utility-workflows>=0.0.15" --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+uv pip install "nomad-utility-workflows>=0.0.19" --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
 ```
 
 In order to use a Jupyter notebook in the following, install ipython and then create a Jupyter kernel for this venv (this kernel can then be be identified and loaded into your IDE):

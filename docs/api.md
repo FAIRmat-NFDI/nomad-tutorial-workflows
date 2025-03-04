@@ -61,7 +61,7 @@ export PYTHONPATH=$PYTHONPATH:<path-to-tutorial-root-working-directory>
 
 The functions within the utility module will automatically retrieve an authentication token for privileged operations, e.g., uploading data to your account.
 
-!!! tip "Tip if your `.env` file is not found"
+??? tip "Tip - If your `.env` file is not found"
 
     If you can see the directory with your `.env` file in `PYTHONPATH` but you the environment variables, e.g., `NOMAD_USERNAME` are not defined, you can try:
 
