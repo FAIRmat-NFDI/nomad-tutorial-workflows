@@ -49,7 +49,7 @@ NOMAD is a multifaceted software with a wide range of support for scientific res
 
 ## NOMAD Basics - Processing of supported simulation data
 
-NOMAD ingests the raw input and output files from standard simulation software by first identifying a representative file (denoted the **mainfile**) and then employing a parser code to extract relevant (meta)data from the associated files to that simulation. The (meta)data are stored within a structured schema─the NOMAD Metainfo─to provide context for each quantity, enabling interoperability and comparison between, e.g., simulation software.
+NOMAD ingests the raw input and output files from standard simulation software by first identifying a representative file (denoted the **mainfile**) and then employing a parser code to extract relevant (meta)data from the associated files to that simulation. The (meta)data are stored within a structured schema &mdash;the NOMAD Metainfo&mdash;to provide context for each quantity, enabling interoperability and comparison between, e.g., simulation software.
 
 <div class="click-zoom">
     <label>
@@ -57,6 +57,18 @@ NOMAD ingests the raw input and output files from standard simulation software b
         <img src="../assets/parsing_illustration.png" alt="" width="80%" title="Click to zoom in">
     </label>
 </div>
+
+??? Note "More Info: Organization in NOMAD"
+
+    **Entries:** The compilation of all (meta)data obtained from this processing forms an entry─the fundamental unit of storage within the NOMAD database─including simulation input/output, author information, and additional general overarching metadata (e.g., references or comments), as well as an `entry_id` &mdash; a unique identifier.
+
+    **Uploads:** NOMAD entries can be organized hierarchically into uploads. Since the parsing execution is dependent on automated identification of representative files, users are free to arbitrarily group simulations together upon upload. In this case, multiple entries will be created with the corresponding simulation data. An additional unique identifier, `upload_id`, will be provided for this group of entries. Although the grouping of entries into an upload is not necessarily scientifically meaningful, it is practically useful for submitting batches of files from multiple simulations to NOMAD.
+
+    **Workflows:** NOMAD offers flexibility in the construction of workflows. NOMAD also allows the creation of custom workflows, which are completely general directed graphs, allowing users to link NOMAD entries with one another in order to provide the provenance of the simulation data. Custom workflows are contained within their own entries and, thus, have their own set of unique identifiers. To create a custom workflow, the user is required to upload a workflow yaml file describing the inputs and outputs of each entry within the workflow, with respect to sections of the NOMAD Metainfo schema.
+
+    **Datasets:** At the highest level, NOMAD groups entries with the use of data sets. A NOMAD data set allows the user to group a large number of entries, without any specification of links between individual entries. A DOI is also generated when a data set is published, providing a convenient route for referencing all data used for a particular investigation within a publication.
+
+    <!-- TODO - add some diagrams to explain the organization and remove anything that is not necessary to explain here? -->
 
 ## Drag and drop GUI uploads
 
@@ -144,24 +156,7 @@ There a 4 tabs to explore within each entry:
 
 - **LOGS**: technical information about the data processing along with any warnings or errors that were raised by the NOMAD software.
 
-TODO - remove the below?
-## NOMAD Processing and Organization
-
-The compilation of all (meta)data obtained from this processing forms an entry─the fundamental unit of storage within the NOMAD database─including simulation input/output, author information, and additional general overarching metadata (e.g., references or comments), as well as an `entry_id` &mdash; a unique identifier.
-
-NOMAD entries can be organized hierarchically into uploads, workflows, and data sets. Since the parsing execution is dependent on automated identification of representative files, users are free to arbitrarily group simulations together upon upload. In this case, multiple entries will be created with the corresponding simulation data. An additional unique identifier, `upload_id`, will be provided for this group of entries. Although the grouping of entries into an upload is not necessarily scientifically meaningful, it is practically useful for submitting batches of files from multiple simulations to NOMAD.
-
-NOMAD offers flexibility in the construction of workflows. NOMAD also allows the creation of custom workflows, which are completely general directed graphs, allowing users to link NOMAD entries with one another in order to provide the provenance of the simulation data. Custom workflows are contained within their own entries and, thus, have their own set of unique identifiers. To create a custom workflow, the user is required to upload a workflow yaml file describing the inputs and outputs of each entry within the workflow, with respect to sections of the NOMAD Metainfo schema.
-
-At the highest level, NOMAD groups entries with the use of data sets. A NOMAD data set allows the user to group a large number of entries, without any specification of links between individual entries. A DOI is also generated when a data set is published, providing a convenient route for referencing all data used for a particular investigation within a publication.
-
-TODO - add some diagrams to explain the organization and remove anything that is not necessary to explain here
-
-
-## GUI tabs and functions
-
-TODO - add images or videos and very short descriptions for what I will walk people through in the tutorial...don't need to explain everything, just enough for people to discover on their own
-
+<!-- TODO - Anything left to explain here? -->
 
 
 
