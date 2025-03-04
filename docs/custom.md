@@ -16,7 +16,7 @@
 
 ## Simulation setup steps
 
-To setup the MD simulations uploaded in part 1, you had to create structure and topology files. You ran 2 python scripts for this, `workflow_script_1.py` and `workflow_script_2.py`. The first script creates the simulation box (stored in `box.gro`) and inserts the water molecules (stored in `water.gro`). The second script creates the force field file (`water.top`).
+Imagine that to setup the MD simulations uploaded in part 1, you had to create structure and topology files. You ran 2 python scripts for this, `workflow_script_1.py` and `workflow_script_2.py`. The first script creates the simulation box (stored in `box.gro`) and inserts the water molecules (stored in `water.gro`). The second script creates the force field file (`water.top`).
 
 You can download these 4 files and save them for later:
 

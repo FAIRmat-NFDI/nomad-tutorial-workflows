@@ -29,28 +29,27 @@ Overarching Workflow Tasks:
 
 4. Vibrational analysis using an in-house code.
 
-*Challenge:* You are writing a manuscript for publication and have been asked to collect all your data, approprately document all the methodological steps in your procedure, ensuring reproducibility to the greatest extent possible, and to make your data available to the public upon publication.
+*Challenge:* You are writing a manuscript for publication and have been asked to collect all your data, appropriately document all the methodological steps in your procedure, ensuring reproducibility to the greatest extent possible, and to make your data available to the public upon publication.
 
 *Your Approach:* Use the NOMAD central repository!
 
 ## The NOMAD Repository and Infrastructure
 
-NOMAD is a multifaceted software with a wide range of support for scientific research data focused towards, but not limited to, the materials science community. This tutorial will only cover only a *very small fraction* of NOMAD's functionalities, with the aim to highlight a variey of approaches for documenting data provenance (i.e., the contextual history of data) through the storage of workflow metadata.
+NOMAD is a multifaceted software with a wide range of support for scientific research data focused towards, but not limited to, the materials science community. This tutorial will only cover a *very small fraction* of NOMAD's functionalities, with the aim to highlight a variey of approaches for documenting data provenance (i.e., the contextual history of data) through the storage of workflow metadata.
 
 
 <div class="click-zoom">
     <label>
         <header>The NOMAD Ecosystem (numbers as of Feb 2025)</header>
         <input type="checkbox">
-        <img src="../assets/NOMAD_ecosystem.gif" alt="" width="100%" title="Click to zoom in">
+        <img src="../assets/NOMAD_ecosystem.jpg" alt="" width="100%" title="Click to zoom in">
     </label>
 </div>
 
-**TODO - Maybe just use 1 of these or make some zoomed crops and carousel through them**
 
 ## NOMAD Basics - Processing of supported simulation data
 
-NOMAD ingests the raw input and output files from standard simulation software by first identifying a representative file (denoted the **mainfile**) and then employing a parser code to extract relevant (meta)data from the associated files to that simulation. The (meta)data are stored within a structured schema─the NOMAD Metainfo─to provide context for each quantity, enabling interoperability and comparison between, e.g., simulation software.
+NOMAD ingests the raw input and output files from standard simulation software by first identifying a representative file (denoted the **mainfile**) and then employing a parser code to extract relevant (meta)data from the associated files to that simulation. The (meta)data are stored within a structured schema &mdash;the NOMAD Metainfo&mdash;to provide context for each quantity, enabling interoperability and comparison between, e.g., simulation software.
 
 <div class="click-zoom">
     <label>
@@ -58,6 +57,18 @@ NOMAD ingests the raw input and output files from standard simulation software b
         <img src="../assets/parsing_illustration.png" alt="" width="80%" title="Click to zoom in">
     </label>
 </div>
+
+??? Note "More Info: Organization in NOMAD"
+
+    **Entries:** The compilation of all (meta)data obtained from this processing forms an entry─the fundamental unit of storage within the NOMAD database─including simulation input/output, author information, and additional general overarching metadata (e.g., references or comments), as well as an `entry_id` &mdash; a unique identifier.
+
+    **Uploads:** NOMAD entries can be organized hierarchically into uploads. Since the parsing execution is dependent on automated identification of representative files, users are free to arbitrarily group simulations together upon upload. In this case, multiple entries will be created with the corresponding simulation data. An additional unique identifier, `upload_id`, will be provided for this group of entries. Although the grouping of entries into an upload is not necessarily scientifically meaningful, it is practically useful for submitting batches of files from multiple simulations to NOMAD.
+
+    **Workflows:** NOMAD offers flexibility in the construction of workflows. NOMAD also allows the creation of custom workflows, which are completely general directed graphs, allowing users to link NOMAD entries with one another in order to provide the provenance of the simulation data. Custom workflows are contained within their own entries and, thus, have their own set of unique identifiers. To create a custom workflow, the user is required to upload a workflow yaml file describing the inputs and outputs of each entry within the workflow, with respect to sections of the NOMAD Metainfo schema.
+
+    **Datasets:** At the highest level, NOMAD groups entries with the use of data sets. A NOMAD data set allows the user to group a large number of entries, without any specification of links between individual entries. A DOI is also generated when a data set is published, providing a convenient route for referencing all data used for a particular investigation within a publication.
+
+    <!-- TODO - add some diagrams to explain the organization and remove anything that is not necessary to explain here? -->
 
 ## Drag and drop GUI uploads
 
@@ -67,23 +78,32 @@ Imagine that you have already performed a standard equilibration workflow for yo
 workflow-example-water-atomistic.zip
 ├── workflow.archive.yaml
 ├── Emin # Geometry Optimization
-│   ├── mdrun_Emin.log # Gromacs mainfile
+│   ├── mdrun_Emin.log # GROMACS mainfile
 │   └── ...other raw simulation files
 ├── Equil-NPT # NPT equilibration
-│   ├── mdrun_Equil-NPT.log # Gromacs mainfile
+│   ├── mdrun_Equil-NPT.log # GROMACS mainfile
 │   └── ...other raw simulation files
 └── Prod-NVT # NVT production
-    ├── mdrun_Prod-NVT.log # Gromacs mainfile
+    ├── mdrun_Prod-NVT.log # GROMACS mainfile
     └── ...other raw simulation files
 ```
 
-The simulations were run with the *Gromacs* simulation package. As we will see, the `.log` files will be automatically detected as Gromacs files by NOMAD, followed by the linking to corresponding auxillary files (i.e., other input/output files from that simulation) and, finally, an extraction and storage of all the relevant (metadata) within NOMAD's structured data schema.
+The simulations were run with the molecular dynamics simulation package GROMACS. As we will see, the `.log` files will be automatically detected as GROMACS files by NOMAD, followed by the linking to corresponding auxillary files (i.e., other input/output files from that simulation) and, finally, an extraction and storage of all the relevant (metadata) within NOMAD's structured data schema.
 
-This [example data](https://nomad-lab.eu/prod/v1/gui/user/uploads/upload/id/WWGPCK-URqGmJWkh_9tElQ){:target="_blank"} has been pre-uploaded and published on NOMAD.
+This example data has been pre-uploaded and published on NOMAD. Go to the [example data upload page](https://nomad-lab.eu/prod/v1/gui/user/uploads/upload/id/WWGPCK-URqGmJWkh_9tElQ){:target="_blank"} and download the example files by clicking the :fontawesome-solid-cloud-arrow-down: icon. Create a workspace folder for this tutorial, e.g., `workspace_DPG_2025/`, and then move the downloaded zip to this folder. We suggest also creating sub-folders `Part-1`-`Part-4` for organizational purposes.
 
-Download the example files by clicking the :fontawesome-solid-cloud-arrow-down: icon. Then go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="_blank"}, where you can upload test data that will be periodically deleted. Upload the zip file with the example data as demonstrated in the video below:
+!!! note "The Test NOMAD Deployment"
 
-![File upload](assets/drag-and-drop.gif){.screenshot}
+        All uploads in this tutorial will be sent to the Test Deployment of NOMAD. The data sent there **is not** persistent, and will be deleted occassionally. Thus, we are free to test all publishing functionalities there.
+
+Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="_blank"}, and upload the zip file that you downloaded with the example data as demonstrated in the video below:
+
+<div class="click-zoom">
+    <label>
+        <input type="checkbox">
+        <img src="../assets/drag-and-drop.gif" alt="File Upload" width="100%" title="Click to zoom in">
+    </label>
+</div>
 
 
 ## Browse the entry pages
@@ -136,24 +156,7 @@ There a 4 tabs to explore within each entry:
 
 - **LOGS**: technical information about the data processing along with any warnings or errors that were raised by the NOMAD software.
 
-TODO - remove the below?
-## NOMAD Processing and Organization
-
-The compilation of all (meta)data obtained from this processing forms an entry─the fundamental unit of storage within the NOMAD database─including simulation input/output, author information, and additional general overarching metadata (e.g., references or comments), as well as an `entry_id` &mdash; a unique identifier.
-
-NOMAD entries can be organized hierarchically into uploads, workflows, and data sets. Since the parsing execution is dependent on automated identification of representative files, users are free to arbitrarily group simulations together upon upload. In this case, multiple entries will be created with the corresponding simulation data. An additional unique identifier, `upload_id`, will be provided for this group of entries. Although the grouping of entries into an upload is not necessarily scientifically meaningful, it is practically useful for submitting batches of files from multiple simulations to NOMAD.
-
-NOMAD offers flexibility in the construction of workflows. NOMAD also allows the creation of custom workflows, which are completely general directed graphs, allowing users to link NOMAD entries with one another in order to provide the provenance of the simulation data. Custom workflows are contained within their own entries and, thus, have their own set of unique identifiers. To create a custom workflow, the user is required to upload a workflow yaml file describing the inputs and outputs of each entry within the workflow, with respect to sections of the NOMAD Metainfo schema.
-
-At the highest level, NOMAD groups entries with the use of data sets. A NOMAD data set allows the user to group a large number of entries, without any specification of links between individual entries. A DOI is also generated when a data set is published, providing a convenient route for referencing all data used for a particular investigation within a publication.
-
-TODO - add some diagrams to explain the organization and remove anything that is not necessary to explain here
-
-
-## GUI tabs and functions
-
-TODO - add images or videos and very short descriptions for what I will walk people through in the tutorial...don't need to explain everything, just enough for people to discover on their own
-
+<!-- TODO - Anything left to explain here? -->
 
 
 

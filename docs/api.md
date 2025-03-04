@@ -47,7 +47,7 @@ If you have not done so already, follow the installation instructions [Tutorial 
 
 If you have not done so already, create a NOMAD account at [NOMAD Central Deployment](https://nomad-lab.eu/prod/v1/gui/about/information){:target="_blank"}. Click `LOGIN/REGISTER` at the top right.
 
-Store your credentials in a `.env` file in the root working directory for this tutorial with the following content:
+Store your credentials in a file called `.env` in the root working directory for this tutorial with the following content:
 ```bash
 NOMAD_USERNAME="MyLogin"
 NOMAD_PASSWORD="MyPassWord"
@@ -59,11 +59,11 @@ Add this directory to your `PYTHONPATH`:
 export PYTHONPATH=$PYTHONPATH:<path-to-tutorial-root-working-directory>
 ```
 
-The functions within the utility module will automatically retrieve an authentication token for priveledged operations, e.g., uploading data to your account.
+The functions within the utility module will automatically retrieve an authentication token for privileged operations, e.g., uploading data to your account.
 
-!!! tip "Tip if your `.env` file is not found"
+??? tip "Tip - If your `.env` file is not found"
 
-    If you can see you the directory with your `.env` file in `PYTHONPATH` but you the environment variables, e.g., `NOMAD_USERNAME` are not defined, you can try:
+    If you can see the directory with your `.env` file in `PYTHONPATH` but you the environment variables, e.g., `NOMAD_USERNAME` are not defined, you can try:
 
     ```python
     uv pip install --upgrade python-dotenv
@@ -92,7 +92,7 @@ See [nomad-utility-workflow DOCS > NOMAD URLs](https://fairmat-nfdi.github.io/no
 
 To demonstrate the basics of the API functionalities within `nomad-utility-workflows`, let's upload some dummy data.
 
-You can create a `test_API.ipynb` notebook and copy over the following step by step, or download the prefilled notebook:
+You can create a `test-API.ipynb` notebook and copy over the following step by step, or download the prefilled notebook:
 
 <center>
 [Download test-API.ipynb](assets/test-API.ipynb){:target="_blank" .md-button }
@@ -247,7 +247,7 @@ for i_entry, entry in enumerate(entries):
 
     Here we have specified `url='prod'` since this data is publically available on the NOMAD production deployment. Make sure to use `url='test'` (or don't specify a url) for other function calls in this tutorial!
 
-If the API call was successful you should find a zip file with each `DFT-X` folder. You can unzip these to ensure that all the raw files are present, i.e., `aims.out`, `aims.in`, etc. You can also investigate the `response` for each API call, which contains the archive (i.e., the full (meta)data stored according to NOMAD's structured schema) for each entry.
+If the API call was successful you should find a zip file within each `DFT-X` folder. You can unzip these to ensure that all the raw files are present, i.e., `aims.out`, `aims.in`, etc. You can also investigate the `response` for each API call, which contains the archive (i.e., the full (meta)data stored according to NOMAD's structured schema) for each entry.
 
 ### Iterative Uploading with Checks
 
