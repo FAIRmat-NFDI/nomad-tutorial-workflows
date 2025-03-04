@@ -29,24 +29,23 @@ Overarching Workflow Tasks:
 
 4. Vibrational analysis using an in-house code.
 
-*Challenge:* You are writing a manuscript for publication and have been asked to collect all your data, approprately document all the methodological steps in your procedure, ensuring reproducibility to the greatest extent possible, and to make your data available to the public upon publication.
+*Challenge:* You are writing a manuscript for publication and have been asked to collect all your data, appropriately document all the methodological steps in your procedure, ensuring reproducibility to the greatest extent possible, and to make your data available to the public upon publication.
 
 *Your Approach:* Use the NOMAD central repository!
 
 ## The NOMAD Repository and Infrastructure
 
-NOMAD is a multifaceted software with a wide range of support for scientific research data focused towards, but not limited to, the materials science community. This tutorial will only cover only a *very small fraction* of NOMAD's functionalities, with the aim to highlight a variey of approaches for documenting data provenance (i.e., the contextual history of data) through the storage of workflow metadata.
+NOMAD is a multifaceted software with a wide range of support for scientific research data focused towards, but not limited to, the materials science community. This tutorial will only cover a *very small fraction* of NOMAD's functionalities, with the aim to highlight a variey of approaches for documenting data provenance (i.e., the contextual history of data) through the storage of workflow metadata.
 
 
 <div class="click-zoom">
     <label>
         <header>The NOMAD Ecosystem (numbers as of Feb 2025)</header>
         <input type="checkbox">
-        <img src="../assets/NOMAD_ecosystem.gif" alt="" width="100%" title="Click to zoom in">
+        <img src="../assets/NOMAD_ecosystem.jpg" alt="" width="100%" title="Click to zoom in">
     </label>
 </div>
 
-**TODO - Maybe just use 1 of these or make some zoomed crops and carousel through them**
 
 ## NOMAD Basics - Processing of supported simulation data
 
@@ -67,23 +66,32 @@ Imagine that you have already performed a standard equilibration workflow for yo
 workflow-example-water-atomistic.zip
 ├── workflow.archive.yaml
 ├── Emin # Geometry Optimization
-│   ├── mdrun_Emin.log # Gromacs mainfile
+│   ├── mdrun_Emin.log # GROMACS mainfile
 │   └── ...other raw simulation files
 ├── Equil-NPT # NPT equilibration
-│   ├── mdrun_Equil-NPT.log # Gromacs mainfile
+│   ├── mdrun_Equil-NPT.log # GROMACS mainfile
 │   └── ...other raw simulation files
 └── Prod-NVT # NVT production
-    ├── mdrun_Prod-NVT.log # Gromacs mainfile
+    ├── mdrun_Prod-NVT.log # GROMACS mainfile
     └── ...other raw simulation files
 ```
 
-The simulations were run with the *Gromacs* simulation package. As we will see, the `.log` files will be automatically detected as Gromacs files by NOMAD, followed by the linking to corresponding auxillary files (i.e., other input/output files from that simulation) and, finally, an extraction and storage of all the relevant (metadata) within NOMAD's structured data schema.
+The simulations were run with the molecular dynamics simulation package GROMACS. As we will see, the `.log` files will be automatically detected as GROMACS files by NOMAD, followed by the linking to corresponding auxillary files (i.e., other input/output files from that simulation) and, finally, an extraction and storage of all the relevant (metadata) within NOMAD's structured data schema.
 
-This [example data](https://nomad-lab.eu/prod/v1/gui/user/uploads/upload/id/WWGPCK-URqGmJWkh_9tElQ){:target="_blank"} has been pre-uploaded and published on NOMAD.
+This example data has been pre-uploaded and published on NOMAD. Go to the [example data upload page](https://nomad-lab.eu/prod/v1/gui/user/uploads/upload/id/WWGPCK-URqGmJWkh_9tElQ){:target="_blank"} and download the example files by clicking the :fontawesome-solid-cloud-arrow-down: icon. Create a workspace folder for this tutorial, e.g., `workspace_DPG_2025/`, and then move the downloaded zip to this folder. We suggest also creating sub-folders `Part-1`-`Part-4` for organizational purposes.
 
-Download the example files by clicking the :fontawesome-solid-cloud-arrow-down: icon. Then go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="_blank"}, where you can upload test data that will be periodically deleted. Upload the zip file with the example data as demonstrated in the video below:
+!!! note "The Test NOMAD Deployment"
 
-![File upload](assets/drag-and-drop.gif){.screenshot}
+        All uploads in this tutorial will be sent to the Test Deployment of NOMAD. The data sent there **is not** persistent, and will be deleted occassionally. Thus, we are free to test all publishing functionalities there.
+
+Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="_blank"}, and upload the zip file that you downloaded with the example data as demonstrated in the video below:
+
+<div class="click-zoom">
+    <label>
+        <input type="checkbox">
+        <img src="../assets/drag-and-drop.gif" alt="File Upload" width="100%" title="Click to zoom in">
+    </label>
+</div>
 
 
 ## Browse the entry pages

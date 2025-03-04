@@ -95,9 +95,7 @@ definitions:
                   title: Vibrational Analysis
 ```
 
-**TODO - explain briefly, reference docs,...**
-
-See [NOMAD Docs > Plot Annotations](https://nomad-lab.eu/prod/v1/test/docs/reference/annotations.html#plot){:target="blank"} for more information.
+Here we will not describe in detail the plotting annotations. Rather, this serves as a simple demonstration that custom plotting is possible. In practice, there are various routes for creating custom visualizations. See [NOMAD Docs > Reference > Annotations](https://nomad-lab.eu/prod/v1/test/docs/reference/annotations.html#annotations){:target="blank"} for more information.
 
 To create an entry according to this schema, create the file `vibrational_analysis.archive.yaml` with the following contents:
 
@@ -139,7 +137,7 @@ After you have completed the publishing, save the `entry_id` to your `PIDs.json`
 
 ## Creating the overarching project workflow
 
-Now that we have upload to NOMAD and published all the individual tasks and sub-workflows for the project, we need to create an overarching workflow to connect these components. The final workflow graph should look as follows:
+Now that all the individual tasks and sub-workflows for the project are stored in the NOMAD repository, we need to create an overarching workflow to connect these components. The final workflow graph should look as follows:
 
 <div class="click-zoom">
     <label>
@@ -210,37 +208,37 @@ node_attributes = {
     },
     'in_edge_nodes': [2],
     'out_edge_nodes': [6],
-},
-4: {'name': 'DFT-2',
-    'type': 'workflow',
-    'path_info': {
-        'entry_id': entry_ids.get('DFT')[1],
-        'mainfile_path': 'aims.out'
     },
-    'in_edge_nodes': [2],
-    'out_edge_nodes': [6],
-},
-5: {'name': 'DFT-3',
-    'type': 'workflow',
-    'path_info': {
-        'entry_id': entry_ids.get('DFT')[2],
-        'mainfile_path': 'aims.out'
+    4: {'name': 'DFT-2',
+        'type': 'workflow',
+        'path_info': {
+            'entry_id': entry_ids.get('DFT')[1],
+            'mainfile_path': 'aims.out'
+        },
+        'in_edge_nodes': [2],
+        'out_edge_nodes': [6],
     },
-    'in_edge_nodes': [2],
-    'out_edge_nodes': [6],
-},
-6: {'name': 'Vibrational Analysis',
-    'type': 'output',
-    'path_info': {
-        'entry_id': entry_ids.get('analysis'),
-        'mainfile_path': 'vibrational_analysis.archive.yaml',
-        'archive_path': 'data'
+    5: {'name': 'DFT-3',
+        'type': 'workflow',
+        'path_info': {
+            'entry_id': entry_ids.get('DFT')[2],
+            'mainfile_path': 'aims.out'
+        },
+        'in_edge_nodes': [2],
+        'out_edge_nodes': [6],
     },
-}
-}
+    6: {'name': 'Vibrational Analysis',
+        'type': 'output',
+        'path_info': {
+            'entry_id': entry_ids.get('analysis'),
+            'mainfile_path': 'vibrational_analysis.archive.yaml',
+            'archive_path': 'data'
+        },
+    }
+  }
 ```
 
-**TODO - add a short explanation here and link to the module docs.**
+This dictionary of node attributes directly informs the creation of the workflow YAML without explicitly referencing specific sections of the NOMAD schema. Specification of the mainfile recognized by the NOMAD parsers is required. In this case, we also include the appropriate entry ids to link together the entries that we have already created. Detailed information about all possible attributes can be found in [`nomad-utility-workflows` Docs > Explanation > Workflows](https://fairmat-nfdi.github.io/nomad-utility-workflows/explanation/workflows.html){:target="_blank"}
 
 Now, to create a graph of your workflow simply run:
 
@@ -309,7 +307,7 @@ gv.d3(
     </label>
 </div>
 
-**TODO - Explain why the output graph differs from the input graph**
+We see that our output graph looks signficantly different than the input. That's because `nomad-utility-workflow` is automatically adding some default inputs/outputs to ensure the proper node connections within the workflow visualizer. For nodes without an `entry_type`, these default connections work by simply adding inputs/outputs that point to the mainfile of one of the nodes connected by an edge in the graph.
 
 Open the generated `project_workflow.archive.yaml`:
 
@@ -374,19 +372,11 @@ Open the generated `project_workflow.archive.yaml`:
       'section': '/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data'
 ```
 
-**TODOs**
+Now upload, edit the metadata, and publish `project_workflow.archive.yaml` following [Part 3 > Uploading and Publishing](./custom.md#uploading-and-publishing). Browse the workflow graph of this entry to see how it links all of your uploads together.
 
-- add short explanation
+Now, go to `PUBLISH > Datasets` and find the dataset that you created. Click the arrow to the right of this dataset and browse all the entries that it contains to make sure all of your uploads are included. Then, go back to the datasets page, and click the "assign a DOI" icon to publish your dataset.
 
-- publish the workflow entry
-
-- add everything to the dataset
-
-- publish the dataset and get the DOI
-
-- browse the final product
-
-
+That's it! You now have a persistant identifier to add to your publication in order to reference your data. Once your manuscript is accepted and receives a DOI, you can then cross-reference the manuscript by once again editing the metadata of each upload to include a reference to your paper.
 
 
 
