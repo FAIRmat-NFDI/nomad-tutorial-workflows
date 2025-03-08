@@ -23,6 +23,7 @@ definitions: # Use the defintions section to create your schema
     ELNAnnotatedFiles: # Define a subsection for storing files
       base_sections:
       - 'nomad.datamodel.metainfo.eln.ElnBaseSection' # inherits from the basic ELN class
+      - 'nomad.datamodel.data.EntryData' # necessary when a class will be the root of our archive
       m_annotations:
         eln:
           hide: ['lab_id'] # hides the lab_id quantity that we will not use
