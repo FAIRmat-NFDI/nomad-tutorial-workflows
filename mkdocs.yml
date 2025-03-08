@@ -31,6 +31,7 @@ theme:
     - navigation.instant
     - navigation.footer
     - content.code.copy
+  prev_next_buttons_location: both
 
 
   icon:
