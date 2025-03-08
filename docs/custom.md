@@ -155,59 +155,59 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
     ```yaml
         data:
-        m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-        name: 'Create box'
-        description: 'The initial simulation box is created.'
-        Files:
-        - file: 'Custom_ELN_Entries/box.gro'
-            description: 'An empty structure file with the box vectors.'
+          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+          name: 'Create box'
+          description: 'The initial simulation box is created.'
+          Files:
+          - file: 'Custom_ELN_Entries/box.gro'
+              description: 'An empty structure file with the box vectors.'
     ```
 
 ??? success "`insert_water.archive.yaml`"
 
     ```yaml
         data:
-        m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-        name: 'Insert water'
-        description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
-        Files:
-        - file: 'Custom_ELN_Entries/water.gro'
-            description: 'The structure file for simulation input.'
+          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+          name: 'Insert water'
+          description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
+          Files:
+          - file: 'Custom_ELN_Entries/water.gro'
+              description: 'The structure file for simulation input.'
     ```
 
 ??? success "`insert_water.archive.yaml`"
 
     ```yaml
         data:
-        m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-        name: 'Insert water'
-        description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
-        Files:
-        - file: 'Custom_ELN_Entries/water.gro'
-            description: 'The structure file for simulation input.'
+          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+          name: 'Insert water'
+          description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
+          Files:
+          - file: 'Custom_ELN_Entries/water.gro'
+              description: 'The structure file for simulation input.'
     ```
 
 ??? success "`workflow_parameters.archive.yaml`"
 
     ```yaml
         data:
-        m_def: nomad.datamodel.metainfo.eln.ElnBaseSection
-        name: 'Workflow Parameters'
-        description: 'This is a description of the overall workflow parameters, or alternatively standard workflow specification...'
+          m_def: nomad.datamodel.metainfo.eln.ElnBaseSection
+          name: 'Workflow Parameters'
+          description: 'This is a description of the overall workflow parameters, or alternatively standard workflow specification...'
     ```
 
 ??? success "`workflow_scripts.archive.yaml`"
 
     ```yaml
         data:
-        m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-        name: 'Workflow Scripts'
-        description: 'All the scripts run during setup of the MD simulation.'
-        Files:
-        - file: 'Custom_ELN_Entries/workflow_script_1.py'
-            description: 'Creates the simulation box and inserts water molecules.'
-        - file: 'Custom_ELN_Entries/workflow_script_2.py'
-            description: 'Creates the appropriate force field files for the simulation engine.'
+          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+          name: 'Workflow Scripts'
+          description: 'All the scripts run during setup of the MD simulation.'
+          Files:
+          - file: 'Custom_ELN_Entries/workflow_script_1.py'
+              description: 'Creates the simulation box and inserts water molecules.'
+          - file: 'Custom_ELN_Entries/workflow_script_2.py'
+              description: 'Creates the appropriate force field files for the simulation engine.'
     ```
 
 
