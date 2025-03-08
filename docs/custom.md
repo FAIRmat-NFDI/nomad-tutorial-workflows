@@ -63,7 +63,7 @@ The editable quantities that you found in your ELN entry (e.g., short name, tags
 
 Analogous to the simulation code parsers, NOMAD has a parser for its native schema &mdash; the NOMAD MetaInfo. This parser is automatically executed for files named `<file_name>.archive.yaml`. In this way, users can create ELN entries by uploading a yaml file populated according to NOMAD's schema.
 
-For example, we can create a basic ELN entry by creating and uploading a file `basic_eln_entry.yaml` with the contents:
+For example, we can create a basic ELN entry by creating and uploading a file with extension **.archive.yaml**, e. g. `basic_eln_entry.archive.yaml`, with the contents:
 
 ```yaml
 data:
