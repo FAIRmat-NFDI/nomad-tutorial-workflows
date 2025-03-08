@@ -329,7 +329,7 @@ Once you have published the upload, continue with [Saving the PIDs](#saving-the-
 Create a new notebook `Custom_ELN_Entries.ipynb` to try the steps below on your own or download the prefilled notebook:
 
 <center>
-[Download Part-2_DFT-calculations.ipynb](assets/Custom_ELN_Entries.ipynb){:target="_blank" .md-button }
+[Download Custom_ELN_Entries.ipynb](assets/Custom_ELN_Entries.ipynb){:target="_blank" .md-button }
 </center>
 
 - Make the imports:
