@@ -135,7 +135,7 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
 We can now use these defintions to create an entry file for the step of creating the force field file (as illustrated in the image above):
 
-`create_force_field.yaml`
+`create_force_field.archive.yaml`
 ```yaml
 data:
   m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
