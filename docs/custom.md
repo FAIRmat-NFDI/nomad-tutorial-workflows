@@ -113,6 +113,7 @@ definitions: # Use the defintions section to create your schema
     ELNAnnotatedFiles: # Define a subsection for storing files
       base_sections:
       - 'nomad.datamodel.metainfo.eln.ElnBaseSection' # inherits from the basic ELN class
+      - 'nomad.datamodel.data.EntryData' # necessary when a class will be the root of our archive
       m_annotations:
         eln:
           hide: ['lab_id'] # hides the lab_id quantity that we will not use
@@ -146,7 +147,7 @@ data:
     description: 'The force field file for simulation input.'
 ```
 
-Here we define the data section using our `ELNFiles.archive.yaml` schema. The given path is a relative path assuming that we will upload these 2 files (i.e., `ELNFiles.archive.yaml` and `create_force_field.yaml`) within the same upload with a root folder called `Custom_ELN_Entries`.
+Here we define the data section using our `ELNFiles.archive.yaml` schema. The given path is a relative path assuming that we will upload these 2 files (i.e., `ELNFiles.archive.yaml` and `create_force_field.archive.yaml`) within the same upload with a root folder called `Custom_ELN_Entries`.
 
 You can now create analogous files `create_box.archive.yaml`, `insert_water.archive.yaml`, `workflow_parameters.archive.yaml`, `workflow_scripts.archive.yaml`:
 
