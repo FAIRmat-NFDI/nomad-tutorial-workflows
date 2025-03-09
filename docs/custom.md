@@ -21,17 +21,14 @@ Imagine that to setup the MD simulations uploaded in part 1, you had to create s
 You can download these 5 files and save them for later:
 
 <center>
-[Download Simulation Setup Input/Output Files](assets/simulation-setup-files.zip){:target="_blank" .md-button }
+    [Download Simulation Setup Input/Output Files](assets/simulation-setup-files.zip){:target="_blank" .md-button }
 </center>
 
 The entire setup workflow can be represented as:
 
-<div class="click-zoom">
-    <label>
-        <input type="checkbox">
-        <img src="../assets/md-setup-workflow.gif" alt="MD Setup Workflow" width="100%" title="Click to zoom in">
-    </label>
-</div>
+<video width="100%" controls>
+  <source src="../assets/md-setup-workflow.webm" alt="MD Setup Workflow" type="video/mp4">
+</video>
 
 This is the exact workflow graph that we aim to generate in NOMAD within this part of the tutorial.
 
@@ -41,23 +38,17 @@ This is the exact workflow graph that we aim to generate in NOMAD within this pa
 
 Let's explore the basic functionalities of NOMAD ELNs. You can create a basic ELN entry from your `Uploads` page by clicking `CREATE A NEW UPLOAD > CREATE FROM SCHEMA` and selecting `Basic ELN` under the `Built-in Schema` drop-down menu, as demonstrated in this video:
 
-<div class="click-zoom">
-    <label>
-        <input type="checkbox">
-        <img src="../assets/eln-entry-from-gui.gif" alt="" width="100%" title="Click to zoom in">
-    </label>
-</div>
+<video width="100%" controls>
+  <source src="../assets/eln-entry-from-gui.webm" alt="" type="video/mp4">
+</video>
 
 Upon entry creation, you will be taken to the `Data` tab, where you can fill in or edit the predefined ELN quantities in the user-editable ELN interface. Type a dummy description for this entry and then press the :fontawesome-solid-floppy-disk: icon in the upper right. Now, navigate to the `Overview` page to see your changes there.
 
 The editable quantities that you found in your ELN entry (e.g., short name, tags, ID, description) appear because they are defined within the `Basic ELN` schema that you selected in NOMAD. NOMAD provides a tool for browsing all such schemas. Go to `ANALYZE > The NOMAD MetaInfo`, then select `nomad > Basic ELN` to view all the quantity definitions and descriptions within this entry class:
 
-<div class="click-zoom">
-    <label>
-        <input type="checkbox">
-        <img src="../assets/metainfo-browser-basic-eln.gif" alt="" width="100%" title="Click to zoom in">
-    </label>
-</div>
+<video width="100%" controls>
+  <source src="../assets/metainfo-browser-basic-eln.webm" alt="" type="video/mp4">
+</video>
 
 ## Creating an ELN entry from YAML
 

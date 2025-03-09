@@ -98,12 +98,9 @@ This example data has been pre-uploaded and published on NOMAD. Go to the [examp
 
 Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="_blank"}, and upload the zip file that you downloaded with the example data as demonstrated in the video below:
 
-<div class="click-zoom">
-    <label>
-        <input type="checkbox">
-        <img src="../assets/drag-and-drop.gif" alt="File Upload" width="100%" title="Click to zoom in">
-    </label>
-</div>
+<video width="100%" controls>
+  <source src="../assets/drag-and-drop.webm" alt="File Upload" width="100%" type="video/mp4">
+</video>
 
 
 ## Browse the entry pages
@@ -139,12 +136,10 @@ We will need both the `upload_id` and the `entry_id` for this entry later. Copy 
 
 Production Simulation:
 
-<div class="click-zoom">
-    <label>
-        <input type="checkbox">
-        <img src="../assets/md-upload-prod.gif" alt="" width="100%" title="Click to zoom in">
-    </label>
-</div>
+<video width="100%" controls>
+  <source src="../assets/md-upload-prod.webm" alt="" width="100%" type="video/mp4">
+</video>
+
 
 There a 4 tabs to explore within each entry:
 
