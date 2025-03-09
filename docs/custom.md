@@ -18,7 +18,7 @@
 
 Imagine that to setup the MD simulations uploaded in part 1, you had to create structure and topology files. You ran 2 python scripts for this, `workflow_script_1.py` and `workflow_script_2.py`. The first script creates the simulation box (stored in `box.gro`) and inserts the water molecules (stored in `water.gro`). The second script creates the force field file (`water.top`).
 
-You can download these 4 files and save them for later:
+You can download these 5 files and save them for later:
 
 <center>
 [Download Simulation Setup Input/Output Files](assets/simulation-setup-files.zip){:target="_blank" .md-button }
@@ -63,7 +63,7 @@ The editable quantities that you found in your ELN entry (e.g., short name, tags
 
 Analogous to the simulation code parsers, NOMAD has a parser for its native schema &mdash; the NOMAD MetaInfo. This parser is automatically executed for files named `<file_name>.archive.yaml`. In this way, users can create ELN entries by uploading a yaml file populated according to NOMAD's schema.
 
-For example, we can create a basic ELN entry by creating and uploading a file `basic_eln_entry.yaml` with the contents:
+For example, we can create a basic ELN entry by creating and uploading a file with extension **.archive.yaml**, e.g. `basic_eln_entry.archive.yaml`, with the contents:
 
 ```yaml
 data:
@@ -113,6 +113,7 @@ definitions: # Use the defintions section to create your schema
     ELNAnnotatedFiles: # Define a subsection for storing files
       base_sections:
       - 'nomad.datamodel.metainfo.eln.ElnBaseSection' # inherits from the basic ELN class
+      - 'nomad.datamodel.data.EntryData' # necessary when a class will be the root of our archive
       m_annotations:
         eln:
           hide: ['lab_id'] # hides the lab_id quantity that we will not use
@@ -126,14 +127,16 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
 ??? tip "More on custom schemas"
 
-    The YAML approach is a quick and dirty way to customize your NOMAD entries. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
+    The YAML approach is a quick and dirty way to customize your NOMAD entries. It doesn't allow for complete integration of custom defined quantities within the database bacause the schema is injested via YAML file while NOMAD platform is running, in contrast to the quantities belonging to schemas organized in **plugins** (python packages) and installed in NOMAD during deployment. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
 
     The more robust and powerful approach for creating custom schemas is to create a *schema plugin* (see [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}).
+
+    Useful resources for plugin developers are the [Plugin Template](https://github.com/FAIRmat-NFDI/nomad-plugin-template)and the [NOMAD Distro Template](https://github.com/FAIRmat-NFDI/nomad-distro-template).
 
 
 We can now use these defintions to create an entry file for the step of creating the force field file (as illustrated in the image above):
 
-`create_force_field.yaml`
+`create_force_field.archive.yaml`
 ```yaml
 data:
   m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
@@ -144,7 +147,7 @@ data:
     description: 'The force field file for simulation input.'
 ```
 
-Here we define the data section using our `ELNFiles.archive.yaml` schema. The given path is a relative path assuming that we will upload these 2 files (i.e., `ELNFiles.archive.yaml` and `create_force_field.yaml`) within the same upload with a root folder called `Custom_ELN_Entries`.
+Here we define the data section using our `ELNFiles.archive.yaml` schema. The given path is a relative path assuming that we will upload these 2 files (i.e., `ELNFiles.archive.yaml` and `create_force_field.archive.yaml`) within the same upload with a root folder called `Custom_ELN_Entries`.
 
 You can now create analogous files `create_box.archive.yaml`, `insert_water.archive.yaml`, `workflow_parameters.archive.yaml`, `workflow_scripts.archive.yaml`:
 
@@ -152,59 +155,59 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
     ```yaml
         data:
-        m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-        name: 'Create box'
-        description: 'The initial simulation box is created.'
-        Files:
-        - file: 'Custom_ELN_Entries/box.gro'
-            description: 'An empty structure file with the box vectors.'
+          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+          name: 'Create box'
+          description: 'The initial simulation box is created.'
+          Files:
+          - file: 'Custom_ELN_Entries/box.gro'
+              description: 'An empty structure file with the box vectors.'
     ```
 
 ??? success "`insert_water.archive.yaml`"
 
     ```yaml
         data:
-        m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-        name: 'Insert water'
-        description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
-        Files:
-        - file: 'Custom_ELN_Entries/water.gro'
-            description: 'The structure file for simulation input.'
+          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+          name: 'Insert water'
+          description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
+          Files:
+          - file: 'Custom_ELN_Entries/water.gro'
+              description: 'The structure file for simulation input.'
     ```
 
 ??? success "`insert_water.archive.yaml`"
 
     ```yaml
         data:
-        m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-        name: 'Insert water'
-        description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
-        Files:
-        - file: 'Custom_ELN_Entries/water.gro'
-            description: 'The structure file for simulation input.'
+          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+          name: 'Insert water'
+          description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
+          Files:
+          - file: 'Custom_ELN_Entries/water.gro'
+              description: 'The structure file for simulation input.'
     ```
 
 ??? success "`workflow_parameters.archive.yaml`"
 
     ```yaml
         data:
-        m_def: nomad.datamodel.metainfo.eln.ElnBaseSection
-        name: 'Workflow Parameters'
-        description: 'This is a description of the overall workflow parameters, or alternatively standard workflow specification...'
+          m_def: nomad.datamodel.metainfo.eln.ElnBaseSection
+          name: 'Workflow Parameters'
+          description: 'This is a description of the overall workflow parameters, or alternatively standard workflow specification...'
     ```
 
 ??? success "`workflow_scripts.archive.yaml`"
 
     ```yaml
         data:
-        m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-        name: 'Workflow Scripts'
-        description: 'All the scripts run during setup of the MD simulation.'
-        Files:
-        - file: 'Custom_ELN_Entries/workflow_script_1.py'
-            description: 'Creates the simulation box and inserts water molecules.'
-        - file: 'Custom_ELN_Entries/workflow_script_2.py'
-            description: 'Creates the appropriate force field files for the simulation engine.'
+          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+          name: 'Workflow Scripts'
+          description: 'All the scripts run during setup of the MD simulation.'
+          Files:
+          - file: 'Custom_ELN_Entries/workflow_script_1.py'
+              description: 'Creates the simulation box and inserts water molecules.'
+          - file: 'Custom_ELN_Entries/workflow_script_2.py'
+              description: 'Creates the appropriate force field files for the simulation engine.'
     ```
 
 
@@ -329,7 +332,7 @@ Once you have published the upload, continue with [Saving the PIDs](#saving-the-
 Create a new notebook `Custom_ELN_Entries.ipynb` to try the steps below on your own or download the prefilled notebook:
 
 <center>
-[Download Part-2_DFT-calculations.ipynb](assets/Custom_ELN_Entries.ipynb){:target="_blank" .md-button }
+[Download Custom_ELN_Entries.ipynb](assets/Custom_ELN_Entries.ipynb){:target="_blank" .md-button }
 </center>
 
 - Make the imports:
