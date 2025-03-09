@@ -26,7 +26,7 @@
 
 ## Plotting Entry
 
-You have performed some vibrational analysis of the DFT configurations obtained from your simulations. The results are shown below. Create a file `result-vibrational-analysis-DFT.csv` tos store the results:
+You have performed some vibrational analysis of the DFT configurations obtained from your simulations. The results are shown below. Create a file `result-vibrational-analysis-DFT.csv` to store the results:
 
 ```
 electron_density,oh_stretch_frequency
