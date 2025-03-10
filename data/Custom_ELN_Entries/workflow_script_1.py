@@ -1,1 +1,1 @@
-print('Executing workflow script 1')
+print('This is a placeholder file for workflow script 1')
