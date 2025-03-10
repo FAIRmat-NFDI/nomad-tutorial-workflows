@@ -6,7 +6,10 @@ NOMAD [[nomad-lab.eu](nomad-lab.eu){:target="\_blank"}] [1] is an open-source, c
 
 [2] Scheffler, M. et al., Nature 604, 635-642 (2022).
 
-FAIRmat is present with several contributions at the DPG Spring Meeting of the Condensed Matter Section (SKM) 2025, [find locations and times here.](https://www.fairmat-nfdi.eu/events/fairmat-contribution-at-the-dpg-spring-meeting-of-the-condensed-matter-section-skm-2025/fairmat-contribution){:target="\_blank"}
+### Curious about more NOMAD features?
+
+You can find several presentations, as well as an information booth, here at the DPG Spring Meeting of the Condensed Matter Section (SKM) 2025.
+For times and locations, [click here.](https://www.fairmat-nfdi.eu/events/fairmat-contribution-at-the-dpg-spring-meeting-of-the-condensed-matter-section-skm-2025/fairmat-contribution){:target="\_blank"}
 
 ## **Tutorial preparation**
 

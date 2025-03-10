@@ -99,6 +99,7 @@ Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/sear
 <video width="100%" controls>
   <source src="../assets/drag-and-drop.webm" alt="File Upload" width="100%" type="video/mp4">
 </video>
+<!-- <button onclick="document.getElementById('drag_and_drop').pause();">Pause</button> -->
 
 ## Browse the entry pages
 

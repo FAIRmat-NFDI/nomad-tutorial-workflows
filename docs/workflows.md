@@ -50,51 +50,51 @@ au,1/cm
 NOMAD has a variety of tools, including plotting functionalities, that can be utilized when defining a custom schema. Let's create an ELN entry that will plot the results of the vibrational analysis. Create a file `vibrational_plot_schema.archive.yaml` with the following content:
 
 ```yaml
-definitions:
-  name: This is a parser for vibrational analysis data in the .csv format
-  sections:
-    Vibrational_Analysis:
-      base_sections:
+"definitions":
+  "name": This is a parser for vibrational analysis data in the .csv format
+  "sections":
+    "Vibrational_Analysis":
+      "base_sections":
         - nomad.datamodel.data.EntryData
         - nomad.parsing.tabular.TableData
         - nomad.datamodel.metainfo.plot.PlotSection
-      quantities:
-        data_file:
-          type: str
-          descritpion: Upload your .csv data file
-          m_annotations:
-            eln:
-              component: FileEditQuantity
-            browser:
-              adaptor: RawFileAdaptor
-            tabular_parser:
-              parsing_options:
-                comment: "#"
-                skiprows: [1]
-              mapping_options:
-                - mapping_mode: column
-                  file_mode: current_entry
-                  sections:
+      "quantities":
+        "data_file":
+          "type": str
+          "descritpion": Upload your .csv data file
+          "m_annotations":
+            "eln":
+              "component": FileEditQuantity
+            "browser":
+              "adaptor": RawFileAdaptor
+            "tabular_parser":
+              "parsing_options":
+                "comment": "#"
+                "skiprows": [1]
+              "mapping_options":
+                - "mapping_mode": column
+                  "file_mode": current_entry
+                  "sections":
                     - "#root"
-        Electron_Density:
-          type: np.float64
-          shape: ["*"]
-          m_annotations:
-            tabular:
-              name: electron_density
-        OH_Stretch_Frequency:
-          type: np.float64
-          shape: ["*"]
-          m_annotations:
-            tabular:
-              name: oh_stretch_frequency
-      m_annotations:
-        plotly_graph_object:
-          data:
-            x: "#Electron_Density"
-            y: "#OH_Stretch_Frequency"
-          layout:
-            title: Vibrational Analysis
+        "Electron_Density":
+          "type": np.float64
+          "shape": ["*"]
+          "m_annotations":
+            "tabular":
+              "name": electron_density
+        "OH_Stretch_Frequency":
+          "type": np.float64
+          "shape": ["*"]
+          "m_annotations":
+            "tabular":
+              "name": oh_stretch_frequency
+      "m_annotations":
+        "plotly_graph_object":
+          "data":
+            "x": "#Electron_Density"
+            "y": "#OH_Stretch_Frequency"
+          "layout":
+            "title": Vibrational Analysis
 ```
 
 Here we will not describe in detail the plotting annotations. Rather, this serves as a simple demonstration that custom plotting is possible. In practice, there are various routes for creating custom visualizations. See [NOMAD Docs > Reference > Annotations](https://nomad-lab.eu/prod/v1/test/docs/reference/annotations.html#annotations){:target="blank"} for more information.
@@ -102,9 +102,9 @@ Here we will not describe in detail the plotting annotations. Rather, this serve
 To create an entry according to this schema, create the file `vibrational_analysis.archive.yaml` with the following contents:
 
 ```yaml
-data:
-  m_def: "../upload/raw/vibrational_plot_schema.archive.yaml#Vibrational_Analysis"
-  data_file: "result-vibrational-analysis-DFT.csv"
+"data":
+  "m_def": "../upload/raw/vibrational_plot_schema.archive.yaml#Vibrational_Analysis"
+  "data_file": "result-vibrational-analysis-DFT.csv"
 ```
 
 Alternatively, you can download all 3 files here:
