@@ -54,7 +54,7 @@ The editable quantities that you found in your ELN entry (e.g., short name, tags
 
 Analogous to the simulation code parsers, NOMAD has a parser for its native schema &mdash; the NOMAD MetaInfo. This parser is automatically executed for files named `<file_name>.archive.yaml`. In this way, users can create ELN entries by uploading a yaml file populated according to NOMAD's schema.
 
-For example, we can create a basic ELN entry by creating and uploading a file with extension **.archive.yaml**, e.g. `basic_eln_entry.archive.yaml`, with the contents:
+For example, we can create a basic ELN entry by creating and uploading a file, e.g. `basic_eln_entry.archive.yaml`, with the contents:
 
 ```yaml
 data:
@@ -65,7 +65,7 @@ data:
 
 The `data` section is created and defined as type `ElnBaseSection`, meaning that we can populate all the quantities (e.g., name and description) living in this section (as seen in the MetaInfo browser above).
 
-Uploading this yaml to the test deployment (via either the API or the GUI) results in an entry with the overview page:
+Uploading this yaml to the test deployment results in an entry with the overview page:
 
 <div class="click-zoom">
     <label>
@@ -74,11 +74,13 @@ Uploading this yaml to the test deployment (via either the API or the GUI) resul
     </label>
 </div>
 
+If you want to use the API for your upload, check out [Part 2](api.md#uploading-api-basics)
+
 ## Customizing the schema
 
 To document our simulation setup workflow, we need to reference files within our ELN entry. For standardization and search capabilities, it is best practice to use existing classes in the MetaInfo. However, NOMAD also allows users to customize the schema to their own specific needs. Let's create our own schema to store annotated files within an ELN. Create a file `ELNFiles.archive.yaml` with the following contents:
 
-<h5><code>ELNFiles.archive.yaml</code></h5>
+<h4><code>ELNFiles.archive.yaml</code></h4>
 ```yaml
 definitions: # Use the defintions section to create your schema
   name: 'ELN-Annotated-File-List'
@@ -123,12 +125,12 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
     The more robust and powerful approach for creating custom schemas is to create a *schema plugin* (see [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}).
 
-    Useful resources for plugin developers are the [Plugin Template](https://github.com/FAIRmat-NFDI/nomad-plugin-template)and the [NOMAD Distro Template](https://github.com/FAIRmat-NFDI/nomad-distro-template).
+    Useful resources for plugin developers are the [Plugin Template](https://github.com/FAIRmat-NFDI/nomad-plugin-template) and the [NOMAD Distro Template](https://github.com/FAIRmat-NFDI/nomad-distro-template).
 
 
 We can now use these defintions to create an entry file for the step of creating the force field file (as illustrated in the image above):
 
-<h5><code>create_force_field.archive.yaml</code></h5>
+<h4><code>create_force_field.archive.yaml</code></h4>
 ```yaml
 data:
   m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
@@ -311,7 +313,7 @@ Place all of the completed files into a folder called `Custom_ELN_Entries/`. Don
 
 ## Uploading and publishing
 
-We now need to upload these files, edit the metadata, and publish the upload. You have the choice to use either the GUI, as demonstrated in Part 1, or the API, as demonstrated in Part 2.
+We now need to upload these files, edit the metadata, and publish the upload. You have the choice to use either the GUI, as demonstrated in [Part 1](core.md#drag-and-drop-gui-uploads), or the API, as demonstrated in [Part 2](api.md#uploading-api-basics).
 
 ### Using the GUI
 
