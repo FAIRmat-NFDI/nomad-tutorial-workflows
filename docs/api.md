@@ -63,8 +63,8 @@ The functions within the utility module will automatically retrieve an authentic
 
 ??? tip "Tip - If your `.env` file is not found"
 
-    If you can see the directory with your `.env` file in `PYTHONPATH`, but the environment variables are not picked up, try the following.
-    Install `python-dotenv` by running `uv pip install --upgrade python-dotenv`.
+    If you can see the directory with your `.env` file in `PYTHONPATH`, but the environment variables are not picked up, try the following:
+    install `python-dotenv` by running `uv pip install --upgrade python-dotenv`.
     Then add the following code snippet to your Jupyter Notebook, before importing 
 
     ```python
