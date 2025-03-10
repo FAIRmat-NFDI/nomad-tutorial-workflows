@@ -133,7 +133,17 @@ print(upload_id)
     'RdA_3ZsOTMqbtAhYLivVsw'
     ```
 
-
+??? tip "API calls from the terminal"
+    If you want to upload a file via the terminal, **instead of the NOMAD Workflow utilities shown above**, use
+    
+    ```bash
+    curl -X GET  "https://nomad-lab.eu/prod/v1/test/api/v1/auth/token?username=<your-username>&password=<your-password>"
+    curl -X POST -T basic_eln_entry.archive.yaml "https://nomad-lab.eu/prod/v1/test/api/v1/uploads?token=<your-token>"
+    ```
+    
+    The first command retrieves your temporary token, which is then used in the follow-up command.
+    Note the placeholders.
+    You can also find an example command (with your token inserted already) on the `Uploads` page, once logged in.
 
 ### Checking the upload status
 
