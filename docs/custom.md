@@ -16,7 +16,7 @@
 
 ## Simulation setup steps
 
-Imagine that to setup the MD simulations uploaded in part 1, you had to create structure and topology files. You ran 2 python scripts for this, `workflow_script_1.py` and `workflow_script_2.py`. The first script creates the simulation box (stored in `box.gro`) and inserts the water molecules (stored in `water.gro`). The second script creates the force field file (`water.top`).
+Imagine that to set up the MD simulations uploaded in part 1, you had to create structure and topology files. You ran 2 python scripts for this, `workflow_script_1.py` and `workflow_script_2.py`. The first script creates the simulation box (stored in `box.gro`) and inserts the water molecules (stored in `water.gro`). The second script creates the force field file (`water.top`).
 
 You can download these 5 files and save them for later:
 
@@ -36,7 +36,7 @@ This is the exact workflow graph that we aim to generate in NOMAD within this pa
 
 <!-- @andreaa93 - I thought about it a bit, and am still a bit partial towards using the Basic ELN class here. However, feel free to change this demo to some other ELN section. Or you can leave it here in the docs and in person showcase another class, it's up to you. -->
 
-Let's explore the basic functionalities of NOMAD ELNs. You can create a basic ELN entry from your `Uploads` page by clicking `CREATE A NEW UPLOAD > CREATE FROM SCHEMA` and selecting `Basic ELN` under the `Built-in Schema` drop-down menu, as demonstrated in this video:
+Let's explore the basic functionalities of NOMAD ELNs. You can create a basic ELN entry from `Your uploads` page by clicking `CREATE A NEW UPLOAD > CREATE FROM SCHEMA` and selecting `Basic ELN` under the `Built-in Schema` drop-down menu, as demonstrated in this video:
 
 <video width="100%" controls>
   <source src="../assets/eln-entry-from-gui.webm" alt="" type="video/mp4">
@@ -78,6 +78,7 @@ Uploading this yaml to the test deployment (via either the API or the GUI) resul
 
 To document our simulation setup workflow, we need to reference files within our ELN entry. For standardization and search capabilities, it is best practice to use existing classes in the MetaInfo. However, NOMAD also allows users to customize the schema to their own specific needs. Let's create our own schema to store annotated files within an ELN. Create a file `ELNFiles.archive.yaml` with the following contents:
 
+<h5><code>ELNFiles.archive.yaml</code></h5>
 ```yaml
 definitions: # Use the defintions section to create your schema
   name: 'ELN-Annotated-File-List'
@@ -127,7 +128,7 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
 We can now use these defintions to create an entry file for the step of creating the force field file (as illustrated in the image above):
 
-`create_force_field.archive.yaml`
+<h5><code>create_force_field.archive.yaml</code></h5>
 ```yaml
 data:
   m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
@@ -223,9 +224,9 @@ Let's construct this workflow yaml piece by piece, starting with the section def
     'section': '<path_to_mainfile>/create_force_field.archive.yaml#/data/Files/0/file'
 ```
 
-To simply, we have replaced the full path to each yaml file with a variable: `<path_to_mainfile> = ../upload/archive/mainfile/Custom_ELN_Entries/`. As we already saw above, the `../upload/` syntax is used to access files that were uploaded together. The `archive/mainfile` directory can be used to access all the mainfiles (i.e., files automatically recognized by NOMAD). `Custom_ELN_Entries/` is the user-defined folder in which the upload is contained.
+This example denotes full path to each yaml file with placeholders like `<path_to_mainfile> = ../upload/archive/mainfile/Custom_ELN_Entries/`. As we already saw above, the `../upload/` syntax is used to access files that were uploaded together. The `archive/mainfile` directory can be used to access all the mainfiles (i.e., files automatically recognized by NOMAD). `Custom_ELN_Entries/` is the user-defined folder in which the upload is contained.
 
-This workflow takes as input the entire workflow parameters entry and a list of workflow scripts, and outputs the structure and force field files.
+This workflow takes as input the entire "workflow parameters" entry and a list of workflow scripts, and outputs the structure and force field files.
 
 We now need to define each task, which contains its own inputs and outputs, e.g., the task that creates the force field file:
 

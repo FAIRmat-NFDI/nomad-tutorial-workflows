@@ -31,7 +31,7 @@ root
 │       ├── aims.out # FHIAims mainfile
 │       └── ...other raw simulation files
 └── DFT-3
-│   └── 6V_q8X39he-dakYHifH_3Z53GTdZ.zip
+    └── 6V_q8X39he-dakYHifH_3Z53GTdZ.zip
         ├── aims.out # FHIAims mainfile
         └── ...other raw simulation files
 ```
@@ -63,10 +63,11 @@ The functions within the utility module will automatically retrieve an authentic
 
 ??? tip "Tip - If your `.env` file is not found"
 
-    If you can see the directory with your `.env` file in `PYTHONPATH` but you the environment variables, e.g., `NOMAD_USERNAME` are not defined, you can try:
+    If you can see the directory with your `.env` file in `PYTHONPATH`, but the environment variables are not picked up, try the following:
+    install `python-dotenv` by running `uv pip install --upgrade python-dotenv`.
+    Then add the following code snippet to your Jupyter Notebook, before importing 
 
     ```python
-    uv pip install --upgrade python-dotenv
     from dotenv import load_dotenv
     load_dotenv()
     ```
@@ -75,16 +76,16 @@ The functions within the utility module will automatically retrieve an authentic
 
 The central NOMAD services offer several different deployments with varying purposes and versioning:
 
-- prod: The official NOMAD deployment.
+- "prod": The official NOMAD deployment.
     - Updated most infrequently (as advertised in [#software-updates](https://discordapp.com/channels/1201445470485106719/1275764272122826752) on the NOMAD Discord Server&mdash;If you are not yet a member of the NOMAD server use [Invitation to Discord :fontawesome-brands-discord:](https://discord.gg/Gyzx3ukUw8))
-- staging: The beta version of NOMAD.
+- "staging": The beta version of NOMAD.
     - Updated more frequently than prod in order to integrate and test new features.
-- test: A test NOMAD deployment. (**Used in this tutorial**).
+- "test": A test NOMAD deployment. (**Used in this tutorial**).
     - The data is occassionally wiped, such that test publishing can be made.
 
-Note that the prod and staging deployments share a common database, and that publishing on either will result in publically available data.
+Note that the "prod" and "staging" deployments share a common database, and that publishing on either will result in publically available data.
 
-All API functions in `nomad-utility-workflows` allow the user to specify the URL with the optional keyword argument `url`. If you want to use the central NOMAD URLs, you can simply set `url` equal to "prod", "staging", or "test". By default, the test deployment will be used as a safety mechanism to avoid accidentally publishing during testing. Thus, for all examples in this tutorial we will be using the test deployment.
+All API functions in `nomad-utility-workflows` allow the user to specify the URL with the optional keyword `url`. If you want to use the central NOMAD URLs, you can simply set `url` equal to "prod", "staging", or "test". By default, the test deployment will be used as a safety mechanism to avoid accidentally publishing during testing. Thus, for **all examples in this tutorial we will be using the test deployment**.
 
 See [nomad-utility-workflow DOCS > NOMAD URLs](https://fairmat-nfdi.github.io/nomad-utility-workflows/how_to/use_api_functions.html#nomad-urls){:target="_blank"} for more information.
 
@@ -128,7 +129,7 @@ print(upload_id)
 
 ??? success "example output"
 
-    ```
+    ```python
     'RdA_3ZsOTMqbtAhYLivVsw'
     ```
 
@@ -145,7 +146,7 @@ pprint(nomad_upload)
 ```
 
 ??? success "example output"
-    ```
+    ```python
     NomadUpload(upload_id='RdA_3ZsOTMqbtAhYLivVsw',
                 upload_create_time=datetime.datetime(2024, 10, 15, 20, 2, 10, 378000),
                 main_author=NomadUser(name='Joseph Rudzinski'),
@@ -202,7 +203,9 @@ except Exception:
 
 ??? success "example output"
 
+    ```python
     'Upload with upload_id=zpq-JTzWQJ63jtSOlbueKA was deleted successfully.'
+    ```
 
 
 ## Working with the project Data
@@ -316,7 +319,11 @@ This should return a list of 3 entry ids. Copy the list into your `PIDs.json` fi
 	 },
   "entry_ids": {
     "md": "<your md workflow entry id from Part 1>",
-    "DFT": "<copy the list of dft entry ids>",
+    "DFT": [
+        "<copy...",
+        "the list of...",
+        "dft entry ids>"
+    ],
     "eln": "",
     "parameters": "",
     "analysis": ""
@@ -430,7 +437,7 @@ print(nomad_upload.process_running is False)
 
 ??? success "output"
 
-    ```
+    ```python
     True
     True
     ```
@@ -447,7 +454,7 @@ Now, go to your uploads page in NOMAD to verify that your uploads are now named.
 
 ## Publishing Uploads
 
-Before publishing uploads, it is advisable to browse the individual entries to make sure there are no obvious problems, e.g., in the visualizations in the `Overview` tab or in the `LOG` tab (there is a clear red `!` to indicate if there were errors in processing). Note that it is possible that the processing reports as successful while still having some errors. If you have too many uploads to inspect manually, choosing a representative subset is advisable. If you find any problems, you can receive assistance by posting on [#software-updates](https://discordapp.com/channels/1201445470485106719/1275764272122826752){:target="_blank"} on the NOMAD Discord Server&mdash;If you are not yet a member of the NOMAD server use [Invitation to Discord](https://discord.gg/Gyzx3ukUw8){:target="_blank"}.
+Before publishing uploads, it is advisable to browse the individual entries to make sure there are no obvious problems, e.g., in the visualizations in the `Overview` tab or in the `LOG` tab (there is a clear <span style="color:red">red</span> `!` to indicate if there were errors in processing). Note that it is possible that the processing reports as successful while still having some errors. If you have too many uploads to inspect manually, choosing a representative subset is advisable. If you find any problems, you can receive assistance by posting on [#software-updates](https://discordapp.com/channels/1201445470485106719/1275764272122826752){:target="_blank"} on the NOMAD Discord Server&mdash;If you are not yet a member of the NOMAD server use [Invitation to Discord](https://discord.gg/Gyzx3ukUw8){:target="_blank"}.
 
 We can publish all 4 uploads that we made so far with `publish_upload()`, making it publicly available on the Test NOMAD deployment (again these will be eventually deleted).
 
@@ -486,3 +493,4 @@ for upload in all_upload_ids:
 ## More Resources
 
 More detailed documentation can be found [nomad-utility-workflows DOCS > Perform API Calls](https://fairmat-nfdi.github.io/nomad-utility-workflows/how_to/use_api_functions.html).
+An exhaustive list of API endpoints and commands are explained in the [NOMAD API Dashboard](https://nomad-lab.eu/prod/v1/test/api/v1/extensions/docs).

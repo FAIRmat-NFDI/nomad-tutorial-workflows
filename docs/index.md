@@ -45,17 +45,11 @@ ipython kernel install --user --name=DPG-tutorial
 ```
 <!-- python -m ipykernel install --user --name=DPG-tutorial -->
 
-Now you should be able to simply launch a Jupyter notebook with `jupyter notebook` in the terminal, and then select `DPG-tutorial` from the kernel list.
+Now you should be able to simply launch a Jupyter notebook browser with `jupyter notebook` in the terminal.
+Open a (new) `.ipynb` file, and then select `DPG-tutorial` from the kernel list.
 
 ## **Resources**
 
 ### 1. Explore the [NOMAD documentation](https://nomad-lab.eu/prod/v1/docs/){:target="_blank"}.
 
 ### 2. Join our vibrant Discord community! [Invitation to Discord :fontawesome-brands-discord:](https://discord.gg/Gyzx3ukUw8){:target="_blank"}
-
-
-
-
-
-
-
