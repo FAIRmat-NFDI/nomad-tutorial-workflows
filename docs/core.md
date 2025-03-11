@@ -92,7 +92,7 @@ This example data has been pre-uploaded and published on NOMAD. Go to the [examp
 
 !!! note "The Test NOMAD Deployment"
 
-        All uploads in this tutorial will be sent to the Test Deployment of NOMAD. The data sent there **is not** persistent, and will be deleted occasionally. Thus, we are free to test all publishing functionalities there.
+    All uploads in this tutorial will be sent to the Test Deployment of NOMAD. The data sent there **is not** persistent, and will be deleted occasionally. Thus, we are free to test all publishing functionalities there.
 
 Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="\_blank"}, and upload the zip file that you downloaded with the example data as demonstrated in the video below:
 
