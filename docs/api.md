@@ -15,7 +15,7 @@
 *Your Approach:* Use the NOMAD workflow utility plugin!
 
 !!! NOTE
-    When using the NOMAD workflow utility plugin, be sure to execute all the commands in a jupyter notebook or in the same python session to retain the imported packages and to avoid a `module not found` error.
+    When using the NOMAD workflow utility plugin, be sure to execute all the commands in a jupyter notebook or in the same python session.
 
 ## Set up / files and data
 
