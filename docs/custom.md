@@ -15,7 +15,7 @@ _Challenge:_ You need to include the simulation setup procedure with sufficient 
 _Your Approach:_ Use the NOMAD electronic lab notebook (ELN) and custom schema functionalities!
 
 !!! Warning "Attention"
-    The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step. 
+    The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step.
 
 ## Simulation setup steps
 
@@ -77,7 +77,7 @@ Uploading this yaml to the test deployment results in an entry with the overview
     </label>
 </div>
 
-If you want to use the API for your upload, check out [Part 2](api.md#uploading-api-basics)
+If you want to use the API for your upload, check out the box ["API calls from the terminal"](api.md#uploading-api-basics) in Part 2.
 
 ## Customizing the schema
 
@@ -124,7 +124,7 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
 ??? tip "More on custom schemas"
 
-    The YAML approach is a quick and dirty way to customize your NOMAD entries. It doesn't allow for complete integration of custom defined quantities within the database bacause the schema is injested via YAML file while NOMAD platform is running, in contrast to the quantities belonging to schemas organized in **plugins** (python packages) and installed in NOMAD during deployment. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
+    The YAML approach is a quick and dirty way to customize your NOMAD entries. It doesn't allow for complete integration of custom defined quantities within the database because the schema is injested via YAML file while NOMAD platform is running, in contrast to the quantities belonging to schemas organized in **plugins** (python packages) and installed in NOMAD during deployment. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
 
     The more robust and powerful approach for creating custom schemas is to create a *schema plugin* (see [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}).
 
