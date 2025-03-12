@@ -130,7 +130,7 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
     Useful resources for plugin developers are the [Plugin Template](https://github.com/FAIRmat-NFDI/nomad-plugin-template) and the [NOMAD Distro Template](https://github.com/FAIRmat-NFDI/nomad-distro-template).
 
-We can now use these defintions to create an entry file for the step of creating the force field file (as illustrated in the image above):
+We can now use these definitions to create an entry file for the step of creating the force field file (as illustrated in the image above):
 
 <h4><code>create_force_field.archive.yaml</code></h4>
 ```yaml
@@ -171,18 +171,6 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
               description: 'The structure file for simulation input.'
     ```
 
-??? success "`insert_water.archive.yaml`"
-
-    ```yaml
-        data:
-          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-          name: 'Insert water'
-          description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
-          Files:
-          - file: 'Custom_ELN_Entries/water.gro'
-              description: 'The structure file for simulation input.'
-    ```
-
 ??? success "`workflow_parameters.archive.yaml`"
 
     ```yaml
@@ -208,7 +196,7 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
 ## Creating a custom workflow in NOMAD
 
-NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the `workflow2` section instead of the `data` section. When uploaded to NOMAD, a new _workflow_ entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow.
+NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the `workflow2` section instead of the `data` section. Learn more on the [archive file structure](https://nomad-lab.eu/prod/v1/test/docs/explanation/data.html#archive-files-a-shared-entry-structure) from official NOMAD documentation. When uploaded to NOMAD, a new _workflow_ entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow.
 
 Let's construct this workflow yaml piece by piece, starting with the section definition and global inputs/outputs:
 
@@ -257,54 +245,54 @@ You can now add the "create box" and "insert water" tasks to create the final wo
 
 ??? success "`setup_workflow.archive.yaml`"
 
-```yaml
-    "workflow2":
-      "name": "MD Setup workflow"
-      "inputs":
-      - "name": "workflow parameters"
-          "section": "<path_to_mainfile>/workflow_parameters.archive.yaml#/data"
-      - "name": "workflow scripts"
-          "section": "<path_to_mainfile>/workflow_scripts.archive.yaml#/data/Files"
-      "outputs":
-      - "name": "structure file"
-          "section": "<path_to_mainfile>/insert_water.archive.yaml#/data/Files/0/file"
-      - "name": "force field file"
-          "section": "<path_to_mainfile>/create_force_field.archive.yaml#/data/Files/0/file"
-      "tasks":
-      - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
-          "name": "create box"
-          "task": "<path_to_mainfile>/create_box.archive.yaml#/data"
+    ```yaml
+        "workflow2":
+          "name": "MD Setup workflow"
           "inputs":
           - "name": "workflow parameters"
-          "section": "<path_to_mainfile>/workflow_parameters.archive.yaml#/data"
-          - "name": "workflow script 1"
-          "section": "<path_to_mainfile>/workflow_scripts.archive.yaml#/data/Files/0/file"
-          "outputs":
-          - "name": "initial box"
-          "section": "<path_to_mainfile>/create_box.archive.yaml#/data/Files/0/file"
-      - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
-          "name": "insert water"
-          "task": "<path_to_mainfile>/insert_water.archive.yaml#/data"
-          "inputs":
-          - "name": "initial box"
-          "section": "<path_to_mainfile>/create_box.archive.yaml#/data/Files/0/file"
-          - "name": "workflow script 1"
-          "section": "<path_to_mainfile>/workflow_scripts.archive.yaml#/data/Files/0/file"
+              "section": "<path_to_mainfile>/workflow_parameters.archive.yaml#/data"
+          - "name": "workflow scripts"
+              "section": "<path_to_mainfile>/workflow_scripts.archive.yaml#/data/Files"
           "outputs":
           - "name": "structure file"
-          "section": "<path_to_mainfile>/insert_water.archive.yaml#/data/Files/0/file"
-      - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
-          "name": "create force field"
-          "task": "<path_to_mainfile>/create_force_field.archive.yaml#/data"
-          "inputs":
-          - "name": "workflow parameters"
-          "section": "<path_to_mainfile>/workflow_parameters.archive.yaml#/data"
-          - "name": "workflow script 2"
-          "section": "<path_to_mainfile>/workflow_scripts.archive.yaml#/data/Files/1/file"
-          "outputs":
+              "section": "<path_to_mainfile>/insert_water.archive.yaml#/data/Files/0/file"
           - "name": "force field file"
-          "section": "<path_to_mainfile>/create_force_field.archive.yaml#/data/Files/0/file"
-```
+              "section": "<path_to_mainfile>/create_force_field.archive.yaml#/data/Files/0/file"
+          "tasks":
+          - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
+              "name": "create box"
+              "task": "<path_to_mainfile>/create_box.archive.yaml#/data"
+              "inputs":
+              - "name": "workflow parameters"
+              "section": "<path_to_mainfile>/workflow_parameters.archive.yaml#/data"
+              - "name": "workflow script 1"
+              "section": "<path_to_mainfile>/workflow_scripts.archive.yaml#/data/Files/0/file"
+              "outputs":
+              - "name": "initial box"
+              "section": "<path_to_mainfile>/create_box.archive.yaml#/data/Files/0/file"
+          - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
+              "name": "insert water"
+              "task": "<path_to_mainfile>/insert_water.archive.yaml#/data"
+              "inputs":
+              - "name": "initial box"
+              "section": "<path_to_mainfile>/create_box.archive.yaml#/data/Files/0/file"
+              - "name": "workflow script 1"
+              "section": "<path_to_mainfile>/workflow_scripts.archive.yaml#/data/Files/0/file"
+              "outputs":
+              - "name": "structure file"
+              "section": "<path_to_mainfile>/insert_water.archive.yaml#/data/Files/0/file"
+          - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
+              "name": "create force field"
+              "task": "<path_to_mainfile>/create_force_field.archive.yaml#/data"
+              "inputs":
+              - "name": "workflow parameters"
+              "section": "<path_to_mainfile>/workflow_parameters.archive.yaml#/data"
+              - "name": "workflow script 2"
+              "section": "<path_to_mainfile>/workflow_scripts.archive.yaml#/data/Files/1/file"
+              "outputs":
+              - "name": "force field file"
+              "section": "<path_to_mainfile>/create_force_field.archive.yaml#/data/Files/0/file"
+    ```
 
 Place all of the completed files into a folder called `Custom_ELN_Entries/`. Don't forget to replace `<path_to_mainfile>` with `../upload/archive/mainfile/Custom_ELN_Entries/`. Alternatively, you can download the completed yamls here:
 
