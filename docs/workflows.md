@@ -310,68 +310,68 @@ gv.d3(
 
 We see that our output graph looks signficantly different than the input. That's because `nomad-utility-workflow` is automatically adding some default inputs/outputs to ensure the proper node connections within the workflow visualizer. For nodes without an `entry_type`, these default connections work by simply adding inputs/outputs that point to the mainfile of one of the nodes connected by an edge in the graph.
 
-Open the generated `project_workflow.archive.yaml`:
+??? success "example `project_workflow.archive.yaml`"
 
-```yaml
-"workflow2":
-  "name": "DPG Tutorial 2025 Project Workflow"
-  "inputs":
-    - "name": "Workflow Parameters"
-      "section": "/entries/Lyku0eClZtAGwwY9o7vWeKL-7YWK/archive/mainfile/workflow_parameters.archive.yaml#/data"
-  "outputs":
-    - "name": "Vibrational Analysis"
-      "section": "/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data"
-  "tasks":
-    - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
-      "name": "MD Setup"
-      "task": "/entries/Gqm3Tek---QCH2z0FwTqkEhtvV1s/archive/mainfile/setup_workflow.archive.yaml#/workflow2"
+    ```yaml
+    "workflow2":
+      "name": "DPG Tutorial 2025 Project Workflow"
       "inputs":
-        - "name": "Link to global input"
+        - "name": "Workflow Parameters"
           "section": "/entries/Lyku0eClZtAGwwY9o7vWeKL-7YWK/archive/mainfile/workflow_parameters.archive.yaml#/data"
       "outputs":
-        - "name": "workflow2 section of node 2"
-          "section": "/entries/ERvFmh9BlclnU-Ai3ohQP-6vZJjf/archive/mainfile/workflow.archive.yaml#/workflow2"
-    - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
-      "name": "MD Equilibration"
-      "task": "/entries/ERvFmh9BlclnU-Ai3ohQP-6vZJjf/archive/mainfile/workflow.archive.yaml#/workflow2"
-      "inputs":
-        - "name": "workflow2 section of node 2"
-          "section": "/entries/ERvFmh9BlclnU-Ai3ohQP-6vZJjf/archive/mainfile/workflow.archive.yaml#/workflow2"
-      "outputs":
-        - "name": "workflow2 section of node 3"
-          "section": "/entries/iJi7Q-C97J2BEupZVEgGq-TEZf5N/archive/mainfile/aims.out#/workflow2"
-        - "name": "workflow2 section of node 4"
-          "section": "/entries/7B0NdXAK7wqjHNX2yPR3ghdwdjG2/archive/mainfile/aims.out#/workflow2"
-        - "name": "workflow2 section of node 5"
-          "section": "/entries/15UO3IElPxAFZG3xl0tmmyhyLoHa/archive/mainfile/aims.out#/workflow2"
-    - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
-      "name": "DFT-1"
-      "task": "/entries/iJi7Q-C97J2BEupZVEgGq-TEZf5N/archive/mainfile/aims.out#/workflow2"
-      "inputs":
-        - "name": "workflow2 section of node 3"
-          "section": "/entries/iJi7Q-C97J2BEupZVEgGq-TEZf5N/archive/mainfile/aims.out#/workflow2"
-      "outputs":
-        - "name": "Link to global output"
+        - "name": "Vibrational Analysis"
           "section": "/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data"
-    - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
-      "name": "DFT-2"
-      "task": "/entries/7B0NdXAK7wqjHNX2yPR3ghdwdjG2/archive/mainfile/aims.out#/workflow2"
-      "inputs":
-        - "name": "workflow2 section of node 4"
-          "section": "/entries/7B0NdXAK7wqjHNX2yPR3ghdwdjG2/archive/mainfile/aims.out#/workflow2"
-      "outputs":
-        - "name": "Link to global output"
-          "section": "/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data"
-    - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
-      "name": "DFT-3"
-      "task": "/entries/15UO3IElPxAFZG3xl0tmmyhyLoHa/archive/mainfile/aims.out#/workflow2"
-      "inputs":
-        - "name": "workflow2 section of node 5"
-          "section": "/entries/15UO3IElPxAFZG3xl0tmmyhyLoHa/archive/mainfile/aims.out#/workflow2"
-      "outputs":
-        - "name": "Link to global output"
-          "section": "/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data"
-```
+      "tasks":
+        - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
+          "name": "MD Setup"
+          "task": "/entries/Gqm3Tek---QCH2z0FwTqkEhtvV1s/archive/mainfile/setup_workflow.archive.yaml#/workflow2"
+          "inputs":
+            - "name": "Link to global input"
+              "section": "/entries/Lyku0eClZtAGwwY9o7vWeKL-7YWK/archive/mainfile/workflow_parameters.archive.yaml#/data"
+          "outputs":
+            - "name": "workflow2 section of node 2"
+              "section": "/entries/ERvFmh9BlclnU-Ai3ohQP-6vZJjf/archive/mainfile/workflow.archive.yaml#/workflow2"
+        - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
+          "name": "MD Equilibration"
+          "task": "/entries/ERvFmh9BlclnU-Ai3ohQP-6vZJjf/archive/mainfile/workflow.archive.yaml#/workflow2"
+          "inputs":
+            - "name": "workflow2 section of node 2"
+              "section": "/entries/ERvFmh9BlclnU-Ai3ohQP-6vZJjf/archive/mainfile/workflow.archive.yaml#/workflow2"
+          "outputs":
+            - "name": "workflow2 section of node 3"
+              "section": "/entries/iJi7Q-C97J2BEupZVEgGq-TEZf5N/archive/mainfile/aims.out#/workflow2"
+            - "name": "workflow2 section of node 4"
+              "section": "/entries/7B0NdXAK7wqjHNX2yPR3ghdwdjG2/archive/mainfile/aims.out#/workflow2"
+            - "name": "workflow2 section of node 5"
+              "section": "/entries/15UO3IElPxAFZG3xl0tmmyhyLoHa/archive/mainfile/aims.out#/workflow2"
+        - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
+          "name": "DFT-1"
+          "task": "/entries/iJi7Q-C97J2BEupZVEgGq-TEZf5N/archive/mainfile/aims.out#/workflow2"
+          "inputs":
+            - "name": "workflow2 section of node 3"
+              "section": "/entries/iJi7Q-C97J2BEupZVEgGq-TEZf5N/archive/mainfile/aims.out#/workflow2"
+          "outputs":
+            - "name": "Link to global output"
+              "section": "/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data"
+        - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
+          "name": "DFT-2"
+          "task": "/entries/7B0NdXAK7wqjHNX2yPR3ghdwdjG2/archive/mainfile/aims.out#/workflow2"
+          "inputs":
+            - "name": "workflow2 section of node 4"
+              "section": "/entries/7B0NdXAK7wqjHNX2yPR3ghdwdjG2/archive/mainfile/aims.out#/workflow2"
+          "outputs":
+            - "name": "Link to global output"
+              "section": "/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data"
+        - "m_def": "nomad.datamodel.metainfo.workflow.TaskReference"
+          "name": "DFT-3"
+          "task": "/entries/15UO3IElPxAFZG3xl0tmmyhyLoHa/archive/mainfile/aims.out#/workflow2"
+          "inputs":
+            - "name": "workflow2 section of node 5"
+              "section": "/entries/15UO3IElPxAFZG3xl0tmmyhyLoHa/archive/mainfile/aims.out#/workflow2"
+          "outputs":
+            - "name": "Link to global output"
+              "section": "/entries/G74EVJ4bCbjLlFKs-Oytxqzv7E0H/archive/mainfile/vibrational_analysis.archive.yaml#/data"
+    ```
 
 Now upload, edit the metadata, and publish `project_workflow.archive.yaml` following [Part 3 > Uploading and Publishing](./custom.md#uploading-and-publishing). Browse the workflow graph of this entry to see how it links all of your uploads together.
 
