@@ -15,8 +15,7 @@ _Challenge:_ You need to include the simulation setup procedure with sufficient 
 _Your Approach:_ Use the NOMAD electronic lab notebook (ELN) and custom schema functionalities!
 
 !!! Warning "Attention"
-
-    The exercises have to be performed in the same `terminal`/`python session`, or the non-permanent addition of the tutorial directory to your `$PYTHONPATH` will be reset.
+    The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step. 
 
 ## Simulation setup steps
 

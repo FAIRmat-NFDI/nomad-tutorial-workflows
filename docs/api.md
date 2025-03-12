@@ -14,8 +14,8 @@
 
 *Your Approach:* Use the NOMAD workflow utility plugin!
 
-!!! NOTE
-    When using the NOMAD workflow utility plugin, be sure to execute all the commands in a jupyter notebook or in the same python session.
+!!! Warning "Attention"
+    The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step. 
 
 ## Set up / files and data
 
