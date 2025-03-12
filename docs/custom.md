@@ -297,7 +297,7 @@ You can now add the "create box" and "insert water" tasks to create the final wo
 Place all of the completed files into a folder called `Custom_ELN_Entries/`. Don't forget to replace `<path_to_mainfile>` with `../upload/archive/mainfile/Custom_ELN_Entries/`. Alternatively, you can download the completed yamls here:
 
 <center>
-[Download Simulation Setup YAMLs](assets/simulation-setup-yamls.zip){:target="_blank" .md-button}
+[Download Custom_ELN_Entries folder](assets/Custom_ELN_Entries.zip){:target="_blank" .md-button}
 </center>
 
 ## Uploading and publishing
