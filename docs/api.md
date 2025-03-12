@@ -14,7 +14,8 @@
 
 *Your Approach:* Use the NOMAD workflow utility plugin!
 
-TODO - add something indicating that this should be done in a notebook or a single python session
+!!! NOTE
+    When using the NOMAD workflow utility plugin, be sure to execute all the commands in a jupyter notebook or in the same python session.
 
 ## Set up / files and data
 
