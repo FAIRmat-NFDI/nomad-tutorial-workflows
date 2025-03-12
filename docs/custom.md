@@ -124,7 +124,7 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
 ??? tip "More on custom schemas"
 
-    The YAML approach is a quick and dirty way to customize your NOMAD entries. It doesn't allow for complete integration of custom defined quantities within the database search tools to avoid uncontrolled proliferation of schemas that would be detrimental for data FAIRness. Seemless integration of new quantities happens when schemas are organized in **plugins** (python packages) and installed in NOMAD during deployment. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
+    The YAML approach is a quick and dirty way to customize your NOMAD entries. It doesn't allow for complete integration of custom defined quantities within the database search tools to avoid uncontrolled proliferation of schemas that would be detrimental for data FAIRness. Seamless integration of new quantities happens when schemas are organized in **plugins** (python packages) and installed in NOMAD during deployment. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
 
     The more robust and powerful approach for creating custom schemas is to create a *schema plugin* (see [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}).
 
