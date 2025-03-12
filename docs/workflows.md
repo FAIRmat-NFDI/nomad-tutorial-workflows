@@ -30,7 +30,7 @@ _Your Approach:_
 
 You have performed some vibrational analysis of the DFT configurations obtained from your simulations. The results are shown below. Create a file `result-vibrational-analysis-DFT.csv` to store the results:
 
-```
+```txt
 electron_density,oh_stretch_frequency
 au,1/cm
 0.0102,3601.
@@ -129,8 +129,8 @@ After you have completed the publishing, save the `entry_id` to your `PIDs.json`
   "entry_ids": {
     "md-workflow": "<your md workflow entry id from Part 1>",
     "DFT": ["<your list of dft entry ids from above>"],
-    "setup-workflow": "",
-    "parameters": "<your workflow parameters entry id here>",
+    "setup-workflow": "<your setup workflow entry id from Part 3>",
+    "parameters": "<your workflow parameters entry id from Part 3>",
     "analysis": "<copy the vibrational analysis entry id here>"
   },
   "dataset_id": "<your dataset id>"
