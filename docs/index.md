@@ -26,6 +26,42 @@ python3.11 -m venv .pyenv
 . .pyenv/bin/activate
 ```
 
+??? tip "Install missing Python 3.11 interpreter"
+    To install Python 3.11 interpreter:
+
+    === "Debian Linux"
+
+    ```console
+    sudo apt install python3.11
+    ```
+    === "Red Hat Linux"
+
+    ```console
+    sudo dnf install python3.11
+    ```    
+    === "macOS"
+
+    ```console
+    brew install python@3.11
+    ```
+    === "Windows"
+    Download the installer from the [official Python website](https://www.python.org/downloads/release/python-3110/) and run it. 
+    Make sure to check the box that says "Add Python 3.11 to PATH" during installation.
+
+Activate the Python virtual environment:
+
+=== "macOS and Linux"
+
+    ```console
+    source .venv/bin/activate
+    ```
+
+=== "Windows"
+
+    ```console
+    .venv\Scripts\activate
+    ```
+
 Upgrade pip and install uv (recommended):
 
 ```sh
@@ -37,6 +73,12 @@ Install the latest pypi version of the plugin using pip:
 
 ```bash
 uv pip install "nomad-utility-workflows>=0.0.19" --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
+```
+
+Install `python-dotenv` package:
+
+```bash
+uv pip install python-dotenv
 ```
 
 In order to use a Jupyter notebook in the following, install ipython and then create a Jupyter kernel for this venv (this kernel can then be be identified and loaded into your IDE):

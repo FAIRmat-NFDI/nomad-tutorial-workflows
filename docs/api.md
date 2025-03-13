@@ -55,22 +55,14 @@ NOMAD_PASSWORD="MyPassWord"
 ```
 and insert your username and password.
 
-Add this directory to your `PYTHONPATH`:
-```bash
-export PYTHONPATH=$PYTHONPATH:<path-to-tutorial-root-working-directory>
-```
-
+The `.env` file you placed in the root folder will be loaded within each jupyter notebook with the command `load_dotenv()` found in next steps.
 The functions within the utility module will automatically retrieve an authentication token for privileged operations, e.g., uploading data to your account.
 
 ??? tip "Tip - If your `.env` file is not found"
 
-    If you can see the directory with your `.env` file in `PYTHONPATH`, but the environment variables are not picked up, try the following:
-    install `python-dotenv` by running `uv pip install --upgrade python-dotenv`.
-    Then add the following code snippet to your Jupyter Notebook, before importing 
-
-    ```python
-    from dotenv import load_dotenv
-    load_dotenv()
+    If the authentication credentials from your `.env` file is not picked, add this directory to your `PYTHONPATH`:
+    ```bash
+    export PYTHONPATH=$PYTHONPATH:<path-to-tutorial-root-working-directory>
     ```
 
 ## NOMAD URLs / Deployments
@@ -103,20 +95,29 @@ You can create a `test-API.ipynb` notebook and copy over the following step by s
 Import the necessary modules/functions:
 
 ```python
+from dotenv import load_dotenv
+load_dotenv()
 import os
+import zipfile
 from pprint import pprint
 from nomad_utility_workflows.utils.uploads import (
     upload_files_to_nomad,
     get_upload_by_id,
     delete_upload
 )
+
+def create_zip(zip_name, dir_name):
+    with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
+        for root, dirs, files in os.walk(dir_name):
+            for file in files:
+                zipf.write(os.path.join(root, file), os.path.relpath(os.path.join(root, file), dir_name))
 ```
 
 Create an empty folder and zip it:
 
 ```python
-os.system('mkdir Test/')
-os.system('zip -r test.zip Test/')
+os.makedirs('Test/', exist_ok=True)
+create_zip('test.zip', 'Test/')
 test_upload_fnm = './test.zip'
 print(f'Zip Created: {os.path.isfile(test_upload_fnm)}')
 ```
@@ -136,12 +137,10 @@ print(upload_id)
 
 ??? tip "API calls from the terminal"
     If you want to upload a file via the terminal, **instead of the NOMAD Workflow utilities shown above**, use
-    
     ```bash
     curl -X GET  "https://nomad-lab.eu/prod/v1/test/api/v1/auth/token?username=<your-username>&password=<your-password>"
     curl -X POST -T basic_eln_entry.archive.yaml "https://nomad-lab.eu/prod/v1/test/api/v1/uploads?token=<your-token>"
     ```
-    
     The first command retrieves your temporary token, which is then used in the follow-up command.
     Note the placeholders.
     You can also find an example command (with your token inserted already) on the `Uploads` page, once logged in.
@@ -149,7 +148,6 @@ print(upload_id)
 ### Checking the upload status
 
 The returned `upload_id` can then be used to directly access the upload, e.g., to check the upload status, using `get_upload_by_id()`:
-
 
 ```python
 nomad_upload = get_upload_by_id(upload_id, url='test')
@@ -232,6 +230,8 @@ Create a new notebook `Part-2_DFT-calculations.ipynb` to work step by step or do
 Make all the necessary imports:
 
 ```python
+from dotenv import load_dotenv
+load_dotenv()
 import os
 import time
 import json
@@ -253,8 +253,8 @@ entries = ['0iCl0nWwCftF0tgQOaklcQLFB68E', '24Q4MoaAUtsWN7Hepw3UH3TU93pX', '6V_q
 responses = []
 for i_entry, entry in enumerate(entries):
     folder_nm = f'DFT-{i_entry+1}'
-    os.system(f'mkdir {folder_nm}')
-    responses.append(download_entry_by_id(entry, url='prod', zip_file_name=f'{folder_nm}/{entry}.zip'))
+    os.makedirs(f'{folder_nm}', exist_ok=True)
+    responses.append(download_entry_by_id(entry, url='prod', zip_file_name=os.path.join(folder_nm, f'{entry}.zip')))
 ```
 
 !!! note
@@ -279,7 +279,7 @@ max_wait_time = 60  # 60 seconds
 interval = 5  # 5 seconds
 
 for i_entry, entry in enumerate(entries):
-    fnm = f'./DFT-{i_entry+1}/{entry}.zip'
+    fnm = os.path.join(os.cwd(), f'DFT-{i_entry+1}' ,f'{entry}.zip')
     # make the upload
     upload_id = upload_files_to_nomad(filename=fnm, url='test')
     dft_upload_ids.append(upload_id)
@@ -346,10 +346,10 @@ This should return a list of 3 entry ids. Copy the list into your `PIDs.json` fi
 
 ## Creating Datasets
 
-Let's now create a dataset to group all of our uploaded data together:
+Let's now create a dataset to group all of our uploaded data together, substitute `<your_name>` before running the command:
 
 ```python
-dataset_id = create_dataset('Example Dataset - DPG Tutorial 2025 - <your_name> ', url='test')
+dataset_id = create_dataset('Example Dataset - DPG Tutorial 2025 - <your_name>', url='test')
 print(dataset_id)
 ```
 
@@ -428,8 +428,11 @@ for i_upload, upload in enumerate(dft_upload_ids):
 
 Let's also add the drag and drop upload with the MD data to our dataset. First, go to [Test Deployment > PUBLISH > Uploads](https://nomad-lab.eu/prod/v1/test/gui/user/uploads) and find the `upload_id` for the MD data.
 
+!!! note
+    Create your `PIDs.json` file in the same folder from where you spin up the jupyter notebook.
+
 ```python
-with open('<path to PIDs>/PIDs.json') as f:
+with open('PIDs.json') as f:
     pids_dict = json.load(f)
 
 md_upload_id = pids_dict.get('upload_ids').get('md')
