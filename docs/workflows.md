@@ -32,7 +32,7 @@ You have performed some vibrational analysis of the DFT configurations obtained 
 
 ```txt
 electron_density,oh_stretch_frequency
-au,1/cm
+e/A^3,1/cm
 0.0102,3601.
 0.0125,3554.
 0.0140,3507.

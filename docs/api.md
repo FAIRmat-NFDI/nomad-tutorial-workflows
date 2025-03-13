@@ -15,7 +15,7 @@
 *Your Approach:* Use the NOMAD workflow utility plugin!
 
 !!! Warning "Attention"
-    The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step. 
+    The exercises have to be performed in a jupyter notebook (several will be provided during the tutorial) or in the same terminal/python session to retain the imported packages and defined variables during each step.
 
 ## Set up / files and data
 

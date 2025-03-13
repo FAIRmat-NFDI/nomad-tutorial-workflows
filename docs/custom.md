@@ -124,7 +124,10 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
 ??? tip "More on custom schemas"
 
-    The YAML approach is a quick and dirty way to customize your NOMAD entries. It doesn't allow for complete integration of custom defined quantities within the database search tools to avoid uncontrolled proliferation of schemas that would be detrimental for data FAIRness. Seamless integration of new quantities happens when schemas are organized in **plugins** (python packages) and installed in NOMAD during deployment. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
+    The YAML approach is a quick and dirty way to customize your NOMAD entries. 
+    To disincentivise the proliferation of _ad-hoc_ schemas and remain FAIR, YAML sections or quantities only have partial support. 
+    Seamless integration of new quantities happens when schemas are organized in **plugins** (python packages) and installed in NOMAD during deployment. 
+    See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
 
     The more robust and powerful approach for creating custom schemas is to create a *schema plugin* (see [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}).
 
@@ -196,7 +199,7 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
 ## Creating a custom workflow in NOMAD
 
-NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the `workflow2` section instead of the `data` section. Learn more on the [archive file structure](https://nomad-lab.eu/prod/v1/test/docs/explanation/data.html#archive-files-a-shared-entry-structure) from official NOMAD documentation. When uploaded to NOMAD, a new _workflow_ entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow.
+NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the `workflow2` section instead of the `data` section. When uploaded to NOMAD, a new _workflow_ entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow. Learn more about the [archive file structure](https://nomad-lab.eu/prod/v1/test/docs/explanation/data.html#archive-files-a-shared-entry-structure) in the official NOMAD documentation.
 
 Let's construct this workflow yaml piece by piece, starting with the section definition and global inputs/outputs:
 
