@@ -2,10 +2,6 @@ site_name: FAIRmat Tutorial DPG 2025
 site_description: |
   How to Use NOMAD's Workflow Utilities to Improve Data Management and Facilitate Discovery in Materials Science
 site_author: FAIRmat consortium
-
-repo_url: https://github.com/FAIRmat-NFDI/fairmat-tutorial-DPG-2025
-edit_uri: ""
-
 nav:
   - Overview: index.md
   - Part 1 - Core Functionalities: core.md
