@@ -53,13 +53,13 @@ Activate the Python virtual environment:
 === "macOS and Linux"
 
     ```console
-    source .venv/bin/activate
+    source .pyenv/bin/activate
     ```
 
 === "Windows"
 
     ```console
-    .venv\Scripts\activate
+    .pyenv\Scripts\activate
     ```
 
 Upgrade pip and install uv (recommended):
@@ -75,15 +75,11 @@ Install the latest pypi version of the plugin using pip:
 uv pip install "nomad-utility-workflows>=0.0.19" --index-url https://gitlab.mpcdf.mpg.de/api/v4/projects/2187/packages/pypi/simple
 ```
 
-Install `python-dotenv` package:
-
-```bash
-uv pip install python-dotenv
-```
-
+Install `python-dotenv` package.
 In order to use a Jupyter notebook in the following, install ipython and then create a Jupyter kernel for this venv (this kernel can then be be identified and loaded into your IDE):
 
 ```bash
+uv pip install python-dotenv
 uv pip install --upgrade ipython
 uv pip install --upgrade ipykernel
 ipython kernel install --user --name=DPG-tutorial
