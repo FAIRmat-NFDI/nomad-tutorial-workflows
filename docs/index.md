@@ -23,7 +23,6 @@ Open a terminal and create a virtual environment with python==3.11 (It may be po
 
 ```sh
 python3.11 -m venv .pyenv
-. .pyenv/bin/activate
 ```
 
 ??? tip "Install missing Python 3.11 interpreter"
@@ -53,7 +52,7 @@ Activate the Python virtual environment:
 === "macOS and Linux"
 
     ```console
-    source .pyenv/bin/activate
+    . .pyenv/bin/activate
     ```
 
 === "Windows"
