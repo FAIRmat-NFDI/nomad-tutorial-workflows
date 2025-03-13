@@ -15,8 +15,7 @@ _Challenge:_ You need to include the simulation setup procedure with sufficient 
 _Your Approach:_ Use the NOMAD electronic lab notebook (ELN) and custom schema functionalities!
 
 !!! Warning "Attention"
-
-    The exercises have to be performed in the same `terminal`/`python session`, or the non-permanent addition of the tutorial directory to your `$PYTHONPATH` will be reset.
+    The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step.
 
 ## Simulation setup steps
 
@@ -78,7 +77,7 @@ Uploading this yaml to the test deployment results in an entry with the overview
     </label>
 </div>
 
-If you want to use the API for your upload, check out [Part 2](api.md#uploading-api-basics)
+If you want to use the API for your upload, check out the box ["API calls from the terminal"](api.md#uploading-api-basics) in Part 2.
 
 ## Customizing the schema
 
@@ -125,13 +124,16 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
 ??? tip "More on custom schemas"
 
-    The YAML approach is a quick and dirty way to customize your NOMAD entries. It doesn't allow for complete integration of custom defined quantities within the database bacause the schema is injested via YAML file while NOMAD platform is running, in contrast to the quantities belonging to schemas organized in **plugins** (python packages) and installed in NOMAD during deployment. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
+    The YAML approach is a quick and dirty way to customize your NOMAD entries. 
+    To disincentivise the proliferation of _ad-hoc_ schemas and remain FAIR, YAML sections or quantities only have partial support. 
+    Seamless integration of new quantities happens when schemas are organized in **plugins** (python packages) and installed in NOMAD during deployment. 
+    See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
 
     The more robust and powerful approach for creating custom schemas is to create a *schema plugin* (see [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}).
 
     Useful resources for plugin developers are the [Plugin Template](https://github.com/FAIRmat-NFDI/nomad-plugin-template) and the [NOMAD Distro Template](https://github.com/FAIRmat-NFDI/nomad-distro-template).
 
-We can now use these defintions to create an entry file for the step of creating the force field file (as illustrated in the image above):
+We can now use these definitions to create an entry file for the step of creating the force field file (as illustrated in the image above):
 
 <h4><code>create_force_field.archive.yaml</code></h4>
 ```yaml
@@ -151,65 +153,53 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 ??? success "`create_box.archive.yaml`"
 
     ```yaml
-        data:
-          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-          name: 'Create box'
-          description: 'The initial simulation box is created.'
-          Files:
-          - file: 'Custom_ELN_Entries/box.gro'
-              description: 'An empty structure file with the box vectors.'
+    data:
+      m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+      name: 'Create box'
+      description: 'The initial simulation box is created.'
+      Files:
+      - file: 'Custom_ELN_Entries/box.gro'
+        description: 'An empty structure file with the box vectors.'
     ```
 
 ??? success "`insert_water.archive.yaml`"
 
     ```yaml
-        data:
-          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-          name: 'Insert water'
-          description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
-          Files:
-          - file: 'Custom_ELN_Entries/water.gro'
-              description: 'The structure file for simulation input.'
-    ```
-
-??? success "`insert_water.archive.yaml`"
-
-    ```yaml
-        data:
-          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-          name: 'Insert water'
-          description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
-          Files:
-          - file: 'Custom_ELN_Entries/water.gro'
-              description: 'The structure file for simulation input.'
+    data:
+      m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+      name: 'Insert water'
+      description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
+      Files:
+      - file: 'Custom_ELN_Entries/water.gro'
+        description: 'The structure file for simulation input.'
     ```
 
 ??? success "`workflow_parameters.archive.yaml`"
 
     ```yaml
-        data:
-          m_def: nomad.datamodel.metainfo.eln.ElnBaseSection
-          name: 'Workflow Parameters'
-          description: 'This is a description of the overall workflow parameters, or alternatively standard workflow specification...'
+    data:
+      m_def: nomad.datamodel.metainfo.eln.ElnBaseSection
+      name: 'Workflow Parameters'
+      description: 'This is a description of the overall workflow parameters, or alternatively standard workflow specification...'
     ```
 
 ??? success "`workflow_scripts.archive.yaml`"
 
     ```yaml
-        data:
-          m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
-          name: 'Workflow Scripts'
-          description: 'All the scripts run during setup of the MD simulation.'
-          Files:
-          - file: 'Custom_ELN_Entries/workflow_script_1.py'
-              description: 'Creates the simulation box and inserts water molecules.'
-          - file: 'Custom_ELN_Entries/workflow_script_2.py'
-              description: 'Creates the appropriate force field files for the simulation engine.'
+    data:
+      m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+      name: 'Workflow Scripts'
+      description: 'All the scripts run during setup of the MD simulation.'
+      Files:
+      - file: 'Custom_ELN_Entries/workflow_script_1.py'
+        description: 'Creates the simulation box and inserts water molecules.'
+      - file: 'Custom_ELN_Entries/workflow_script_2.py'
+        description: 'Creates the appropriate force field files for the simulation engine.'
     ```
 
 ## Creating a custom workflow in NOMAD
 
-NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the `workflow2` section instead of the `data` section. When uploaded to NOMAD, a new _workflow_ entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow.
+NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the `workflow2` section instead of the `data` section. When uploaded to NOMAD, a new _workflow_ entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow. Learn more about the [archive file structure](https://nomad-lab.eu/prod/v1/test/docs/explanation/data.html#archive-files-a-shared-entry-structure) in the official NOMAD documentation.
 
 Let's construct this workflow yaml piece by piece, starting with the section definition and global inputs/outputs:
 
@@ -258,7 +248,7 @@ You can now add the "create box" and "insert water" tasks to create the final wo
 
 ??? success "`setup_workflow.archive.yaml`"
 
-```yaml
+    ```yaml
     "workflow2":
       "name": "MD Setup workflow"
       "inputs":
@@ -305,12 +295,12 @@ You can now add the "create box" and "insert water" tasks to create the final wo
           "outputs":
           - "name": "force field file"
           "section": "<path_to_mainfile>/create_force_field.archive.yaml#/data/Files/0/file"
-```
+    ```
 
 Place all of the completed files into a folder called `Custom_ELN_Entries/`. Don't forget to replace `<path_to_mainfile>` with `../upload/archive/mainfile/Custom_ELN_Entries/`. Alternatively, you can download the completed yamls here:
 
 <center>
-[Download Simulation Setup YAMLs](assets/simulation-setup-yamls.zip){:target="_blank" .md-button}
+[Download Custom_ELN_Entries folder](assets/Custom_ELN_Entries.zip){:target="_blank" .md-button}
 </center>
 
 ## Uploading and publishing
@@ -430,7 +420,7 @@ Create a new notebook `Custom_ELN_Entries.ipynb` to try the steps below on your 
 
 ## Saving the PIDs
 
-For Part 4, we will need the entry ids for the setup workflow entry and the workflow parameters entry (input for the md setup workflow). Find the proper entry ids using the GUI or the `get_entries_of_upload()` method as in Part 2. Copy the `entry_id` for each into your `PIDs.json` file:
+For Part 4, we will need the entry ids for the setup workflow entry (`setup_workflow.archive.yaml`) and the workflow parameters entry (`workflow_parameters.archive.yaml`), that is the input for the md setup workflow. Find the proper entry ids using the GUI or the `get_entries_of_upload()` method as in Part 2. Copy the `entry_id` for each into your `PIDs.json` file:
 
 ```json
 {
@@ -440,7 +430,7 @@ For Part 4, we will need the entry ids for the setup workflow entry and the work
   "entry_ids": {
     "md-workflow": "<your md workflow entry id from Part 1>",
     "DFT": ["<your list of dft entry ids from above>"],
-    "setup-workflow": "",
+    "setup-workflow": "<copy the setup workflow entry id here>",
     "parameters": "<copy the workflow parameters entry id here>",
     "analysis": ""
   },
