@@ -190,7 +190,7 @@ node_attributes = {
     1: {'name': 'MD Setup',
         'type': 'workflow',
         'path_info': {
-            'entry_id': entry_ids.get('eln'),
+            'entry_id': entry_ids.get('setup-workflow'),
             'mainfile_path': 'setup_workflow.archive.yaml'},
         'in_edge_nodes': [0],
        },
@@ -317,59 +317,67 @@ We see that our output graph looks signficantly different than the input. That's
       'name': 'DPG Tutorial 2025 Project Workflow'
       'inputs':
       - 'name': 'Workflow Parameters'
-        'section': '/entries/tc_dLqPqR9lqLT1JbFr0IfZ1n39e#/data'
+        'section': '/entries/tc_dLqPqR9lqLT1JbFr0IfZ1n39e/archive#/data'
       'outputs':
       - 'name': 'Vibrational Analysis'
-        'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN#/data'
+        'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN/archive#/data'
       'tasks':
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'MD Setup'
-        'task': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h#/workflow2'
+        'task': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h/archive#/workflow2'
         'inputs':
         - 'name': 'input data from Workflow Parameters'
-          'section': '/entries/tc_dLqPqR9lqLT1JbFr0IfZ1n39e#/data'
+          'section': '/entries/tc_dLqPqR9lqLT1JbFr0IfZ1n39e/archive#/data'
         'outputs':
         - 'name': 'output workflow2 from MD Setup'
-          'section': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h#/workflow2'
+          'section': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h/archive#/workflow2'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'MD Equilibration'
-        'task': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC#/workflow2'
+        'task': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Setup'
-          'section': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h#/workflow2'
+          'section': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h/archive#/workflow2'
         'outputs':
         - 'name': 'output workflow2 from MD Equilibration'
-          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC#/workflow2'
+          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-1'
-        'task': '/entries/10_cXJ_e7nShAyw6yIpk6v2Bt2vo/archive/mainfile/aims.out#/workflow2'
+        'task': '/entries/10_cXJ_e7nShAyw6yIpk6v2Bt2vo/archive#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
-          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC#/workflow2'
+          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
         'outputs':
         - 'name': 'output data from Vibrational Analysis'
-          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN#/data'
+          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN/archive#/data'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-2'
-        'task': '/entries/3mLoprN2Pbvquvyv4jJdwls8f3Dk/archive/mainfile/aims.out#/workflow2'
+        'task': '/entries/3mLoprN2Pbvquvyv4jJdwls8f3Dk/archive#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
-          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC#/workflow2'
+          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
         'outputs':
         - 'name': 'output data from Vibrational Analysis'
-          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN#/data'
+          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN/archive#/data'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-3'
-        'task': '/entries/6NVy13aDn2CgXRQTF1RID-Zi-7e0/archive/mainfile/aims.out#/workflow2'
+        'task': '/entries/6NVy13aDn2CgXRQTF1RID-Zi-7e0/archive#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
-          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC#/workflow2'
+          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
         'outputs':
         - 'name': 'output data from Vibrational Analysis'
-          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN#/data'
+          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN/archive#/data'
     ```
 
-Now upload, edit the metadata, and publish `project_workflow.archive.yaml` following [Part 3 > Uploading and Publishing](./custom.md#uploading-and-publishing). Browse the workflow graph of this entry to see how it links all of your uploads together.
+Now upload, edit the metadata, and publish `project_workflow.archive.yaml` following [Part 3 > Uploading and Publishing](./custom.md#uploading-and-publishing). Browse the workflow graph of this entry to see how it links all of your uploads together. Your workflow graph should look like this:
+
+<div class="click-zoom">
+    <label>
+        <input type="checkbox">
+        <img src="../assets/project_workflow.png" alt="Networkx Workflow Graph for Input" width="100%" title="Click to zoom in">
+    </label>
+</div>
+
 
 Now, go to `PUBLISH > Datasets` and find the dataset that you created. Click the arrow to the right of this dataset and browse all the entries that it contains to make sure all of your uploads are included. Then, go back to the datasets page, and click the "assign a DOI" icon to publish your dataset.
 
