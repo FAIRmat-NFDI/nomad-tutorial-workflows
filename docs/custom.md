@@ -297,7 +297,13 @@ You can now add the "create box" and "insert water" tasks to create the final wo
           "section": "<path_to_mainfile>/create_force_field.archive.yaml#/data/Files/0/file"
     ```
 
-Place all of the completed files into a folder called `Custom_ELN_Entries/`. Don't forget to replace `<path_to_mainfile>` with `../upload/archive/mainfile/Custom_ELN_Entries/`. Alternatively, you can download the completed yamls here:
+Create a new folder called `Custom_ELN_Entries` and place in it all of the completed files.
+Don't forget to:
+
+- replace `<path_to_mainfile>` with `../upload/archive/mainfile/Custom_ELN_Entries/` in the last created file `setup_workflow.archive.yaml`
+- include the 5 files previously downloaded (`workflow_script_1.py`, `workflow_script_2.py`, `box.gro`, `water.gro`, `water.top`).
+
+Alternatively, you can download the complete folder here:
 
 <center>
 [Download Custom_ELN_Entries folder](assets/Custom_ELN_Entries.zip){:target="_blank" .md-button}
