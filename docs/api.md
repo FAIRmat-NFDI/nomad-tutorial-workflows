@@ -279,7 +279,7 @@ max_wait_time = 60  # 60 seconds
 interval = 5  # 5 seconds
 
 for i_entry, entry in enumerate(entries):
-    fnm = os.path.join(os.cwd(), f'DFT-{i_entry+1}' ,f'{entry}.zip')
+    fnm = os.path.join(os.getcwd(), f'DFT-{i_entry+1}' ,f'{entry}.zip')
     # make the upload
     upload_id = upload_files_to_nomad(filename=fnm, url='test')
     dft_upload_ids.append(upload_id)
