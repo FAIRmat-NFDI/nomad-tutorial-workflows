@@ -170,7 +170,7 @@ from nomad_utility_workflows.utils.workflows import build_nomad_workflow, nodes_
 Load the saved PIDs:
 
 ```python
-with open('../PIDs.json') as f:
+with open(os.path.join('<path to PIDs>', 'PIDs.json')) as f:
     pids_dict = json.load(f)
 entry_ids = pids_dict.get('entry_ids')
 print(entry_ids)

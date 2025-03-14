@@ -428,11 +428,8 @@ for i_upload, upload in enumerate(dft_upload_ids):
 
 Let's also add the drag and drop upload with the MD data to our dataset. First, go to [Test Deployment > PUBLISH > Uploads](https://nomad-lab.eu/prod/v1/test/gui/user/uploads) and find the `upload_id` for the MD data.
 
-!!! note
-    Create your `PIDs.json` file in the same folder from where you spin up the jupyter notebook.
-
 ```python
-with open('PIDs.json') as f:
+with open(os.path.join('<path to PIDs>', 'PIDs.json')) as f:
     pids_dict = json.load(f)
 
 md_upload_id = pids_dict.get('upload_ids').get('md')
