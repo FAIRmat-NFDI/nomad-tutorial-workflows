@@ -4,11 +4,6 @@
 
 _In this last part of the tutorial series, attendees will complete the example project workflow storage by creating a custom workflow entry in NOMAD that connects all the uploaded tasks. The basics of the schema for defining custom workflows will be covered, followed by a demonstration of the straightforward creation of the required workflow file using the same workflow utility Python module as in the first part of the tutorial series. Finally, attendees will navigate NOMAD's interactive workflow graph visualizations to investigate the uploaded data, and learn how to obtain a DOI for their workflow._
 
-!!! Warning "Attention"
-
-    Preliminary draft.
-
-    Note that the overarching workflow yaml generation below will only work with version 0.0.15 of `nomad-utility-workflows`. Please report any issues that you have as recent changes may still contain bugs.
 
 ## Workflow tasks executed manually or with custom scripts
 

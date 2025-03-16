@@ -4,9 +4,6 @@
 
 _In this part of the tutorial series, attendees will learn how to create custom entries to store data that is not already supported by one of NOMAD's parsers. The basics of writing a schema, using NOMAD's ELN (electronic lab notebook) integration, and how to create simple plots of your data to visualize in the GUI will be covered. Attendees will then use this knowledge to manage the remainder of the data from the example project workflow, which is not automatically recognized by NOMAD._
 
-!!! Warning "Attention"
-
-    Preliminary draft.
 
 ## Workflow tasks executed manually or with custom scripts
 
@@ -124,9 +121,9 @@ The section `AnnotationFile` contains 2 quantities `file` and `description` for 
 
 ??? tip "More on custom schemas"
 
-    The YAML approach is a quick and dirty way to customize your NOMAD entries. 
-    To disincentivise the proliferation of _ad-hoc_ schemas and remain FAIR, YAML sections or quantities only have partial support. 
-    Seamless integration of new quantities happens when schemas are organized in **plugins** (python packages) and installed in NOMAD during deployment. 
+    The YAML approach is a quick and dirty way to customize your NOMAD entries.
+    To disincentivise the proliferation of _ad-hoc_ schemas and remain FAIR, YAML sections or quantities only have partial support.
+    Seamless integration of new quantities happens when schemas are organized in **plugins** (python packages) and installed in NOMAD during deployment.
     See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
 
     The more robust and powerful approach for creating custom schemas is to create a *schema plugin* (see [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}).
