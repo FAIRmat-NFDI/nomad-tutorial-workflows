@@ -4,9 +4,6 @@
 
 *In this part of the tutorial series, you will learn how to interface with NOMAD programmatically using a Python module built to simplify the API (application programming interface). Functionalities for uploading data, editing metadata of uploads, creating datasets with multiple uploads, and publishing data will be covered. Attendees will use these functionalities to manage a portion of the data from the example project workflow, in particular, the subset of data that is automatically recognized and processed by one of NOMAD’s existing parsers. (For attendees without any Python experience, an alternative route to upload via the GUI will also be demonstrated!)*
 
-!!! Warning "Attention"
-
-    Preliminary draft.
 
 ## Programmatic Uploads
 
