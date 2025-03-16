@@ -21,9 +21,17 @@ Click `LOGIN/REGISTER` at the top right.
 
 Open a terminal and create a virtual environment with python==3.11 (It may be possible to use python>=3.9, but the module has only been fully tested with 3.11):
 
-```sh
-python3.11 -m venv .pyenv
-```
+=== "macOS and Linux"
+
+    ```console
+    python3.11 -m venv .pyenv
+    ```
+
+=== "Windows PowerShell"
+
+    ```console
+    py -3.11 -m venv .pyenv
+    ```
 
 ??? tip "Install missing Python 3.11 interpreter"
     To install Python 3.11 interpreter:
@@ -43,7 +51,7 @@ python3.11 -m venv .pyenv
     ```console
     brew install python@3.11
     ```
-    === "Windows"
+    === "Windows PowerShell"
     Download the installer from the [official Python website](https://www.python.org/downloads/release/python-3110/) and run it. 
     Make sure to check the box that says "Add Python 3.11 to PATH" during installation.
 
@@ -55,7 +63,7 @@ Activate the Python virtual environment:
     . .pyenv/bin/activate
     ```
 
-=== "Windows"
+=== "Windows PowerShell"
 
     ```console
     .pyenv\Scripts\activate
