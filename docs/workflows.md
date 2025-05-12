@@ -1,8 +1,6 @@
 # Creating custom workflow entries in NOMAD to link multiple uploads
 
-•Bernadette Mohr — Physics Department and CSMB Adlershof, Humboldt-Universität zu Berlin, Germany
-
-_In this last part of the tutorial series, attendees will complete the example project workflow storage by creating a custom workflow entry in NOMAD that connects all the uploaded tasks. The basics of the schema for defining custom workflows will be covered, followed by a demonstration of the straightforward creation of the required workflow file using the same workflow utility Python module as in the first part of the tutorial series. Finally, attendees will navigate NOMAD's interactive workflow graph visualizations to investigate the uploaded data, and learn how to obtain a DOI for their workflow._
+_In this last part of the tutorial, you will complete the example project workflow storage by creating a custom workflow entry in NOMAD that connects all the uploaded tasks. The basics of the schema for defining custom workflows will be covered, followed by a demonstration of the straightforward creation of the required workflow file using the same workflow utility Python module as in the first part of the tutorial series. Finally, you will navigate NOMAD's interactive workflow graph visualizations to investigate the uploaded data, and learn how to obtain a DOI for their workflow._
 
 
 ## Workflow tasks executed manually or with custom scripts

@@ -1,8 +1,7 @@
 # Creating custom entries in NOMAD using yaml schema and ELN integration
 
-•Andrea Albino — Physics Department and CSMB Adlershof, Humboldt-Universität zu Berlin, Germany
 
-_In this part of the tutorial series, attendees will learn how to create custom entries to store data that is not already supported by one of NOMAD's parsers. The basics of writing a schema, using NOMAD's ELN (electronic lab notebook) integration, and how to create simple plots of your data to visualize in the GUI will be covered. Attendees will then use this knowledge to manage the remainder of the data from the example project workflow, which is not automatically recognized by NOMAD._
+_In this part of the tutorial, you will learn how to create custom entries to store data that is not already supported by one of NOMAD's parsers. The basics of writing a schema, using NOMAD's ELN (electronic lab notebook) integration, and how to create simple plots of your data to visualize in the GUI will be covered. You will then use this knowledge to manage the remainder of the data from the example project workflow, which is not automatically recognized by NOMAD._
 
 
 ## Workflow tasks executed manually or with custom scripts

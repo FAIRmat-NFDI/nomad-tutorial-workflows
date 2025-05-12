@@ -1,6 +1,6 @@
-site_name: FAIRmat Tutorial DPG 2025
+site_name: NOMAD Tutorial Workflows
 site_description: |
-  How to Use NOMAD's Workflow Utilities to Improve Data Management and Facilitate Discovery in Materials Science
+  A tutorial demonstrating workflow and project management in NOMAD
 site_author: FAIRmat consortium
 nav:
   - Overview: index.md

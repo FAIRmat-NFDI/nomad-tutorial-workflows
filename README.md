@@ -1,16 +1,21 @@
-# fairmat-tutorial-DPG-2025
+# nomad-tutorial-workflows
 
 ### Full Title:
 
-FAIRmat Tutorial DPG 2025: How to Use NOMAD's Workflow Utilities to Improve Data Management and Facilitate Discovery in Materials Science
+NOMAD Tutorial Workflows
 
 ### Description:
 
+A tutorial demonstrating workflow and project management in NOMAD
+
+> ℹ️ **Note**
+> This tutorial was originally presented at the **DPG Spring Meeting 2025**.
+> The original version can be found at [Fairmat Tutorial DPG 2025](https://fairmat-nfdi.github.io/fairmat-tutorial-DPG-2025/). This version remains nearly identical, with some minor out-of-date information removed. References to the DPG remain within the tutorial project descriptions.
 
 
-### How to launch locally for debugging
+### How to mkdocs pages locally
 
-In the workflow-documentation directory, create your own virtual environment with Python3.9:
+Create a virtual environment with Python3.xx (>=3.11 suggested):
 ```
 python3 -m venv .pyenvtuto
 ```
@@ -18,18 +23,14 @@ and activate it in your shell:
 ```
 . .pyenvtuto/bin/activate
 ```
-Always ensure that the environment is active.
-Else run the command above again.
-
-Regarding the dependencies, there are 2 specification packages.
-To run the `mkdocs` server locally, `requirements.txt` suffices.
-If you also want to deploy the notebooks enclosed in `jupyter lab` from your local environment, use `requirements.full.txt`.
-In case of doubt, you can start with the leaner `requirements.txt`.
-This leaves open the option to extend to the more comprehensive `requirements.full.txt` later on.
-
-Once you have decided your dependencies, installing them is as easy as:
+upgrade pip
 ```
-pip install -r <requirements>
+pip install --upgrade pip
+```
+
+Install the mkdocs dependencies:
+```
+pip install -r requirements_docs.txt
 ```
 
 Launch locally:
