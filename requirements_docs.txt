@@ -5,3 +5,4 @@ mkdocs-material-extensions==1.1.1
 pymdown-extensions
 mkdocs-click
 mkdocstrings-python
+mike==2.1.3
