@@ -1,8 +1,6 @@
 # FAIR-data management with the NOMAD infrastructure: Core functionalities
 
-•Joseph F. Rudzinski — Physics Department and CSMB Adlershof, Humboldt-Universität zu Berlin, Germany
-
-_In this first part of the tutorial series, an overview of the NOMAD infrastructure will be provided. Attendees will learn how NOMAD processes raw data and stores it within a generalized data structure, and the corresponding GUI features that allow users to comfortably browse data. An example scenario will also be set up for use throughout the remainder of the tutorial series: A researcher with a variety of data obtained within a project workflow would like to upload this data to NOMAD in order to link it to their manuscript while exposing the details of their (meta)data and retaining the scientifically relevant connections between the individual project tasks._
+_In this first section of the tutorial, an overview of the NOMAD infrastructure will be provided. You will learn how NOMAD processes raw data and stores it within a generalized data structure, and the corresponding GUI features that allow users to comfortably browse data. An example scenario will also be set up for use throughout the remainder of the tutorial series: A researcher with a variety of data obtained within a project workflow would like to upload this data to NOMAD in order to link it to their manuscript while exposing the details of their (meta)data and retaining the scientifically relevant connections between the individual project tasks._
 
 
 ## Example Project
