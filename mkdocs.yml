@@ -82,6 +82,7 @@ extra_javascript:
 
   # - assets/code/parse.js
 extra:
-  version: 0.1
+  version:
+    provider: mike
   generator: false
-  provider: mike
+
