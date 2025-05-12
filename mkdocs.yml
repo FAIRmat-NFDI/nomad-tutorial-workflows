@@ -1,5 +1,5 @@
 site_name: NOMAD Tutorial Workflows
-site_url: https://fairmat-nfdi.github.io/nomad-tutorial-workflows/
+site_url: https://fairmat-nfdi.github.io/nomad-tutorial-workflows
 repo_url: https://github.com/FAIRmat-NFDI/nomad-tutorial-workflows
 site_description: |
   A tutorial demonstrating workflow and project management in NOMAD
@@ -33,6 +33,7 @@ theme:
     - navigation.instant
     - navigation.footer
     - content.code.copy
+    - versioning
   prev_next_buttons_location: both
 
 
@@ -83,3 +84,4 @@ extra_javascript:
 extra:
   version: 0.1
   generator: false
+  provider: mike
