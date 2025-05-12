@@ -1,0 +1,1052 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A tutorial demonstrating workflow and project management in NOMAD
+">
+      
+      
+        <meta name="author" content="FAIRmat consortium">
+      
+      
+        <link rel="canonical" href="https://fairmat-nfdi.github.io/nomad-tutorial-workflows/v0.1/custom/">
+      
+      
+        <link rel="prev" href="../api/">
+      
+      
+        <link rel="next" href="../workflows/">
+      
+      
+      <link rel="icon" href="../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.3.1">
+    
+    
+      
+        <title>Part 3 - Custom Entries - NOMAD Tutorial Workflows</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.046329b4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.85d0ee34.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Titillium Web";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#creating-custom-entries-in-nomad-using-yaml-schema-and-eln-integration" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="NOMAD Tutorial Workflows" class="md-header__button md-logo" aria-label="NOMAD Tutorial Workflows" data-md-component="logo">
+      
+  <img src="../assets/nomad-logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            NOMAD Tutorial Workflows
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 3 - Custom Entries
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_1">
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_2">
+    
+  
+</form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/FAIRmat-NFDI/nomad-tutorial-workflows" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="NOMAD Tutorial Workflows" class="md-nav__button md-logo" aria-label="NOMAD Tutorial Workflows" data-md-component="logo">
+      
+  <img src="../assets/nomad-logo.png" alt="logo">
+
+    </a>
+    NOMAD Tutorial Workflows
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/FAIRmat-NFDI/nomad-tutorial-workflows" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../core/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 1 - Core Functionalities
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 2 - Python API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Part 3 - Custom Entries
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Part 3 - Custom Entries
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-tasks-executed-manually-or-with-custom-scripts" class="md-nav__link">
+    Workflow tasks executed manually or with custom scripts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation-setup-steps" class="md-nav__link">
+    Simulation setup steps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#electronic-lab-notebook-eln-entries-in-nomad" class="md-nav__link">
+    Electronic lab notebook (ELN) entries in NOMAD
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-an-eln-entry-from-yaml" class="md-nav__link">
+    Creating an ELN entry from YAML
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-the-schema" class="md-nav__link">
+    Customizing the schema
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-custom-workflow-in-nomad" class="md-nav__link">
+    Creating a custom workflow in NOMAD
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-and-publishing" class="md-nav__link">
+    Uploading and publishing
+  </a>
+  
+    <nav class="md-nav" aria-label="Uploading and publishing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-gui" class="md-nav__link">
+    Using the GUI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-api" class="md-nav__link">
+    Using the API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-the-pids" class="md-nav__link">
+    Saving the PIDs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflows/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Part 4 - Workflows
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#workflow-tasks-executed-manually-or-with-custom-scripts" class="md-nav__link">
+    Workflow tasks executed manually or with custom scripts
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simulation-setup-steps" class="md-nav__link">
+    Simulation setup steps
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#electronic-lab-notebook-eln-entries-in-nomad" class="md-nav__link">
+    Electronic lab notebook (ELN) entries in NOMAD
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-an-eln-entry-from-yaml" class="md-nav__link">
+    Creating an ELN entry from YAML
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#customizing-the-schema" class="md-nav__link">
+    Customizing the schema
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-a-custom-workflow-in-nomad" class="md-nav__link">
+    Creating a custom workflow in NOMAD
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uploading-and-publishing" class="md-nav__link">
+    Uploading and publishing
+  </a>
+  
+    <nav class="md-nav" aria-label="Uploading and publishing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-the-gui" class="md-nav__link">
+    Using the GUI
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-api" class="md-nav__link">
+    Using the API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#saving-the-pids" class="md-nav__link">
+    Saving the PIDs
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="creating-custom-entries-in-nomad-using-yaml-schema-and-eln-integration">Creating custom entries in NOMAD using yaml schema and ELN integration<a class="headerlink" href="#creating-custom-entries-in-nomad-using-yaml-schema-and-eln-integration" title="Permanent link">&para;</a></h1>
+<p><em>In this part of the tutorial, you will learn how to create custom entries to store data that is not already supported by one of NOMAD's parsers. The basics of writing a schema, using NOMAD's ELN (electronic lab notebook) integration, and how to create simple plots of your data to visualize in the GUI will be covered. You will then use this knowledge to manage the remainder of the data from the example project workflow, which is not automatically recognized by NOMAD.</em></p>
+<h2 id="workflow-tasks-executed-manually-or-with-custom-scripts">Workflow tasks executed manually or with custom scripts<a class="headerlink" href="#workflow-tasks-executed-manually-or-with-custom-scripts" title="Permanent link">&para;</a></h2>
+<p><em>Challenge:</em> You need to include the simulation setup procedure with sufficient details for reproducibility, but the setup steps were performed either manually or with custom scripts, such that they will not be automatically recognized by NOMAD.</p>
+<p><em>Your Approach:</em> Use the NOMAD electronic lab notebook (ELN) and custom schema functionalities!</p>
+<div class="admonition warning">
+<p class="admonition-title">Attention</p>
+<p>The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step.</p>
+</div>
+<h2 id="simulation-setup-steps">Simulation setup steps<a class="headerlink" href="#simulation-setup-steps" title="Permanent link">&para;</a></h2>
+<p>Imagine that to set up the MD simulations uploaded in part 1, you had to create structure and topology files. You ran 2 python scripts for this, <code>workflow_script_1.py</code> and <code>workflow_script_2.py</code>. The first script creates the simulation box (stored in <code>box.gro</code>) and inserts the water molecules (stored in <code>water.gro</code>). The second script creates the force field file (<code>water.top</code>).</p>
+<p>You can download these 5 files and save them for later:</p>
+<center>
+    [Download Simulation Setup Input/Output Files](assets/simulation-setup-files.zip){:target="_blank" .md-button }
+</center>
+
+<p>The entire setup workflow can be represented as:</p>
+<video width="100%" controls>
+  <source src="../assets/md-setup-workflow.webm" alt="MD Setup Workflow" type="video/mp4">
+</video>
+
+<p>This is the exact workflow graph that we aim to generate in NOMAD within this part of the tutorial.</p>
+<h2 id="electronic-lab-notebook-eln-entries-in-nomad">Electronic lab notebook (ELN) entries in NOMAD<a class="headerlink" href="#electronic-lab-notebook-eln-entries-in-nomad" title="Permanent link">&para;</a></h2>
+<!-- @andreaa93 - I thought about it a bit, and am still a bit partial towards using the Basic ELN class here. However, feel free to change this demo to some other ELN section. Or you can leave it here in the docs and in person showcase another class, it's up to you. -->
+
+<p>Let's explore the basic functionalities of NOMAD ELNs. You can create a basic ELN entry from <code>Your uploads</code> page by clicking <code>CREATE A NEW UPLOAD &gt; CREATE FROM SCHEMA</code> and selecting <code>Basic ELN</code> under the <code>Built-in Schema</code> drop-down menu, as demonstrated in this video:</p>
+<video width="100%" controls>
+  <source src="../assets/eln-entry-from-gui.webm" alt="" type="video/mp4">
+</video>
+
+<p>Upon entry creation, you will be taken to the <code>Data</code> tab, where you can fill in or edit the predefined ELN quantities in the user-editable ELN interface. Type a dummy description for this entry and then press the <span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M64 32C28.7 32 0 60.7 0 96v320c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7c-12-12-28.3-18.7-45.3-18.7H64zm0 96c0-17.7 14.3-32 32-32h192c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32v-64zm160 160a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"/></svg></span> icon in the upper right. Now, navigate to the <code>Overview</code> page to see your changes there.</p>
+<p>The editable quantities that you found in your ELN entry (e.g., short name, tags, ID, description) appear because they are defined within the <code>Basic ELN</code> schema that you selected in NOMAD. NOMAD provides a tool for browsing all such schemas. Go to <code>ANALYZE &gt; The NOMAD MetaInfo</code>, then select <code>nomad &gt; Basic ELN</code> to view all the quantity definitions and descriptions within this entry class:</p>
+<video width="100%" controls>
+  <source src="../assets/metainfo-browser-basic-eln.webm" alt="" type="video/mp4">
+</video>
+
+<h2 id="creating-an-eln-entry-from-yaml">Creating an ELN entry from YAML<a class="headerlink" href="#creating-an-eln-entry-from-yaml" title="Permanent link">&para;</a></h2>
+<p>Analogous to the simulation code parsers, NOMAD has a parser for its native schema &mdash; the NOMAD MetaInfo. This parser is automatically executed for files named <code>&lt;file_name&gt;.archive.yaml</code>. In this way, users can create ELN entries by uploading a yaml file populated according to NOMAD's schema.</p>
+<p>For example, we can create a basic ELN entry by creating and uploading a file, e.g. <code>basic_eln_entry.archive.yaml</code>, with the contents:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">m_def</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;nomad.datamodel.metainfo.eln.ElnBaseSection&quot;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;ELN</span><span class="nv"> </span><span class="s">entry</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">YAML&quot;</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;A</span><span class="nv"> </span><span class="s">test</span><span class="nv"> </span><span class="s">ELN</span><span class="nv"> </span><span class="s">entry...&quot;</span>
+</code></pre></div>
+<p>The <code>data</code> section is created and defined as type <code>ElnBaseSection</code>, meaning that we can populate all the quantities (e.g., name and description) living in this section (as seen in the MetaInfo browser above).</p>
+<p>Uploading this yaml to the test deployment results in an entry with the overview page:</p>
+<div class="click-zoom">
+    <label>
+        <input type="checkbox">
+        <img src="../assets/basic-eln-entry.png" alt="Basic ELN Entry" width="100%" title="Click to zoom in">
+    </label>
+</div>
+
+<p>If you want to use the API for your upload, check out the box <a href="../api/#uploading-api-basics">"API calls from the terminal"</a> in Part 2.</p>
+<h2 id="customizing-the-schema">Customizing the schema<a class="headerlink" href="#customizing-the-schema" title="Permanent link">&para;</a></h2>
+<p>To document our simulation setup workflow, we need to reference files within our ELN entry. For standardization and search capabilities, it is best practice to use existing classes in the MetaInfo. However, NOMAD also allows users to customize the schema to their own specific needs. Let's create our own schema to store annotated files within an ELN. Create a file <code>ELNFiles.archive.yaml</code> with the following contents:</p>
+<h4><code>ELNFiles.archive.yaml</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">definitions</span><span class="p">:</span><span class="w"> </span><span class="c1"># Use the defintions section to create your schema</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;ELN-Annotated-File-List&#39;</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="nt">sections</span><span class="p">:</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="nt">AnnotatedFile</span><span class="p">:</span><span class="w"> </span><span class="c1"># A subsection for storing an annotated file</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">      </span><span class="nt">m_annotations</span><span class="p">:</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">        </span><span class="nt">eln</span><span class="p">:</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">          </span><span class="nt">overview</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"> </span><span class="c1"># Displays this quantity in the overview page of the entry</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">      </span><span class="nt">quantities</span><span class="p">:</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">        </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="c1"># a quantity for storing the actualy file reference</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">single workflow files</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">          </span><span class="nt">m_annotations</span><span class="p">:</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">            </span><span class="nt">browser</span><span class="p">:</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">              </span><span class="nt">adaptor</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RawFileAdaptor</span><span class="w">  </span><span class="c1"># Allows to navigate to files in the data browser</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">            </span><span class="nt">eln</span><span class="p">:</span>
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">              </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">FileEditQuantity</span><span class="w"> </span><span class="c1"># Allows editing with the GUI</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">        </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="c1"># a quantity for storing the annotation</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">          </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">str</span>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">          </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">describe the file</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">          </span><span class="nt">m_annotations</span><span class="p">:</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">            </span><span class="nt">eln</span><span class="p">:</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="w">              </span><span class="nt">component</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">StringEditQuantity</span><span class="w"> </span><span class="c1"># Allows editing within the GUI</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a><span class="w">    </span><span class="nt">ELNAnnotatedFiles</span><span class="p">:</span><span class="w"> </span><span class="c1"># Define a subsection for storing files</span>
+<a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a><span class="w">      </span><span class="nt">base_sections</span><span class="p">:</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;nomad.datamodel.metainfo.eln.ElnBaseSection&#39;</span><span class="w"> </span><span class="c1"># inherits from the basic ELN class</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&#39;nomad.datamodel.data.EntryData&#39;</span><span class="w"> </span><span class="c1"># necessary when a class will be the root of our archive</span>
+<a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a><span class="w">      </span><span class="nt">m_annotations</span><span class="p">:</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a><span class="w">        </span><span class="nt">eln</span><span class="p">:</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a><span class="w">          </span><span class="nt">hide</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&#39;lab_id&#39;</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="c1"># hides the lab_id quantity that we will not use</span>
+<a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a><span class="w">      </span><span class="nt">sub_sections</span><span class="p">:</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a><span class="w">        </span><span class="nt">Files</span><span class="p">:</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a><span class="w">          </span><span class="nt">repeats</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">True</span><span class="w"> </span><span class="c1"># makes the subsection repeating (i.e., a list)</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a><span class="w">          </span><span class="nt">section</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;#/AnnotatedFile&#39;</span><span class="w"> </span><span class="c1"># this subsection will include the quantities defined within the `AnnotedFile` class defined above</span>
+</code></pre></div>
+<p>The section <code>AnnotationFile</code> contains 2 quantities <code>file</code> and <code>description</code> for storing a file reference and annotation, respectively. The section <code>ELNAnnotatedFiles</code> extends the most basic ELN implementation (<code>ElnBaseSection</code>) with a repeating subsection of type <code>AnnotatedFile</code>. In this way, our ELN will be able to store a list of annotated files.</p>
+<details class="tip">
+<summary>More on custom schemas</summary>
+<p>The YAML approach is a quick and dirty way to customize your NOMAD entries.
+To disincentivise the proliferation of <em>ad-hoc</em> schemas and remain FAIR, YAML sections or quantities only have partial support.
+Seamless integration of new quantities happens when schemas are organized in <strong>plugins</strong> (python packages) and installed in NOMAD during deployment.
+See <a href="https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html" target="_blank">NOMAD Docs &gt; How to write a YAML schema package</a> for more details about defining custom schemas in this way.</p>
+<p>The more robust and powerful approach for creating custom schemas is to create a <em>schema plugin</em> (see <a href="https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html" target="_blank">NOMAD Docs &gt; How to get started with plugins</a>).</p>
+<p>Useful resources for plugin developers are the <a href="https://github.com/FAIRmat-NFDI/nomad-plugin-template">Plugin Template</a> and the <a href="https://github.com/FAIRmat-NFDI/nomad-distro-template">NOMAD Distro Template</a>.</p>
+</details>
+<p>We can now use these definitions to create an entry file for the step of creating the force field file (as illustrated in the image above):</p>
+<h4><code>create_force_field.archive.yaml</code></h4>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="nt">m_def</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles&#39;</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Create</span><span class="nv"> </span><span class="s">force</span><span class="nv"> </span><span class="s">field&#39;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;The</span><span class="nv"> </span><span class="s">force</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">defined</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">input</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">MD</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">engine.&#39;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">  </span><span class="nt">Files</span><span class="p">:</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom_ELN_Entries/water.top&#39;</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;The</span><span class="nv"> </span><span class="s">force</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">file</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">input.&#39;</span>
+</code></pre></div>
+<p>Here we define the data section using our <code>ELNFiles.archive.yaml</code> schema. The given path is a relative path assuming that we will upload these 2 files (i.e., <code>ELNFiles.archive.yaml</code> and <code>create_force_field.archive.yaml</code>) within the same upload with a root folder called <code>Custom_ELN_Entries</code>.</p>
+<p>You can now create analogous files <code>create_box.archive.yaml</code>, <code>insert_water.archive.yaml</code>, <code>workflow_parameters.archive.yaml</code>, <code>workflow_scripts.archive.yaml</code>:</p>
+<details class="success">
+<summary><code>create_box.archive.yaml</code></summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="nt">m_def</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles&#39;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Create</span><span class="nv"> </span><span class="s">box&#39;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;The</span><span class="nv"> </span><span class="s">initial</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">box</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created.&#39;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="nt">Files</span><span class="p">:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom_ELN_Entries/box.gro&#39;</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;An</span><span class="nv"> </span><span class="s">empty</span><span class="nv"> </span><span class="s">structure</span><span class="nv"> </span><span class="s">file</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">box</span><span class="nv"> </span><span class="s">vectors.&#39;</span>
+</code></pre></div>
+</details>
+<details class="success">
+<summary><code>insert_water.archive.yaml</code></summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">  </span><span class="nt">m_def</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles&#39;</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Insert</span><span class="nv"> </span><span class="s">water&#39;</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Water</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">inserted</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">box,</span><span class="nv"> </span><span class="s">creating</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">structure</span><span class="nv"> </span><span class="s">file</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">input.&#39;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">  </span><span class="nt">Files</span><span class="p">:</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom_ELN_Entries/water.gro&#39;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;The</span><span class="nv"> </span><span class="s">structure</span><span class="nv"> </span><span class="s">file</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">input.&#39;</span>
+</code></pre></div>
+</details>
+<details class="success">
+<summary><code>workflow_parameters.archive.yaml</code></summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">m_def</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">nomad.datamodel.metainfo.eln.ElnBaseSection</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Workflow</span><span class="nv"> </span><span class="s">Parameters&#39;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;This</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">description</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">overall</span><span class="nv"> </span><span class="s">workflow</span><span class="nv"> </span><span class="s">parameters,</span><span class="nv"> </span><span class="s">or</span><span class="nv"> </span><span class="s">alternatively</span><span class="nv"> </span><span class="s">standard</span><span class="nv"> </span><span class="s">workflow</span><span class="nv"> </span><span class="s">specification...&#39;</span>
+</code></pre></div>
+</details>
+<details class="success">
+<summary><code>workflow_scripts.archive.yaml</code></summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">data</span><span class="p">:</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">  </span><span class="nt">m_def</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles&#39;</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Workflow</span><span class="nv"> </span><span class="s">Scripts&#39;</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="w">  </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;All</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">scripts</span><span class="nv"> </span><span class="s">run</span><span class="nv"> </span><span class="s">during</span><span class="nv"> </span><span class="s">setup</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">MD</span><span class="nv"> </span><span class="s">simulation.&#39;</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">  </span><span class="nt">Files</span><span class="p">:</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom_ELN_Entries/workflow_script_1.py&#39;</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Creates</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">box</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">inserts</span><span class="nv"> </span><span class="s">water</span><span class="nv"> </span><span class="s">molecules.&#39;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">file</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Custom_ELN_Entries/workflow_script_2.py&#39;</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="s">&#39;Creates</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">appropriate</span><span class="nv"> </span><span class="s">force</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">files</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">simulation</span><span class="nv"> </span><span class="s">engine.&#39;</span>
+</code></pre></div>
+</details>
+<h2 id="creating-a-custom-workflow-in-nomad">Creating a custom workflow in NOMAD<a class="headerlink" href="#creating-a-custom-workflow-in-nomad" title="Permanent link">&para;</a></h2>
+<p>NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the <code>workflow2</code> section instead of the <code>data</code> section. When uploaded to NOMAD, a new <em>workflow</em> entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow. Learn more about the <a href="https://nomad-lab.eu/prod/v1/test/docs/explanation/data.html#archive-files-a-shared-entry-structure">archive file structure</a> in the official NOMAD documentation.</p>
+<p>Let's construct this workflow yaml piece by piece, starting with the section definition and global inputs/outputs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="s">&quot;workflow2&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">  </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;MD</span><span class="nv"> </span><span class="s">Setup</span><span class="nv"> </span><span class="s">workflow&quot;</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">  </span><span class="s">&quot;inputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">parameters&quot;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_parameters.archive.yaml#/data&quot;</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">scripts&quot;</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_scripts.archive.yaml#/data/Files&quot;</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">  </span><span class="s">&quot;outputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;structure</span><span class="nv"> </span><span class="s">file&quot;</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/insert_water.archive.yaml#/data/Files/0/file&quot;</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;force</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">file&quot;</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_force_field.archive.yaml#/data/Files/0/file&quot;</span>
+</code></pre></div>
+<p>This example denotes full path to each yaml file with placeholders like <code>&lt;path_to_mainfile&gt; = ../upload/archive/mainfile/Custom_ELN_Entries/</code>. As we already saw above, the <code>../upload/</code> syntax is used to access files that were uploaded together. The <code>archive/mainfile</code> directory can be used to access all the mainfiles (i.e., files automatically recognized by NOMAD). <code>Custom_ELN_Entries/</code> is the user-defined folder in which the upload is contained.</p>
+<p>This workflow takes as input the entire "workflow parameters" entry and a list of workflow scripts, and outputs the structure and force field files.</p>
+<p>We now need to define each task, which contains its own inputs and outputs, e.g., the task that creates the force field file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="s">&quot;workflow2&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="nn">...</span><span class="w"> </span><span class="c1">### I/Os</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">  </span><span class="s">&quot;tasks&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nn">...</span><span class="w"> </span><span class="c1">### Other tasks</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;m_def&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;nomad.datamodel.metainfo.workflow.TaskReference&quot;</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;create</span><span class="nv"> </span><span class="s">force</span><span class="nv"> </span><span class="s">field&quot;</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">    </span><span class="s">&quot;task&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_force_field.archive.yaml#/data&quot;</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">    </span><span class="s">&quot;inputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">parameters&quot;</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">        </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_parameters.archive.yaml#/data&quot;</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">script</span><span class="nv"> </span><span class="s">2&quot;</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">        </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_scripts.archive.yaml#/data/Files/1/file&quot;</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="s">&quot;outputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;force</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">file&quot;</span>
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">        </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_force_field.archive.yaml#/data/Files/0/file&quot;</span>
+</code></pre></div>
+<p>This task is linked to the entry defined in <code>create_force_field.archive.yaml</code>. It takes as input: 1. the entire workflow parameters entry, defined in <code>workflow_parameters.archive.yaml</code>, and 2. The second file stored in the files list within the workflow scripts entry, defined by <code>workflow_scripts.archive.yaml</code>. The output of this task is the force field file, which is the first file stored in the file list of the create for field entry.</p>
+<p>You can now add the "create box" and "insert water" tasks to create the final workflow file:</p>
+<details class="success">
+<summary><code>setup_workflow.archive.yaml</code></summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="s">&quot;workflow2&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;MD</span><span class="nv"> </span><span class="s">Setup</span><span class="nv"> </span><span class="s">workflow&quot;</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">  </span><span class="s">&quot;inputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">parameters&quot;</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_parameters.archive.yaml#/data&quot;</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">scripts&quot;</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_scripts.archive.yaml#/data/Files&quot;</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">  </span><span class="s">&quot;outputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;structure</span><span class="nv"> </span><span class="s">file&quot;</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/insert_water.archive.yaml#/data/Files/0/file&quot;</span>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;force</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">file&quot;</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_force_field.archive.yaml#/data/Files/0/file&quot;</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">  </span><span class="s">&quot;tasks&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;m_def&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;nomad.datamodel.metainfo.workflow.TaskReference&quot;</span>
+<a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="w">      </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;create</span><span class="nv"> </span><span class="s">box&quot;</span>
+<a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="w">      </span><span class="s">&quot;task&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_box.archive.yaml#/data&quot;</span>
+<a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a><span class="w">      </span><span class="s">&quot;inputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">parameters&quot;</span>
+<a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_parameters.archive.yaml#/data&quot;</span>
+<a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">script</span><span class="nv"> </span><span class="s">1&quot;</span>
+<a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_scripts.archive.yaml#/data/Files/0/file&quot;</span>
+<a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a><span class="w">      </span><span class="s">&quot;outputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;initial</span><span class="nv"> </span><span class="s">box&quot;</span>
+<a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_box.archive.yaml#/data/Files/0/file&quot;</span>
+<a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;m_def&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;nomad.datamodel.metainfo.workflow.TaskReference&quot;</span>
+<a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a><span class="w">      </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;insert</span><span class="nv"> </span><span class="s">water&quot;</span>
+<a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a><span class="w">      </span><span class="s">&quot;task&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/insert_water.archive.yaml#/data&quot;</span>
+<a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a><span class="w">      </span><span class="s">&quot;inputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;initial</span><span class="nv"> </span><span class="s">box&quot;</span>
+<a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_box.archive.yaml#/data/Files/0/file&quot;</span>
+<a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">script</span><span class="nv"> </span><span class="s">1&quot;</span>
+<a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_scripts.archive.yaml#/data/Files/0/file&quot;</span>
+<a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a><span class="w">      </span><span class="s">&quot;outputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;structure</span><span class="nv"> </span><span class="s">file&quot;</span>
+<a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/insert_water.archive.yaml#/data/Files/0/file&quot;</span>
+<a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;m_def&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;nomad.datamodel.metainfo.workflow.TaskReference&quot;</span>
+<a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a><span class="w">      </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;create</span><span class="nv"> </span><span class="s">force</span><span class="nv"> </span><span class="s">field&quot;</span>
+<a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a><span class="w">      </span><span class="s">&quot;task&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_force_field.archive.yaml#/data&quot;</span>
+<a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a><span class="w">      </span><span class="s">&quot;inputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">parameters&quot;</span>
+<a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_parameters.archive.yaml#/data&quot;</span>
+<a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;workflow</span><span class="nv"> </span><span class="s">script</span><span class="nv"> </span><span class="s">2&quot;</span>
+<a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/workflow_scripts.archive.yaml#/data/Files/1/file&quot;</span>
+<a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a><span class="w">      </span><span class="s">&quot;outputs&quot;</span><span class="p p-Indicator">:</span>
+<a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="s">&quot;name&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;force</span><span class="nv"> </span><span class="s">field</span><span class="nv"> </span><span class="s">file&quot;</span>
+<a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a><span class="w">      </span><span class="s">&quot;section&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;&lt;path_to_mainfile&gt;/create_force_field.archive.yaml#/data/Files/0/file&quot;</span>
+</code></pre></div>
+</details>
+<p>Create a new folder called <code>Custom_ELN_Entries</code> and place in it all of the completed files.
+Don't forget to:</p>
+<ul>
+<li>replace <code>&lt;path_to_mainfile&gt;</code> with <code>../upload/archive/mainfile/Custom_ELN_Entries/</code> in the last created file <code>setup_workflow.archive.yaml</code></li>
+<li>include the 5 files previously downloaded (<code>workflow_script_1.py</code>, <code>workflow_script_2.py</code>, <code>box.gro</code>, <code>water.gro</code>, <code>water.top</code>).</li>
+</ul>
+<p>Alternatively, you can download the complete folder here:</p>
+<center>
+[Download Custom_ELN_Entries folder](assets/Custom_ELN_Entries.zip){:target="_blank" .md-button}
+</center>
+
+<h2 id="uploading-and-publishing">Uploading and publishing<a class="headerlink" href="#uploading-and-publishing" title="Permanent link">&para;</a></h2>
+<p>We now need to upload these files, edit the metadata, and publish the upload. You have the choice to use either the GUI, as demonstrated in <a href="../core/#drag-and-drop-gui-uploads">Part 1</a>, or the API, as demonstrated in <a href="../api/#uploading-api-basics">Part 2</a>.</p>
+<h3 id="using-the-gui">Using the GUI<a class="headerlink" href="#using-the-gui" title="Permanent link">&para;</a></h3>
+<p>If you use the GUI upload, you will need to find and use the <code>Edit Metadata</code> button on the uploads page in order to add the <code>dataset_id</code> manually to link the upload with your dataset.</p>
+<p>Once you have published the upload, continue with <a href="#saving-the-pids">Saving the PIDs</a> below.</p>
+<h3 id="using-the-api">Using the API<a class="headerlink" href="#using-the-api" title="Permanent link">&para;</a></h3>
+<p>Create a new notebook <code>Custom_ELN_Entries.ipynb</code> to try the steps below on your own or download the prefilled notebook:</p>
+<center>
+[Download Custom_ELN_Entries.ipynb](assets/Custom_ELN_Entries.ipynb){:target="_blank" .md-button }
+</center>
+
+<ul>
+<li>Make the imports:</li>
+</ul>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">nomad_utility_workflows.utils.uploads</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="n">upload_files_to_nomad</span><span class="p">,</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="n">get_upload_by_id</span><span class="p">,</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="n">edit_upload_metadata</span><span class="p">,</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>    <span class="n">publish_upload</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="p">)</span>
+</code></pre></div>
+</details>
+<ul>
+<li>Zip the folder for upload:</li>
+</ul>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;zip -r Custom_ELN_Entries.zip Custom_ELN_Entries/&#39;</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<ul>
+<li>Upload to NOMAD and check for completion of processing:</li>
+</ul>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">fnm</span> <span class="o">=</span> <span class="s1">&#39;Custom_ELN_Entries.zip&#39;</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># define the timing parameters</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="n">max_wait_time</span> <span class="o">=</span> <span class="mi">60</span>  <span class="c1"># 60 seconds</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">interval</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># 5 seconds</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># make the upload</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">eln_entries_upload_id</span> <span class="o">=</span> <span class="n">upload_files_to_nomad</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">fnm</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="c1"># wait until the upload is processed successfully before continuing</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="n">elapsed_time</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="k">while</span> <span class="n">elapsed_time</span> <span class="o">&lt;</span> <span class="n">max_wait_time</span><span class="p">:</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    <span class="n">nomad_upload</span> <span class="o">=</span> <span class="n">get_upload_by_id</span><span class="p">(</span><span class="n">eln_entries_upload_id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>    <span class="c1"># Check if the upload is complete</span>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>    <span class="k">if</span> <span class="n">nomad_upload</span><span class="o">.</span><span class="n">process_status</span> <span class="o">==</span> <span class="s1">&#39;SUCCESS&#39;</span><span class="p">:</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>        <span class="k">break</span>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>    <span class="c1"># Wait the specified interval before the next call</span>
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>    <span class="n">elapsed_time</span> <span class="o">+=</span> <span class="n">interval</span>
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>    <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Maximum wait time of </span><span class="si">{</span><span class="n">max_wait_time</span><span class="o">/</span><span class="mf">60.</span><span class="si">}</span><span class="s1"> minutes exceeded. Upload with id </span><span class="si">{</span><span class="n">eln_entries_upload_id</span><span class="si">}</span><span class="s1"> is not complete.&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="nb">print</span><span class="p">(</span><span class="n">eln_entries_upload_id</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<ul>
+<li>Add a title and link to your dataset:</li>
+</ul>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">dataset_id</span> <span class="o">=</span> <span class="s1">&#39;&lt;your dataset id&gt;&#39;</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">metadata_new</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;upload_name&#39;</span><span class="p">:</span> <span class="sa">f</span><span class="s1">&#39;Test Upload - ELN Entries&#39;</span><span class="p">,</span> <span class="s1">&#39;datasets&#39;</span><span class="p">:</span> <span class="n">dataset_id</span><span class="p">}</span>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">_</span> <span class="o">=</span> <span class="n">edit_upload_metadata</span><span class="p">(</span><span class="n">eln_entries_upload_id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">upload_metadata</span><span class="o">=</span><span class="n">metadata_new</span><span class="p">)</span>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">nomad_upload</span> <span class="o">=</span> <span class="n">get_upload_by_id</span><span class="p">(</span><span class="n">eln_entries_upload_id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="nb">print</span><span class="p">(</span><span class="n">nomad_upload</span><span class="o">.</span><span class="n">process_status</span> <span class="o">==</span> <span class="s1">&#39;SUCCESS&#39;</span><span class="p">)</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">nomad_upload</span><span class="o">.</span><span class="n">process_running</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<ul>
+<li>Go to NOMAD and inspect your upload. If everything looks correct, go ahead and publish the upload:</li>
+</ul>
+<details class="success">
+<summary>Solution</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># define the timing parameters</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">max_wait_time</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># 30 seconds</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="n">interval</span> <span class="o">=</span> <span class="mi">5</span>  <span class="c1"># 5 seconds</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="n">published_upload</span> <span class="o">=</span> <span class="n">publish_upload</span><span class="p">(</span><span class="n">eln_entries_upload_id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># wait until the upload is processed successfully before continuing</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="n">elapsed_time</span> <span class="o">=</span> <span class="mi">0</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="k">while</span> <span class="n">elapsed_time</span> <span class="o">&lt;</span> <span class="n">max_wait_time</span><span class="p">:</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="n">nomad_upload</span> <span class="o">=</span> <span class="n">get_upload_by_id</span><span class="p">(</span><span class="n">eln_entries_upload_id</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">)</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>    <span class="c1"># Check if the edit upload is complete</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>    <span class="k">if</span> <span class="n">nomad_upload</span><span class="o">.</span><span class="n">process_status</span> <span class="o">==</span> <span class="s1">&#39;SUCCESS&#39;</span><span class="p">:</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>        <span class="k">break</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>    <span class="c1"># Wait the specified interval before the next call</span>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>    <span class="n">elapsed_time</span> <span class="o">+=</span> <span class="n">interval</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>    <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Maximum wait time of </span><span class="si">{</span><span class="n">max_wait_time</span><span class="o">/</span><span class="mf">60.</span><span class="si">}</span><span class="s1"> minutes exceeded. Publish Upload with id </span><span class="si">{</span><span class="n">eln_entries_upload_id</span><span class="si">}</span><span class="s1"> is not complete.&#39;</span><span class="p">)</span>
+</code></pre></div>
+</details>
+<h2 id="saving-the-pids">Saving the PIDs<a class="headerlink" href="#saving-the-pids" title="Permanent link">&para;</a></h2>
+<p>For Part 4, we will need the entry ids for the setup workflow entry (<code>setup_workflow.archive.yaml</code>) and the workflow parameters entry (<code>workflow_parameters.archive.yaml</code>), that is the input for the md setup workflow. Find the proper entry ids using the GUI or the <code>get_entries_of_upload()</code> method as in Part 2. Copy the <code>entry_id</code> for each into your <code>PIDs.json</code> file:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="p">{</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">  </span><span class="nt">&quot;upload_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span><span class="nt">&quot;md-workflow&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;your md workflow upload id from Part 1&gt;&quot;</span>
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">  </span><span class="nt">&quot;entry_ids&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">    </span><span class="nt">&quot;md-workflow&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;your md workflow entry id from Part 1&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">    </span><span class="nt">&quot;DFT&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;&lt;your list of dft entry ids from above&gt;&quot;</span><span class="p">],</span>
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">    </span><span class="nt">&quot;setup-workflow&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;copy the setup workflow entry id here&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">    </span><span class="nt">&quot;parameters&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;copy the workflow parameters entry id here&gt;&quot;</span><span class="p">,</span>
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">    </span><span class="nt">&quot;analysis&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">  </span><span class="p">},</span>
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">  </span><span class="nt">&quot;dataset_id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&lt;your dataset id&gt;&quot;</span>
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="p">}</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../api/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Part 2 - Python API" rel="prev">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Part 2 - Python API
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../workflows/" class="md-footer__link md-footer__link--next" aria-label="Next: Part 4 - Workflows" rel="next">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Part 4 - Workflows
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.footer", "content.code.copy"], "search": "../assets/javascripts/workers/search.dfff1995.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": 0.1}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.dff1b7c8.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+      
+        <script src="https://unpkg.com/cytoscape@3.19.1/dist/cytoscape.min.js"></script>
+      
+        <script src="../assets/custom.js"></script>
+      
+        <script src="../javascripts/katex.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js"></script>
+      
+    
+  </body>
+</html>
