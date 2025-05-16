@@ -19,9 +19,7 @@ Imagine that to set up the MD simulations uploaded in part 1, you had to create 
 
 You can download these 5 files and save them for later:
 
-<center>
-    [Download Simulation Setup Input/Output Files](assets/simulation-setup-files.zip){:target="_blank" .md-button }
-</center>
+[Download Simulation Setup Input/Output Files](assets/simulation-setup-files.zip){:target="_blank" .md-button }
 
 The entire setup workflow can be represented as:
 
@@ -301,9 +299,7 @@ Don't forget to:
 
 Alternatively, you can download the complete folder here:
 
-<center>
 [Download Custom_ELN_Entries folder](assets/Custom_ELN_Entries.zip){:target="_blank" .md-button}
-</center>
 
 ## Uploading and publishing
 
@@ -319,9 +315,7 @@ Once you have published the upload, continue with [Saving the PIDs](#saving-the-
 
 Create a new notebook `Custom_ELN_Entries.ipynb` to try the steps below on your own or download the prefilled notebook:
 
-<center>
 [Download Custom_ELN_Entries.ipynb](assets/Custom_ELN_Entries.ipynb){:target="_blank" .md-button }
-</center>
 
 - Make the imports:
 

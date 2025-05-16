@@ -34,6 +34,7 @@ theme:
     - navigation.footer
     - content.code.copy
     - versioning
+    - content.buttons
   prev_next_buttons_location: both
 
 

@@ -102,15 +102,11 @@ To create an entry according to this schema, create the file `vibrational_analys
 
 Alternatively, you can download all 3 files here:
 
-<center>
 [Download Vibrational Analysis Files](assets/vibrational-analysis-files.zip){:target="_blank" .md-button}
-</center>
 
 Now we can once again use either the GUI or the API to upload, edit metadata (add a title and link to the dataset), and publish. We will not repeat the steps here, but encourage you to try to repeat the API steps on your own. You can also download the prefilled `Vibrational_Analysis.ipynb` to perform these steps:
 
-<center>
 [Download Vibrational Analysis Upload and Publish Notebook](assets/Vibrational_Analysis_Entry.ipynb){:target="_blank" .md-button}
-</center>
 
 After you have completed the publishing, save the `entry_id` to your `PIDs.json`, as we will need it in the final section of the tutorial below:
 
@@ -147,9 +143,7 @@ As in Part 3, we could create the necessary `archive.yaml` manually. However, th
 
 Create a new notebook `Generate_Workflow_Yaml.ipynb` to work step by step or download the prefilled notebook:
 
-<center>
 [Download Generate_Workflow_Yaml.ipynb](assets/Generate_Workflow_Yaml.ipynb){:target="_blank" .md-button }
-</center>
 
 Make the imports:
 
