@@ -56,6 +56,7 @@ After all relevant changes are merged into main branch, checkout an up-to-date m
 
 ```
 mike deploy --push --update-aliases vx.x latest
+mike set-default latest --push
 ```
 
 where x.x corresponds to the next major or minor versions of the repo as appropriate.
