@@ -151,79 +151,111 @@ Make the imports:
 import json
 import gravis as gv
 import networkx as nx
-from nomad_utility_workflows.utils.workflows import build_nomad_workflow, nodes_to_graph
+
+from nomad_utility_workflows.utils.workflows import (
+    NodeAttributes,
+    NodeAttributesUniverse,
+    build_nomad_workflow,
+    nodes_to_graph,
+)
 ```
 
 Load the saved PIDs:
 
 ```python
-with open(os.path.join('<path to PIDs>', 'PIDs.json')) as f:
+with open('PIDs.json') as f:
     pids_dict = json.load(f)
 entry_ids = pids_dict.get('entry_ids')
-print(entry_ids)
+upload_ids = pids_dict.get('upload_ids')
 ```
 
 Create a dictionary with inputs, outputs, and tasks as follows:
 
 ```python
 node_attributes = {
-    0: {'name': 'Workflow Parameters',
-        'type': 'input',
-        'path_info': {
+    0: NodeAttributes(
+        name='Workflow Parameters',
+        type='input',
+        path_info={
             'entry_id': entry_ids.get('parameters'),
+            'upload_id': upload_ids.get('setup-workflow'),
             'mainfile_path': 'workflow_parameters.archive.yaml',
-            'archive_path': 'data',}
-       },
-    1: {'name': 'MD Setup',
-        'type': 'workflow',
-        'path_info': {
+            'archive_path': 'data',
+        },
+    ),
+    1: NodeAttributes(
+        name='MD Setup',
+        type='workflow',
+        path_info={
             'entry_id': entry_ids.get('setup-workflow'),
-            'mainfile_path': 'setup_workflow.archive.yaml'},
-        'in_edge_nodes': [0],
-       },
-    2: {'name': 'MD Equilibration',
-    'type': 'workflow',
-    'path_info': {
-        'entry_id': entry_ids.get('md-workflow'),
-        'mainfile_path': 'workflow.archive.yaml'},
-    'in_edge_nodes': [1],
-       },
-    3: {'name': 'DFT-1',
-    'type': 'workflow',
-    'path_info': {
-        'entry_id': entry_ids.get('DFT')[0],
-        'mainfile_path': 'aims.out'
-    },
-    'in_edge_nodes': [2],
-    'out_edge_nodes': [6],
-    },
-    4: {'name': 'DFT-2',
-        'type': 'workflow',
-        'path_info': {
+            'upload_id': upload_ids.get('setup-workflow'),
+            'mainfile_path': 'setup_workflow.archive.yaml',
+        },
+        in_edge_nodes=[0],
+    ),
+    2: NodeAttributes(
+        name='MD Equilibration',
+        type='workflow',
+        path_info={
+            'entry_id': entry_ids.get('md-workflow'),
+            'upload_id': upload_ids.get('md-workflow'),
+            'mainfile_path': 'workflow.archive.yaml',
+        },
+        in_edge_nodes=[1],
+    ),
+    3: NodeAttributes(
+        name='DFT-1',
+        type='workflow',
+        entry_type='simulation',
+        path_info={
+            'entry_id': entry_ids.get('DFT')[0],
+            'upload_id': upload_ids.get('DFT')[0],
+            'mainfile_path': 'aims.out'
+            },
+        in_edge_nodes=[2],
+        out_edge_nodes=[6],
+    ),
+    4: NodeAttributes(
+        name='DFT-2',
+        type='task',
+        entry_type='simulation',
+        path_info={
             'entry_id': entry_ids.get('DFT')[1],
+            'upload_id': upload_ids.get('DFT')[1],
             'mainfile_path': 'aims.out'
-        },
-        'in_edge_nodes': [2],
-        'out_edge_nodes': [6],
-    },
-    5: {'name': 'DFT-3',
-        'type': 'workflow',
-        'path_info': {
+            },
+        in_edge_nodes=[2],
+        out_edge_nodes=[6],
+    ),
+    5: NodeAttributes(
+        name='DFT-3',
+        type='task',
+        entry_type='simulation',
+        path_info={
             'entry_id': entry_ids.get('DFT')[2],
+            'upload_id': upload_ids.get('DFT')[2],
             'mainfile_path': 'aims.out'
-        },
-        'in_edge_nodes': [2],
-        'out_edge_nodes': [6],
-    },
-    6: {'name': 'Vibrational Analysis',
-        'type': 'output',
-        'path_info': {
+            },
+        in_edge_nodes=[2],
+        out_edge_nodes=[6],
+    ),
+    6: NodeAttributes(
+        name='Vibrational Analysis',
+        type='output',
+        path_info={
             'entry_id': entry_ids.get('analysis'),
+            'upload_id': upload_ids.get('analysis'),
             'mainfile_path': 'vibrational_analysis.archive.yaml',
-            'archive_path': 'data'
+            'archive_path': 'data',
         },
-    }
-  }
+    ),
+}
+```
+
+Validate your dictionary by creating a `NodeAttributesUniverse` object:
+
+```python
+node_attributes_universe = NodeAttributesUniverse(nodes=node_attributes)
 ```
 
 This dictionary of node attributes directly informs the creation of the workflow YAML without explicitly referencing specific sections of the NOMAD schema. Specification of the mainfile recognized by the NOMAD parsers is required. In this case, we also include the appropriate entry ids to link together the entries that we have already created. Detailed information about all possible attributes can be found in [`nomad-utility-workflows` Docs > Explanation > Workflows](https://fairmat-nfdi.github.io/nomad-utility-workflows/explanation/workflows.html){:target="\_blank"}
@@ -231,7 +263,7 @@ This dictionary of node attributes directly informs the creation of the workflow
 Now, to create a graph of your workflow simply run:
 
 ```python
-workflow_graph_input = nodes_to_graph(node_attributes)
+workflow_graph_input = nodes_to_graph(node_attributes_universe)
 ```
 
 The result can be visualized with:
@@ -260,7 +292,7 @@ First designate the full path and filename for your YAML and a name for your wor
 ```python
 workflow_metadata = {
     'destination_filename': './project_workflow.archive.yaml',
-    'workflow_name': 'DPG Tutorial 2025 Project Workflow',
+    'workflow_name': 'Tutorial Project Workflow',
 }
 ```
 
@@ -301,59 +333,89 @@ We see that our output graph looks signficantly different than the input. That's
 
     ```yaml
     'workflow2':
-      'name': 'DPG Tutorial 2025 Project Workflow'
+      'name': 'Tutorial Project Workflow'
       'inputs':
       - 'name': 'Workflow Parameters'
-        'section': '/entries/tc_dLqPqR9lqLT1JbFr0IfZ1n39e/archive#/data'
+        'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/ujuIHCdj7StVCxbvYP7NjMvG4v22#/data'
       'outputs':
       - 'name': 'Vibrational Analysis'
-        'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN/archive#/data'
+        'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
+      - 'name': 'output system from DFT-1'
+        'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/system/-1'
+      - 'name': 'output calculation from DFT-1'
+        'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/calculation/-1'
+      - 'name': 'output system from DFT-2'
+        'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/system/-1'
+      - 'name': 'output calculation from DFT-2'
+        'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/calculation/-1'
+      - 'name': 'output system from DFT-3'
+        'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/system/-1'
+      - 'name': 'output calculation from DFT-3'
+        'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/calculation/-1'
       'tasks':
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'MD Setup'
-        'task': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h/archive#/workflow2'
+        'task': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
         'inputs':
         - 'name': 'input data from Workflow Parameters'
-          'section': '/entries/tc_dLqPqR9lqLT1JbFr0IfZ1n39e/archive#/data'
+          'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/ujuIHCdj7StVCxbvYP7NjMvG4v22#/data'
         'outputs':
         - 'name': 'output workflow2 from MD Setup'
-          'section': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h/archive#/workflow2'
+          'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'MD Equilibration'
-        'task': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
+        'task': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Setup'
-          'section': '/entries/SceEbsfzkFo2_-dEIBIcgtp7E61h/archive#/workflow2'
+          'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
         'outputs':
         - 'name': 'output workflow2 from MD Equilibration'
-          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
+          'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-1'
-        'task': '/entries/10_cXJ_e7nShAyw6yIpk6v2Bt2vo/archive#/workflow2'
+        'task': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
-          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
+          'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
+        - 'name': 'input system from DFT-1'
+          'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/system/-1'
         'outputs':
         - 'name': 'output data from Vibrational Analysis'
-          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN/archive#/data'
+          'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
+        - 'name': 'output system from DFT-1'
+          'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/system/-1'
+        - 'name': 'output calculation from DFT-1'
+          'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/calculation/-1'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-2'
-        'task': '/entries/3mLoprN2Pbvquvyv4jJdwls8f3Dk/archive#/workflow2'
+        'task': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
-          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
+          'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
+        - 'name': 'input system from DFT-2'
+          'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/system/-1'
         'outputs':
         - 'name': 'output data from Vibrational Analysis'
-          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN/archive#/data'
+          'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
+        - 'name': 'output system from DFT-2'
+          'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/system/-1'
+        - 'name': 'output calculation from DFT-2'
+          'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/calculation/-1'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-3'
-        'task': '/entries/6NVy13aDn2CgXRQTF1RID-Zi-7e0/archive#/workflow2'
+        'task': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
-          'section': '/entries/KD1gv6i9vNP7C1pllBhUUTLUXjMC/archive#/workflow2'
+          'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
+        - 'name': 'input system from DFT-3'
+          'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/system/-1'
         'outputs':
         - 'name': 'output data from Vibrational Analysis'
-          'section': '/entries/-vSRAs4_EcgqGx8XCZ5slhsW_xTN/archive#/data'
+          'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
+        - 'name': 'output system from DFT-3'
+          'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/system/-1'
+        - 'name': 'output calculation from DFT-3'
+          'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/calculation/-1'
     ```
 
 Now upload, edit the metadata, and publish `project_workflow.archive.yaml` following [Part 3 > Uploading and Publishing](./custom.md#uploading-and-publishing). Browse the workflow graph of this entry to see how it links all of your uploads together. Your workflow graph should look like this:
@@ -369,3 +431,7 @@ Now upload, edit the metadata, and publish `project_workflow.archive.yaml` follo
 Now, go to `PUBLISH > Datasets` and find the dataset that you created. Click the arrow to the right of this dataset and browse all the entries that it contains to make sure all of your uploads are included. Then, go back to the datasets page, and click the "assign a DOI" icon to publish your dataset.
 
 That's it! You now have a persistant identifier to add to your publication in order to reference your data. Once your manuscript is accepted and receives a DOI, you can then cross-reference the manuscript by once again editing the metadata of each upload to include a reference to your paper.
+
+<!-- TODO - recreate all the graph images with new IOs -->
+<!-- TODO - replace ipynb for download with updated version -->
+
