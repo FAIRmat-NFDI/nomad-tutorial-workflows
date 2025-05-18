@@ -12,7 +12,7 @@ You’ll finalize the example project by creating a structured, interactive repr
 
 ---
 
-## Workflow tasks executed manually or with custom scripts
+## 🧩 Custom Plots and Hierarchical Workflows
 
 Workflows are an important aspect of data as they explain how the data was generated and are essential for reproducibility. In this sense, a workflow has already happened and has produced input and output data that are linked through tasks that have been performed. This often is also referred to as data provenance or provenance graph.
 

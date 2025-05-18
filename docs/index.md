@@ -4,7 +4,7 @@
 
 - Organize and manage complex research workflows using NOMAD
 - Integrate diverse data sources into a single, reproducible project
-- Track data provenance and metadata for AI-readiness
+- Track data provenance and metadata
 - Interface with the NOMAD repository programmatically for automation and high-throughput use
 
 ## 📌 Prerequisites
