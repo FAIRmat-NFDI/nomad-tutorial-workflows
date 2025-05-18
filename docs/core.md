@@ -1,32 +1,47 @@
-# FAIR-data management with the NOMAD infrastructure: Core functionalities
+# Part 1: Using NOMAD's Core Functionalities
 
-_In this first section of the tutorial, an overview of the NOMAD infrastructure will be provided. You will learn how NOMAD processes raw data and stores it within a generalized data structure, and the corresponding GUI features that allow users to comfortably browse data. An example scenario will also be set up for use throughout the remainder of the tutorial series: A researcher with a variety of data obtained within a project workflow would like to upload this data to NOMAD in order to link it to their manuscript while exposing the details of their (meta)data and retaining the scientifically relevant connections between the individual project tasks._
+## 🎯 What You Will Learn
 
+- How NOMAD processes and structures raw data
+- How to navigate and explore datasets via the NOMAD GUI
+- How to define a research project for structured, searchable storage
 
-## Example Project
+**Approach:** You will set up an example project that we’ll use throughout the tutorial&mdash;a real-world workflow in which a researcher uploads, links, and publishes a set of heterogeneous data tasks from a scientific study.
 
-You are a researcher investigating the atomic structure and electronic properties of water. Your project workflow can be illustrated with the following workflow graph:
+---
+
+## 🗂️ Example Project
+
+You are a researcher investigating the atomic structure and electronic properties of water. Your project workflow includes multiple simulation stages and analysis steps.
+
+The graph below illustrates the structure of your project workflow:
 
 <div class="click-zoom">
     <label>
         <input type="checkbox">
-        <img src="../assets/project_workflow.png" alt="Networkx Workflow Graph for Input" width="100%" title="Click to zoom in">
+        <img src="../assets/project_workflow.png" alt="Workflow graph" width="100%" title="Click to zoom in">
     </label>
 </div>
 
-Overarching Workflow Tasks:
+**Overarching Workflow Tasks:**
 
 1. A series of manual or self-scripted processes for setup.
-
 2. Classical molecular dynamics to generate preliminary structures, using a standard simulation software.
-
 3. Single-point self-consistent-field DFT calculations to determine the electronic properties, again using a standard software.
-
 4. Vibrational analysis using an in-house code.
 
-_Challenge:_ You are writing a manuscript for publication and have been asked to collect all your data, appropriately document all the methodological steps in your procedure, ensuring reproducibility to the greatest extent possible, and to make your data available to the public upon publication.
+---
 
-_Your Approach:_ Use the NOMAD central repository!
+**Challenge:**
+You are preparing a manuscript for publication and have been asked to:
+
+- Collect and organize your data
+- Document all methodological steps
+- Ensure reproducibility as fully as possible
+- Make the data publicly accessible upon publication
+
+**Your Solution:**
+Use the [NOMAD Central Repository](https://nomad-lab.eu/prod/v1/gui/about/information){:target="\_blank"} to upload, structure, and share your complete project workflow.
 
 ## The NOMAD Repository and Infrastructure
 
@@ -83,7 +98,7 @@ workflow-example-water-atomistic.zip
 
 The simulations were run with the molecular dynamics simulation package GROMACS. As we will see, the `.log` files will be automatically detected as **mainfiles** of a GROMACS simulations by NOMAD, followed by the linking to corresponding auxillary files (i.e., other input/output files from that simulation) and, finally, an extraction and storage of all the relevant (metadata) within NOMAD's structured data schema.
 
-This example data has been pre-uploaded and published on NOMAD. Go to the [example data upload page](https://nomad-lab.eu/prod/v1/gui/user/uploads/upload/id/WWGPCK-URqGmJWkh_9tElQ){:target="\_blank"} and download the example files by clicking the :fontawesome-solid-cloud-arrow-down: icon. Create a workspace folder for this tutorial, e.g., `workspace_DPG_2025/`, and then move the downloaded zip to this folder. We suggest also creating sub-folders `Part-1`-`Part-4` for organizational purposes.
+This example data has been pre-uploaded and published on NOMAD. Go to the [example data upload page](https://nomad-lab.eu/prod/v1/gui/user/uploads/upload/id/WWGPCK-URqGmJWkh_9tElQ){:target="\_blank"} and download the example files by clicking the :fontawesome-solid-cloud-arrow-down: icon. Create a workspace folder for this tutorial, e.g., `workspace_nomad_tutorial_workflows/`, and then move the downloaded zip to this folder. We suggest also creating sub-folders `Part-1`-`Part-4` for organizational purposes.
 
 !!! note "The Test NOMAD Deployment"
 
@@ -113,11 +128,14 @@ We will need both the `upload_id` and the `entry_id` for this entry later. Copy 
 ```json
 {
   "upload_ids": {
-    "md-workflow": "<enter the copied upload_id here>"
-  },
+    "md-workflow": "<enter the copied upload_id here>",
+    "DFT": [ "", "", ""],
+    "setup-workflow": "",
+    "analysis": ""
+     },
   "entry_ids": {
     "md-workflow": "<enter the copied entry_id here>",
-    "DFT": "",
+    "DFT": ["", "", ""],
     "setup-workflow": "",
     "parameters": "",
     "analysis": ""

@@ -5,11 +5,11 @@ site_description: |
   A tutorial demonstrating workflow and project management in NOMAD
 site_author: FAIRmat consortium
 nav:
-  - Overview: index.md
+  - Getting Started: index.md
   - Part 1 - Core Functionalities: core.md
   - Part 2 - Python API: api.md
   - Part 3 - Custom Entries: custom.md
-  - Part 4 - Workflows: workflows.md
+  - Part 4 - Custom Workflows: workflows.md
 theme:
   name: material
   palette:

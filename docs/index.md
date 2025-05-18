@@ -1,17 +1,41 @@
-# How to Use NOMAD's Workflow Utilities to Improve Data Management and Facilitate Discovery in Materials Science
+# Workflow and Project Management with NOMAD
 
-NOMAD [[nomad-lab.eu](nomad-lab.eu){:target="\_blank"}] [1] is an open-source, community-driven data infrastructure that supports automated (meta)data extraction from a wide range of simulations, including ab initio and advanced many-body calculations, as well as molecular dynamics simulations. NOMAD also provides extensive customization capabilities to support experimental data. NOMAD allows users to store both standardized and custom complex workflows, which streamline data provenance storage and analysis, facilitating efficient curation of AI-ready datasets.
+## 🧭 What You Will Learn
 
-This tutorial focuses on recently developed workflow functionalities and utilities within the NOMAD infrastructure, with a step-by-step guide for storing a custom project workflow that contains tasks involving a variety of distinct data sources. This acquired knowledge can then be used to transform their day-to-day project data management, or even to interface with the NOMAD repository in a high-throughput fashion, opening improved discovery pipelines by leveraging the benefits of NOMAD’s comprehensive and FAIR-compliant data management system [2].
+- Organize and manage complex research workflows using NOMAD
+- Integrate diverse data sources into a single, reproducible project
+- Track data provenance and metadata for AI-readiness
+- Interface with the NOMAD repository programmatically for automation and high-throughput use
 
-[1] Scheidgen, M. et al., JOSS 8, 5388 (2023).
+## 📌 Prerequisites
 
-[2] Scheffler, M. et al., Nature 604, 635-642 (2022).
+This tutorial supports both **graphical (GUI)** and **programmatic (Python/CLI)** workflows.
 
-!!! note "FYI"
-    This tutorial was originally presented at the DPG Spring Meeting 2025. The original pages can be found at [Fairmat Tutorial DPG 2025](https://fairmat-nfdi.github.io/fairmat-tutorial-DPG-2025/){:target="\_blank"}. The present tutorial remains nearly identical, with some minor out-of-date information being removed. References to the DPG remain within the tutorial project descriptions.
+### Required
 
-## **Tutorial preparation**
+- 🌐 **NOMAD account**
+  Free registration is required to upload and manage data
+
+### Recommended (for efficiency and automation)
+
+- 💻 **Terminal environment**
+  Install the workflow utility module via Bash (Linux/macOS) or PowerShell (Windows)
+
+- 🐍 **Basic Python knowledge**
+  Utilize workflow utility tools using provided Jupyter notebooks
+
+!!! tip "Can't code? No problem."
+    You can complete the tutorial entirely using the :
+
+    - Use provided templates to create input files manually
+    - Upload and manage workflows via NOMAD's web interface
+    - Skip all Python- and Jupyter-related steps
+
+    ⚠️ Some tasks may be **more manual and time-consuming**, but all core functionality is accessible without programming.
+
+---
+
+## ⚙️ Tutorial Preparation
 
 ### 1. Create a NOMAD account at [NOMAD Central Deployment](https://nomad-lab.eu/prod/v1/gui/about/information){:target="\_blank"}
 

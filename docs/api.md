@@ -1,13 +1,19 @@
-# Using NOMAD’s API for project management
+# Part 2: Using NOMAD’s API for Project Management
 
-*In this part of the tutorial, you will learn how to interface with NOMAD programmatically using a Python module built to simplify the API (application programming interface). Functionalities for uploading data, editing metadata of uploads, creating datasets with multiple uploads, and publishing data will be covered. Attendees will use these functionalities to manage a portion of the data from the example project workflow, in particular, the subset of data that is automatically recognized and processed by one of NOMAD’s existing parsers.*
+## 🎯 What You Will Learn
 
+- How to interface with NOMAD using a simplified Python API
+- How to (programmatically) upload data, edit metadata, create datasets, and publish data
 
-## Programmatic Uploads
+---
 
-*Challenge:* You need to upload the DFT calculations to NOMAD, but this large set of calculations were performed and are currently stored on your groups HPC cluster. (Here we will only work with 3 calculations for demonstration purposes).
+## 🛠️ Programmatic Uploads
 
-*Your Approach:* Use the NOMAD workflow utility plugin!
+**Challenge:**
+You need to upload the DFT calculations to NOMAD, but this large set of calculations were performed and are currently stored on your groups HPC cluster. (Here we will only work with 3 calculations for demonstration purposes).
+
+**Your Solution:**
+Use the **[`nomad-utility-workflows`](https://fairmat-nfdi.github.io/nomad-utility-workflows/){:target="_blank"}** module!
 
 !!! Warning "Attention"
     The exercises have to be performed in a jupyter notebook (several will be provided during the tutorial) or in the same terminal/python session to retain the imported packages and defined variables during each step.
@@ -314,19 +320,27 @@ print(dft_entry_ids)
 
 This should return a list of 3 entry ids. Copy the list into your `PIDs.json` file from Part 1:
 
+
 ```json
 {
   "upload_ids": {
-    "md": "<your md workflow upload id from Part 1>"
-	 },
+    "md-workflow": "<your md workflow upload id from Part 1>",
+    "DFT": [
+        "<copy...",
+        "the list of...",
+        "dft upload ids>"
+    ],
+    "setup-workflow": "",
+    "analysis": ""
+     },
   "entry_ids": {
-    "md": "<your md workflow entry id from Part 1>",
+    "md-workflow": "<your md workflow entry id from Part 1>",
     "DFT": [
         "<copy...",
         "the list of...",
         "dft entry ids>"
     ],
-    "eln": "",
+    "setup-workflow": "",
     "parameters": "",
     "analysis": ""
   },
@@ -353,8 +367,11 @@ Copy the `dataset_id` into `PIDs.json`) for later use. (You can always find it b
 ```json
 {
   "upload_ids": {
-    "md-workflow": "<your md workflow upload id from Part 1>"
-	 },
+    "md-workflow": "<your md workflow upload id from Part 1>",
+    "DFT": ["<your list of dft upload ids from above>"],
+    "setup-workflow": "",
+    "analysis": ""
+     },
   "entry_ids": {
     "md-workflow": "<your md workflow entry id from Part 1>",
     "DFT": ["<your list of dft entry ids from above>"],
