@@ -3,8 +3,7 @@
 ## 🎯 What You Will Learn
 
 - How NOMAD processes and structures raw data
-- How to navigate and explore datasets via the NOMAD GUI
-- How to define a research project for structured, searchable storage
+- How to navigate and explore entries via the NOMAD GUI
 
 **Approach:** You will set up an example project that we’ll use throughout the tutorial&mdash;a real-world workflow in which a researcher uploads, links, and publishes a set of heterogeneous data tasks from a scientific study.
 
