@@ -1,17 +1,25 @@
-# Creating custom entries in NOMAD using yaml schema and ELN integration
+# Part 3: Creating Custom Entries in NOMAD
 
+## 🎯 What You Will Learn
 
-_In this part of the tutorial, you will learn how to create custom entries to store data that is not already supported by one of NOMAD's parsers. The basics of writing a schema, using NOMAD's ELN (electronic lab notebook) integration, and how to create simple plots of your data to visualize in the GUI will be covered. You will then use this knowledge to manage the remainder of the data from the example project workflow, which is not automatically recognized by NOMAD._
+- How to store data that is **not supported by existing NOMAD parsers**
+- How to define a custom **YAML schema**
+- How to use the **NOMAD ELN (Electronic Lab Notebook)** interface
+- How to connect these custom entries into a workflow graph
 
+---
 
-## Workflow tasks executed manually or with custom scripts
+## 🧰 Workflow Tasks Executed Manually or via Custom Scripts
 
-_Challenge:_ You need to include the simulation setup procedure with sufficient details for reproducibility, but the setup steps were performed either manually or with custom scripts, such that they will not be automatically recognized by NOMAD.
+**Challenge:**
+You need to include the simulation setup procedure with sufficient details for reproducibility, but the setup steps were performed either manually or with custom scripts, such that they will not be automatically recognized by NOMAD.
 
-_Your Approach:_ Use the NOMAD electronic lab notebook (ELN) and custom schema functionalities!
+**Your Solution:**
+Use NOMAD’s **ELN** and **custom schema** functionalities!
 
-!!! Warning "Attention"
+!!! warning "Attention"
     The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step.
+
 
 ## Simulation setup steps
 
@@ -421,8 +429,11 @@ For Part 4, we will need the entry ids for the setup workflow entry (`setup_work
 ```json
 {
   "upload_ids": {
-    "md-workflow": "<your md workflow upload id from Part 1>"
-  },
+    "md-workflow": "<your md workflow upload id from Part 1>",
+    "DFT": ["<your list of dft upload ids from above>"],
+    "setup-workflow": "<copy the setup workflow upload id here>",
+    "analysis": ""
+     },
   "entry_ids": {
     "md-workflow": "<your md workflow entry id from Part 1>",
     "DFT": ["<your list of dft entry ids from above>"],
