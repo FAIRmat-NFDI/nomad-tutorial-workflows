@@ -18,7 +18,7 @@ You need to include the simulation setup procedure with sufficient details for r
 Use NOMAD’s **ELN** and **custom schema** functionalities!
 
 !!! warning "Attention"
-    The exercises have to be performed in a jupyter notebook (provided below) or in the same terminal/python session to retain the imported packages and defined variables during each step.
+    There are some steps in this section that can be performed programmatically or "manually" in the GUI. The programmable route is intended to be performed in the jupyter notebook provided below or in the same terminal/python session to retain the imported packages and defined variables during each step.
 
 
 ## Simulation setup steps
@@ -79,11 +79,14 @@ Uploading this yaml to the test deployment results in an entry with the overview
     </label>
 </div>
 
-If you want to use the API for your upload, check out the box ["API calls from the terminal"](api.md#uploading-api-basics) in Part 2.
-
 ## Customizing the schema
 
-To document our simulation setup workflow, we need to reference files within our ELN entry. For standardization and search capabilities, it is best practice to use existing classes in the MetaInfo. However, NOMAD also allows users to customize the schema to their own specific needs. Let's create our own schema to store annotated files within an ELN. Create a file `ELNFiles.archive.yaml` with the following contents:
+To document our simulation setup workflow, we need to reference files within our ELN entry. For standardization and search capabilities, it is best practice to use existing classes in the MetaInfo. However, NOMAD also allows users to customize the schema to their own specific needs. Let's create our own schema to store annotated files within an ELN.
+
+!!! warning "Attention"
+    Understanding the details of the customized schema below is beyond the scope of this tutorial, and is not necessarily the adviced route for the most robust customization. The important take away is that you can in principal create you own schema. In this case we have done so to enable storage of annotated files.
+
+Create a file `ELNFiles.archive.yaml` with the following contents:
 
 <h4><code>ELNFiles.archive.yaml</code></h4>
 ```yaml

@@ -47,7 +47,12 @@ e/A^3,1/cm
 0.0261,3194.
 ```
 
-NOMAD has a variety of tools, including plotting functionalities, that can be utilized when defining a custom schema. Let's create an ELN entry that will plot the results of the vibrational analysis. Create a file `vibrational_plot_schema.archive.yaml` with the following content:
+NOMAD has a variety of tools, including plotting functionalities, that can be utilized when defining a custom schema. Let's create an ELN entry that will plot the results of the vibrational analysis.
+
+!!! warning "Attention"
+    Understanding the details of the customized plotting schema below is beyond the scope of this tutorial, and is not necessarily the adviced route for the most robust plotting customization. The important take away is that you can in principal create you own plotting schema. In this case we have done so to create a very basic plot within an entry.
+
+Create a file `vibrational_plot_schema.archive.yaml` with the following content:
 
 ```yaml
 "definitions":

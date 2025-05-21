@@ -40,7 +40,7 @@ You are preparing a manuscript for publication and have been asked to:
 - Make the data publicly accessible upon publication
 
 **Your Solution:**
-Use the [NOMAD Central Repository](https://nomad-lab.eu/prod/v1/gui/about/information){:target="\_blank"} to upload, structure, and share your complete project workflow.
+Use the **NOMAD Central Repository** to upload, structure, and share your complete project workflow.
 
 ## The NOMAD Repository and Infrastructure
 
@@ -97,13 +97,17 @@ workflow-example-water-atomistic.zip
 
 The simulations were run with the molecular dynamics simulation package GROMACS. As we will see, the `.log` files will be automatically detected as **mainfiles** of a GROMACS simulations by NOMAD, followed by the linking to corresponding auxillary files (i.e., other input/output files from that simulation) and, finally, an extraction and storage of all the relevant (metadata) within NOMAD's structured data schema.
 
-This example data has been pre-uploaded and published on NOMAD. Go to the [example data upload page](https://nomad-lab.eu/prod/v1/gui/user/uploads/upload/id/WWGPCK-URqGmJWkh_9tElQ){:target="\_blank"} and download the example files by clicking the :fontawesome-solid-cloud-arrow-down: icon. Create a workspace folder for this tutorial, e.g., `workspace_nomad_tutorial_workflows/`, and then move the downloaded zip to this folder. We suggest also creating sub-folders `Part-1`-`Part-4` for organizational purposes.
+This example data has been pre-uploaded and published on NOMAD. Go to the [example data upload page](https://nomad-lab.eu/prod/v1/gui/user/uploads/upload/id/WWGPCK-URqGmJWkh_9tElQ){:target="\_blank"} and download the example files by clicking the :fontawesome-solid-cloud-arrow-down: icon. **Before you proceed, close the browser window so that you do not mistakenly upload files to the main public deployment of NOMAD.**
 
-!!! note "The Test NOMAD Deployment"
+Create a workspace folder for this tutorial, e.g., `workspace_nomad_tutorial_workflows/`, and then move the downloaded zip to this folder. We suggest also creating sub-folders `Part-1`-`Part-4` for organizational purposes.
 
-    All uploads in this tutorial will be sent to the Test Deployment of NOMAD. The data sent there **is not** persistent, and will be deleted occasionally. Thus, we are free to test all publishing functionalities there.
+Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="\_blank"}.
 
-Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="\_blank"}, and upload the zip file that you downloaded with the example data as demonstrated in the video below:
+!!! warning "Attention"
+
+    All uploads in this tutorial will be sent to the Test Deployment of NOMAD. The data sent there **is not** persistent, and will be deleted occasionally. Thus, we are free to test all publishing functionalities there. To verify that you are at the correct url, you can check for the word "test" in the url string, e.g., https://nomad-lab.eu/prod/v1/**test**/gui/search/entries.
+
+Upload the zip file that you downloaded with the example data as demonstrated in the video below:
 
 <video width="100%" controls>
   <source src="../assets/drag-and-drop.webm" alt="File Upload" width="100%" type="video/mp4">
