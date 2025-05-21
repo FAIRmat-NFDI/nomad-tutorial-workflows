@@ -16,7 +16,7 @@ You need to upload the DFT calculations to NOMAD, but this large set of calculat
 Use the **[`nomad-utility-workflows`](https://fairmat-nfdi.github.io/nomad-utility-workflows/){:target="_blank"}** module!
 
 !!! Warning "Attention"
-    The exercises below are intended to be be performed in the jupyter notebooks provided below or in the same terminal/python session to retain the imported packages and defined variables during each step.
+    The exercises below are intended to be performed in a single jupyter session (pre-filled example notebooks provided below).
 
 ## Set up / files and data
 

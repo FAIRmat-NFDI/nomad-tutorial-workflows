@@ -18,7 +18,7 @@ You need to include the simulation setup procedure with sufficient details for r
 Use NOMAD’s **ELN** and **custom schema** functionalities!
 
 !!! warning "Attention"
-    There are some steps in this section that can be performed programmatically or "manually" in the GUI. The programmable route is intended to be performed in the jupyter notebook provided below or in the same terminal/python session to retain the imported packages and defined variables during each step.
+    There are some steps in this section that can be performed programmatically or "manually" in the GUI. The programmable route is     intended to be performed in a single jupyter session (pre-filled example notebook provided below).
 
 
 ## Simulation setup steps
