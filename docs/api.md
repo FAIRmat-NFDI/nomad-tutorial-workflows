@@ -16,7 +16,7 @@ You need to upload the DFT calculations to NOMAD, but this large set of calculat
 Use the **[`nomad-utility-workflows`](https://fairmat-nfdi.github.io/nomad-utility-workflows/){:target="_blank"}** module!
 
 !!! Warning "Attention"
-    The exercises have to be performed in a jupyter notebook (several will be provided during the tutorial) or in the same terminal/python session to retain the imported packages and defined variables during each step.
+    The exercises below are intended to be performed in a single jupyter session (pre-filled example notebooks provided below).
 
 ## Set up / files and data
 
@@ -55,6 +55,9 @@ NOMAD_USERNAME="MyLogin"
 NOMAD_PASSWORD="MyPassWord"
 ```
 and insert your username and password.
+
+!!! warning "Attention"
+    The environment file **MUST** be called exactly ".env" to be read in correctly with our approach.
 
 The `.env` file you placed in the root folder will be loaded within each jupyter notebook with the command `load_dotenv()` found in next steps.
 The functions within the utility module will automatically retrieve an authentication token for privileged operations, e.g., uploading data to your account.
@@ -133,16 +136,6 @@ print(upload_id)
     ```python
     'RdA_3ZsOTMqbtAhYLivVsw'
     ```
-
-??? tip "API calls from the terminal"
-    If you want to upload a file via the terminal, **instead of the NOMAD Workflow utilities shown above**, use
-    ```bash
-    curl -X GET  "https://nomad-lab.eu/prod/v1/test/api/v1/auth/token?username=<your-username>&password=<your-password>"
-    curl -X POST -T basic_eln_entry.archive.yaml "https://nomad-lab.eu/prod/v1/test/api/v1/uploads?token=<your-token>"
-    ```
-    The first command retrieves your temporary token, which is then used in the follow-up command.
-    Note the placeholders.
-    You can also find an example command (with your token inserted already) on the `Uploads` page, once logged in.
 
 ### Checking the upload status
 
@@ -306,7 +299,7 @@ print(dft_upload_ids)
 
 ## Accessing individual entries of an upload
 
-We need to save the `entry_id` for each DFT upload for use later. As an alternative to copying them manually from the corresponding overview pages,
+We need to save both the `upload_id` and `entry_id` for each DFT upload for use later. As an alternative to copying them manually from the corresponding overview pages,
 we can get them programmatically:
 
 ```python
@@ -347,6 +340,9 @@ This should return a list of 3 entry ids. Copy the list into your `PIDs.json` fi
   "dataset_id": ""
 }
 ```
+
+??? note "Additional Exercise"
+    If you were really implementing this project managment pipeline, you would of course want to save these IDs automatically without having to copy them into a file. As an additional coding exercise, you could attempt to save the IDs into your file directly from the notebook.
 
 
 ## Creating Datasets

@@ -37,9 +37,13 @@ This tutorial supports both **graphical (GUI)** and **programmatic (Python/CLI)*
 
 ## ⚙️ Tutorial Preparation
 
-### 1. Create a NOMAD account at [NOMAD Central Deployment](https://nomad-lab.eu/prod/v1/gui/about/information){:target="\_blank"}
+### 1. Create a NOMAD account at [NOMAD Test Deployment](https://nomad-lab.eu/prod/v1/test/gui/about/information){:target="\_blank"}
 
 Click `LOGIN/REGISTER` at the top right.
+
+!!! warning "Attention"
+    This entire tutorial will us the **test deployment**. When you are ready to upload and share your real data with the public, use the [NOMAD Central Deployment](https://nomad-lab.eu/prod/v1/gui/about/information){:target="\_blank"}.
+
 
 ### 2. Install the nomad-utility-workflows module
 
@@ -103,7 +107,7 @@ pip install uv
 Install the latest pypi version of the plugin using pip:
 
 ```bash
-uv pip install "nomad-utility-workflows>=0.1.0[vis]"
+uv pip install "nomad-utility-workflows[vis]>=0.1.0"
 ```
 
 Install `python-dotenv` package.
