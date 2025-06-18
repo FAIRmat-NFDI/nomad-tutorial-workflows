@@ -362,87 +362,90 @@ The workflow name will show up on top of the workflow graph visualization on the
 ??? success "example `project_workflow.archive.yaml`"
 
     ```yaml
-    'workflow2':
-      'name': 'DPG Tutorial 2025 Project Workflow'
+  'workflow2':
+    'name': 'NOMAD Tutorial Workflows Project'
+    'inputs':
+    - 'name': 'Workflow Parameters'
+      'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/ujuIHCdj7StVCxbvYP7NjMvG4v22#/data'
+    'outputs':
+    - 'name': 'Vibrational Analysis'
+      'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
+    - 'name': 'output system from DFT-1'
+      'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/system/-1'
+    - 'name': 'output calculation from DFT-1'
+      'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/calculation/-1'
+    - 'name': 'output system from DFT-2'
+      'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/system/-1'
+    - 'name': 'output calculation from DFT-2'
+      'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/calculation/-1'
+    - 'name': 'output system from DFT-3'
+      'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/system/-1'
+    - 'name': 'output calculation from DFT-3'
+      'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/calculation/-1'
+    'tasks':
+    - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
+      'name': 'MD Setup'
+      'task': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
       'inputs':
-      - 'name': 'Workflow Parameters'
+      - 'name': 'input data from Workflow Parameters'
         'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/ujuIHCdj7StVCxbvYP7NjMvG4v22#/data'
       'outputs':
-      - 'name': 'Vibrational Analysis'
+      - 'name': 'output workflow2 from MD Setup'
+        'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
+    - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
+      'name': 'MD Equilibration'
+      'task': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
+      'inputs':
+      - 'name': 'input workflow2 from MD Setup'
+        'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
+      'outputs':
+      - 'name': 'output workflow2 from MD Equilibration'
+        'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
+    - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
+      'name': 'DFT-1'
+      'task': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/workflow2'
+      'inputs':
+      - 'name': 'input workflow2 from MD Equilibration'
+        'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
+      - 'name': 'input system from DFT-1'
+        'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/system/-1'
+      'outputs':
+      - 'name': 'output data from Vibrational Analysis'
         'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
       - 'name': 'output system from DFT-1'
         'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/system/-1'
       - 'name': 'output calculation from DFT-1'
         'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/calculation/-1'
+    - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
+      'name': 'DFT-2'
+      'task': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/workflow2'
+      'inputs':
+      - 'name': 'input workflow2 from MD Equilibration'
+        'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
+      - 'name': 'input system from DFT-2'
+        'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/system/-1'
+      'outputs':
+      - 'name': 'output data from Vibrational Analysis'
+        'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
       - 'name': 'output system from DFT-2'
         'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/system/-1'
       - 'name': 'output calculation from DFT-2'
         'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/calculation/-1'
+    - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
+      'name': 'DFT-3'
+      'task': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/workflow2'
+      'inputs':
+      - 'name': 'input workflow2 from MD Equilibration'
+        'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
+      - 'name': 'input system from DFT-3'
+        'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/system/-1'
+      'outputs':
+      - 'name': 'output data from Vibrational Analysis'
+        'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
       - 'name': 'output system from DFT-3'
         'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/system/-1'
       - 'name': 'output calculation from DFT-3'
         'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/calculation/-1'
-      'tasks':
-      - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
-        'name': 'MD Setup'
-        'task': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
-        'inputs':
-        - 'name': 'input data from Workflow Parameters'
-          'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/ujuIHCdj7StVCxbvYP7NjMvG4v22#/data'
-        'outputs':
-        - 'name': 'output workflow2 from MD Setup'
-          'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
-      - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
-        'name': 'MD Equilibration'
-        'task': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
-        'inputs':
-        - 'name': 'input workflow2 from MD Setup'
-          'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/8EcTSRbvb8PiYaG_TwqAgOYiE8J7#/workflow2'
-        'outputs':
-        - 'name': 'output workflow2 from MD Equilibration'
-          'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
-      - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
-        'name': 'DFT-1'
-        'inputs':
-        - 'name': 'input workflow2 from MD Equilibration'
-          'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
-        - 'name': 'input system from DFT-1'
-          'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/system/-1'
-        'outputs':
-        - 'name': 'output data from Vibrational Analysis'
-          'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
-        - 'name': 'output system from DFT-1'
-          'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/system/-1'
-        - 'name': 'output calculation from DFT-1'
-          'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/calculation/-1'
-      - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
-        'name': 'DFT-2'
-        'inputs':
-        - 'name': 'input workflow2 from MD Equilibration'
-          'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
-        - 'name': 'input system from DFT-2'
-          'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/system/-1'
-        'outputs':
-        - 'name': 'output data from Vibrational Analysis'
-          'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
-        - 'name': 'output system from DFT-2'
-          'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/system/-1'
-        - 'name': 'output calculation from DFT-2'
-          'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/calculation/-1'
-      - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
-        'name': 'DFT-3'
-        'inputs':
-        - 'name': 'input workflow2 from MD Equilibration'
-          'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
-        - 'name': 'input system from DFT-3'
-          'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/system/-1'
-        'outputs':
-        - 'name': 'output data from Vibrational Analysis'
-          'section': '../uploads/yyqHpBFOSxqhrNALIJswSw/archive/zv4Q_jnvhsGry4oEyj5AC2qD103H#/data'
-        - 'name': 'output system from DFT-3'
-          'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/system/-1'
-        - 'name': 'output calculation from DFT-3'
-          'section': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/run/0/calculation/-1'
     ```
 
 Now upload, edit the metadata, and publish `project_workflow.archive.yaml` following [Part 3 > Uploading and Publishing](./custom.md#uploading-and-publishing). Browse the workflow graph of this entry to see how it links all of your uploads together. Your workflow graph should look like this:
