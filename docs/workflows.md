@@ -186,7 +186,7 @@ import networkx as nx
 from nomad_utility_workflows.utils.workflows import (
     NodeAttributes,
     NodeAttributesUniverse,
-    build_nomad_workflow,
+    NomadWorkflow
     nodes_to_graph,
 )
 ```
@@ -316,34 +316,21 @@ gv.d3(
     </label>
 </div>
 
-## Generate the workflow yaml
+## Filling the workflow graph with default connections
 
-First designate the full path and filename for your YAML and a name for your workflow:
+Before creating the workflow YAML, `nomad-utility-workflows` will fill the workflow graph generated in the previous step with certain "default" connections (i.e., inputs and outputs) based on the types of nodes in the workflow. This happens automatically upon instantiation of the `NomadWorkflow` class:
 
 ```python
-workflow_metadata = {
-    'destination_filename': './project_workflow.archive.yaml',
-    'workflow_name': 'NOMAD Tutorial Workflows Project',
-}
-```
-
-The workflow name will show up on top of the workflow graph visualization on the overview page of the workflow entry that we will create.
-
-We can now use the generated graph to create the workflow YAML using the `build_nomad_workflow()` function:
-
-```
-workflow_graph_output = build_nomad_workflow(
-    workflow_metadata=workflow_metadata,
-    workflow_graph=nx.DiGraph(workflow_graph_input),
-    write_to_yaml=True,
+nomad_workflow = NomadWorkflow(
+    workflow_graph=workflow_graph_input,
 )
 ```
 
-Another workflow graph is returned by this function:
+Here, we create a `NomadWorkflow` using the workflow graph generated in the previous step. The resulting "filled" workflow graph can be visualized with:
 
-```python
+```javascript
 gv.d3(
-    workflow_graph_output,
+    nomad_workflow.workflow_graph,
     node_label_data_source='name',
     edge_label_data_source='name',
     zoom_factor=1.5,
@@ -358,13 +345,25 @@ gv.d3(
     </label>
 </div>
 
-We see that our output graph looks signficantly different than the input. That's because `nomad-utility-workflow` is automatically adding some default inputs/outputs to ensure the proper node connections within the workflow visualizer. For nodes without an `entry_type`, these default connections work by simply adding inputs/outputs that point to the mainfile of one of the nodes connected by an edge in the graph.
+We see that our output graph looks signficantly different than the input. The additional inputs/outputs ensure the proper node connections within NOMAD's workflow visualizer. For nodes without an `entry_type`, these default connections work by simply adding inputs/outputs that point to the mainfile of one of the nodes connected by an edge in the graph.
+
+## Generating the workflow yaml
+
+Finally, we can add some workflow metadata to the [`NomadWorkflow`](../reference/workflows.md#nomadworkflow) (i.e., the filename of the output yaml and the name of the workflow) and generate the workflow YAML file with the class method [`build_workflow_yaml()`](../reference/workflows.md#build_workflow_yaml):
+
+```python
+nomad_workflow.destination_filename = './project_workflow.archive.yaml'
+nomad_workflow.name = 'NOMAD Tutorial Workflows Project'
+nomad_workflow.build_workflow_yaml()
+```
+
+The workflow name will show up on top of the workflow graph visualization on the overview page of the workflow entry that we will create.
 
 ??? success "example `project_workflow.archive.yaml`"
 
     ```yaml
     'workflow2':
-      'name': 'NOMAD Tutorial Workflows Project'
+      'name': 'DPG Tutorial 2025 Project Workflow'
       'inputs':
       - 'name': 'Workflow Parameters'
         'section': '../uploads/ME2oYBdiQUW4CGcG0YsGuw/archive/ujuIHCdj7StVCxbvYP7NjMvG4v22#/data'
@@ -404,7 +403,6 @@ We see that our output graph looks signficantly different than the input. That's
           'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-1'
-        'task': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
           'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
@@ -419,7 +417,6 @@ We see that our output graph looks signficantly different than the input. That's
           'section': '../uploads/JHsC4UFnRtCB9dQYR1BO6A/archive/d2ZJkTjL4LoxdFAVS8YT_jlZdzhm#/run/0/calculation/-1'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-2'
-        'task': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
           'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'
@@ -434,7 +431,6 @@ We see that our output graph looks signficantly different than the input. That's
           'section': '../uploads/exkqL5J8Q62ldMHbuE5tcQ/archive/zeiiGOoZL0dikRgYSvzuZZ3xPv9m#/run/0/calculation/-1'
       - 'm_def': 'nomad.datamodel.metainfo.workflow.TaskReference'
         'name': 'DFT-3'
-        'task': '../uploads/0wUg7_GuSLiG3U1LcNlr2A/archive/8x9j0tEtx6LeGVEv7ByWD3k5VK1F#/workflow2'
         'inputs':
         - 'name': 'input workflow2 from MD Equilibration'
           'section': '../uploads/7Ncu4YyXTTyTSfg0qpiziQ/archive/J3Vkhz2NAtSw4-KTnbHqUyPhhY3g#/workflow2'

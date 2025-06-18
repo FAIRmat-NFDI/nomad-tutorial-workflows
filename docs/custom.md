@@ -79,71 +79,16 @@ Uploading this yaml to the test deployment results in an entry with the overview
     </label>
 </div>
 
-## Customizing the schema
+## The `ELNFileManager`
 
-To document our simulation setup workflow, we need to reference files within our ELN entry. For standardization and search capabilities, it is best practice to use existing classes in the MetaInfo. However, NOMAD also allows users to customize the schema to their own specific needs. Let's create our own schema to store annotated files within an ELN.
-
-!!! warning "Attention"
-    Understanding the details of the customized schema below is beyond the scope of this tutorial, and is not necessarily the adviced route for the most robust customization. The important take away is that you can in principal create you own schema. In this case we have done so to enable storage of annotated files.
-
-Create a file `ELNFiles.archive.yaml` with the following contents:
-
-<h4><code>ELNFiles.archive.yaml</code></h4>
-```yaml
-definitions: # Use the defintions section to create your schema
-  name: 'ELN-Annotated-File-List'
-  sections:
-    AnnotatedFile: # A subsection for storing an annotated file
-      m_annotations:
-        eln:
-          overview: True # Displays this quantity in the overview page of the entry
-      quantities:
-        file: # a quantity for storing the actualy file reference
-          type: str
-          description: single workflow files
-          m_annotations:
-            browser:
-              adaptor: RawFileAdaptor  # Allows to navigate to files in the data browser
-            eln:
-              component: FileEditQuantity # Allows editing with the GUI
-        description: # a quantity for storing the annotation
-          type: str
-          description: describe the file
-          m_annotations:
-            eln:
-              component: StringEditQuantity # Allows editing within the GUI
-    ELNAnnotatedFiles: # Define a subsection for storing files
-      base_sections:
-      - 'nomad.datamodel.metainfo.eln.ElnBaseSection' # inherits from the basic ELN class
-      - 'nomad.datamodel.data.EntryData' # necessary when a class will be the root of our archive
-      m_annotations:
-        eln:
-          hide: ['lab_id'] # hides the lab_id quantity that we will not use
-      sub_sections:
-        Files:
-          repeats: True # makes the subsection repeating (i.e., a list)
-          section: '#/AnnotatedFile' # this subsection will include the quantities defined within the `AnnotedFile` class defined above
-```
-
-The section `AnnotationFile` contains 2 quantities `file` and `description` for storing a file reference and annotation, respectively. The section `ELNAnnotatedFiles` extends the most basic ELN implementation (`ElnBaseSection`) with a repeating subsection of type `AnnotatedFile`. In this way, our ELN will be able to store a list of annotated files.
-
-??? tip "More on custom schemas"
-
-    The YAML approach is a quick and dirty way to customize your NOMAD entries.
-    To disincentivise the proliferation of _ad-hoc_ schemas and remain FAIR, YAML sections or quantities only have partial support.
-    Seamless integration of new quantities happens when schemas are organized in **plugins** (python packages) and installed in NOMAD during deployment.
-    See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"} for more details about defining custom schemas in this way.
-
-    The more robust and powerful approach for creating custom schemas is to create a *schema plugin* (see [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}).
-
-    Useful resources for plugin developers are the [Plugin Template](https://github.com/FAIRmat-NFDI/nomad-plugin-template) and the [NOMAD Distro Template](https://github.com/FAIRmat-NFDI/nomad-distro-template).
+`ELNFileManager` is a built-in schema for referencing and annotating files within an ELN entry. You can create an `ELNFileManager` either from the GUI or via the YAML approach, in the same ways as described above.
 
 We can now use these definitions to create an entry file for the step of creating the force field file (as illustrated in the image above):
 
 <h4><code>create_force_field.archive.yaml</code></h4>
 ```yaml
 data:
-  m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+  m_def: 'nomad.datamodel.metainfo.eln.ELNAnnotatedFiles'
   name: 'Create force field'
   description: 'The force field is defined for input to the MD simulation engine.'
   Files:
@@ -159,7 +104,7 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
     ```yaml
     data:
-      m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+      m_def: 'nomad.datamodel.metainfo.eln.ELNAnnotatedFiles'
       name: 'Create box'
       description: 'The initial simulation box is created.'
       Files:
@@ -171,7 +116,7 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
     ```yaml
     data:
-      m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+      m_def: 'nomad.datamodel.metainfo.eln.ELNAnnotatedFiles'
       name: 'Insert water'
       description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
       Files:
@@ -192,7 +137,7 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
     ```yaml
     data:
-      m_def: '../upload/raw/Custom_ELN_Entries/ELNFiles.archive.yaml#ELNAnnotatedFiles'
+      m_def: 'nomad.datamodel.metainfo.eln.ELNAnnotatedFiles'
       name: 'Workflow Scripts'
       description: 'All the scripts run during setup of the MD simulation.'
       Files:
@@ -201,6 +146,19 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
       - file: 'Custom_ELN_Entries/workflow_script_2.py'
         description: 'Creates the appropriate force field files for the simulation engine.'
     ```
+
+## Customizing the schema
+
+For standardization and search capabilities, it is best practice to use existing classes in the MetaInfo. However, NOMAD also allows users to customize the schema to their own specific needs. For example, you can customize one of the existing ELN schemas by adding specific sections and quantities relevant for your use case.
+
+Customization of schemas is beyond the scope of the present tutorial, however, the tip box below will direct you to further resources if you are interested in learning more.
+
+??? tip "Customizing the schema"
+    Schema customization can be achieved via 2 approaches:
+
+    1. By including a `YAML`-based schema alongside your `YAML` entry file: This is a quick and dirty way to customize your NOMAD entries, and only provides partial support in terms of, e.g., search capabilities. See [NOMAD Docs > How to write a YAML schema package](https://nomad-lab.eu/prod/v1/test/docs/howto/customization/basics.html){:target="_blank"}.
+
+    2. By creating a *schema plugin*: This more robust and powerful approach integrates your new schema into NOMAD via python class definitions See [NOMAD Docs > How to get started with plugins](https://nomad-lab.eu/prod/v1/test/docs/howto/plugins/plugins.html){:target="_blank"}. The following tools are available to assist in plugin creation and development: [Plugin Template](https://github.com/FAIRmat-NFDI/nomad-plugin-template); [NOMAD Distro Template](https://github.com/FAIRmat-NFDI/nomad-distro-template).
 
 ## Creating a custom workflow in NOMAD
 

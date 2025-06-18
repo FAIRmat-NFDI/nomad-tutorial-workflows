@@ -436,7 +436,7 @@ Let's also add the drag and drop upload with the MD data to our dataset. First, 
 with open(os.path.join('<path to PIDs>', 'PIDs.json')) as f:
     pids_dict = json.load(f)
 
-md_upload_id = pids_dict.get('upload_ids').get('md')
+md_upload_id = pids_dict.get('upload_ids').get('md-workflow')
 metadata_new = {'upload_name': f'Test Upload - MD-equilibration', 'datasets': dataset_id}
 edit_upload_metadata(md_upload_id, url='test', upload_metadata=metadata_new)
 ```

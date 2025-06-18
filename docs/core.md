@@ -101,7 +101,7 @@ This example data has been pre-uploaded and published on NOMAD. Go to the [examp
 
 Create a workspace folder for this tutorial, e.g., `workspace_nomad_tutorial_workflows/`, and then move the downloaded zip to this folder. We suggest also creating sub-folders `Part-1`-`Part-4` for organizational purposes.
 
-Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="\_blank"}.
+**Now go to the [Test NOMAD Deployment](https://nomad-lab.eu/prod/v1/test/gui/search/entries){:target="\_blank"}.**
 
 !!! warning "Attention"
 
@@ -146,6 +146,10 @@ We will need both the `upload_id` and the `entry_id` for this entry later. Copy 
   "dataset_id": ""
 }
 ```
+
+!!! warning "Attention"
+
+    The JSON format requires double quotations!
 
 Production Simulation:
 
