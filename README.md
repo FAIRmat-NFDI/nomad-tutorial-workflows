@@ -52,14 +52,31 @@ Then click on the http address to launch the MKDocs.
 
 ### How to update the gh-page version with mike
 
-After all relevant changes are merged into main branch, checkout an up-to-date main branch locally, and run the following command:
+After all relevant changes are merged into main branch, follow these instructions for proper display of version toggle:
 
+1. Reset local gh-pages branch:
 ```
-mike deploy --push --update-aliases vx.x latest
-mike set-default latest --push
+git checkout gh-pages
+git reset --hard origin/gh-pages
 ```
 
-where x.x corresponds to the next major or minor versions of the repo as appropriate.
+2. Checkout and push all older versions to be displayed in the toggle, updating their aliases:
+```
+git checkout v0.1-deployed-final
+mike deploy --push --update-aliases v0.1
+
+git checkout v1.0-deployed-final
+mike deploy --push --update-aliases v1.0
+...
+```
+
+3. Checkout a branch from main for the newest version, and then push and update aliases:
+```
+git checkout origin/main -b vX.X-deployed-<number deployments until finalized>
+mike deploy --push --update-aliases vX.X latest
+```
+
+The latest alias ensures that this version is linked to the default git pages for the repo.
 
 > ℹ️ **Tip**
 > Make sure that your local gh-pages branch is up to date or delete it.
@@ -67,6 +84,6 @@ where x.x corresponds to the next major or minor versions of the repo as appropr
 > ℹ️ **Note**
 > Use x.x equal to the current version to overwrite the current version with your changes.
 
-This command will automatically create or overwrite a folder vx.x/ that contains the present version of your docs. This version will also be linked to the latest alias.
+The push commands will automatically create or overwrite a folder vx.x/ that contains the present version of your docs. T
 
 First, check to make sure the pages were deployed correctly. Now make a release of the repo with the same version name and tag for proper book-keeping.
