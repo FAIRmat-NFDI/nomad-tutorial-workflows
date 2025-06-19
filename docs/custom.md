@@ -3,9 +3,9 @@
 ## 🎯 What You Will Learn
 
 - How to store data that is **not supported by existing NOMAD parsers**
-- How to define a custom **YAML schema**
 - How to use the **NOMAD ELN (Electronic Lab Notebook)** interface
-- How to connect these custom entries into a workflow graph
+- How to annotate and reference files as part of a workflow
+- How to connect entries into a workflow graph
 
 ---
 
@@ -83,12 +83,12 @@ Uploading this yaml to the test deployment results in an entry with the overview
 
 `ELNFileManager` is a built-in schema for referencing and annotating files within an ELN entry. You can create an `ELNFileManager` either from the GUI or via the YAML approach, in the same ways as described above.
 
-We can now use these definitions to create an entry file for the step of creating the force field file (as illustrated in the image above):
+We can now use these definitions to create an entry file for the step of creating the force field, and link to the output force field file from this step in the workflow:
 
 <h4><code>create_force_field.archive.yaml</code></h4>
 ```yaml
 data:
-  m_def: 'nomad.datamodel.metainfo.eln.ELNAnnotatedFiles'
+  m_def: 'nomad.datamodel.metainfo.eln.ElnFileManager'
   name: 'Create force field'
   description: 'The force field is defined for input to the MD simulation engine.'
   Files:
@@ -96,7 +96,11 @@ data:
     description: 'The force field file for simulation input.'
 ```
 
-Here we define the data section using our `ELNFiles.archive.yaml` schema. The given path is a relative path assuming that we will upload these 2 files (i.e., `ELNFiles.archive.yaml` and `create_force_field.archive.yaml`) within the same upload with a root folder called `Custom_ELN_Entries`.
+Uploading to NOMAD should result in the following entry display:
+
+<video width="100%" controls>
+  <source src="../assets/ELNFileManager.webm" alt="" type="video/mp4">
+</video>
 
 You can now create analogous files `create_box.archive.yaml`, `insert_water.archive.yaml`, `workflow_parameters.archive.yaml`, `workflow_scripts.archive.yaml`:
 
@@ -104,7 +108,7 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
     ```yaml
     data:
-      m_def: 'nomad.datamodel.metainfo.eln.ELNAnnotatedFiles'
+      m_def: 'nomad.datamodel.metainfo.eln.ElnFileManager'
       name: 'Create box'
       description: 'The initial simulation box is created.'
       Files:
@@ -116,7 +120,7 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
     ```yaml
     data:
-      m_def: 'nomad.datamodel.metainfo.eln.ELNAnnotatedFiles'
+      m_def: 'nomad.datamodel.metainfo.eln.ElnFileManager'
       name: 'Insert water'
       description: 'Water is inserted into the simulation box, creating the structure file for simulation input.'
       Files:
@@ -137,7 +141,7 @@ You can now create analogous files `create_box.archive.yaml`, `insert_water.arch
 
     ```yaml
     data:
-      m_def: 'nomad.datamodel.metainfo.eln.ELNAnnotatedFiles'
+      m_def: 'nomad.datamodel.metainfo.eln.ElnFileManager'
       name: 'Workflow Scripts'
       description: 'All the scripts run during setup of the MD simulation.'
       Files:
@@ -162,7 +166,7 @@ Customization of schemas is beyond the scope of the present tutorial, however, t
 
 ## Creating a custom workflow in NOMAD
 
-NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the `workflow2` section instead of the `data` section. When uploaded to NOMAD, a new _workflow_ entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow. Learn more about the [archive file structure](https://nomad-lab.eu/prod/v1/test/docs/explanation/data.html#archive-files-a-shared-entry-structure) in the official NOMAD documentation.
+NOMAD allows users to connect entries into a workflow, i.e., a directed graph structure. This is achieved using the same parsing functionality as demonstrated with the custom schemas above. In this case, we simply populate the `workflow2` section instead of the `data` section. When uploaded to NOMAD, a new _workflow_ entry will be created, with references to each of the workflow tasks, and also an interactive workflow graph for easy navigation of the entire workflow.
 
 Let's construct this workflow yaml piece by piece, starting with the section definition and global inputs/outputs:
 
