@@ -107,7 +107,7 @@ pip install uv
 Install the latest pypi version of the plugin using pip:
 
 ```bash
-uv pip install "nomad-utility-workflows[vis]>=0.1.0"
+uv pip install "nomad-utility-workflows[vis]>=0.2.0"
 ```
 
 Install `python-dotenv` package.
