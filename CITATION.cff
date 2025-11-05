@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+title: NOMAD Tutorial Workflows
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Joseph F.
+    family-names: Rudzinski
+    orcid: 'https://orcid.org/0000-0003-3403-640X'
+  - given-names: Andrea
+    family-names: Albino
+    orcid: 'https://orcid.org/0000-0001-9280-7431'
+  - given-names: Nathan
+    family-names: Daelman
+    orcid: 'https://orcid.org/0000-0002-7647-1816'
+  - given-names: Bernadette
+    family-names: Mohr
+    orcid: 'https://orcid.org/0000-0003-0903-0073'
+doi: 10.5281/zenodo.XXX
+
+repository-code: 'https://github.com/FAIRmat-NFDI/nomad-tutorial-workflows'
+url: 'https://fairmat-nfdi.github.io/nomad-tutorial-workflows/latest'
+abstract: >-
+  `nomad-tutorial-workflows` is a tutorial for the NOMAD
+  software (https://zenodo.org/doi/10.5281/zenodo.8366162)
+  demonstrating workflow and project management in NOMAD.
+
+license: Apache-2.0

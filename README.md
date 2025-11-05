@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/{981978917}.svg)](https://zenodo.org/badge/latestdoi/{981978917})
+
 # nomad-tutorial-workflows
 
 ### Full Title:
@@ -87,3 +89,14 @@ The latest alias ensures that this version is linked to the default git pages fo
 The push commands will automatically create or overwrite a folder vx.x/ that contains the present version of your docs. T
 
 First, check to make sure the pages were deployed correctly. Now make a release of the repo with the same version name and tag for proper book-keeping.
+
+## How to cite this work
+Rudzinski, J.F., Albino, A., Daelman, N., Mohr, B., NOMAD Tutorial Workflows (all versions) [Computer software]. https://zenodo.org/doi/10.5281/zenodo.XXX
+
+## Main contributors
+| Name | E-mail     |
+|------|------------|
+| Joseph F. Rudzinski | [joseph.rudzinski@physik.hu-berlin.de](mailto:joseph.rudzinski@physik.hu-berlin.de)
+| Andrea Albino |
+| Nathan Daelman |
+| Bernadette Mohr |
