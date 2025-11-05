@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/{981978917}.svg)](https://zenodo.org/badge/latestdoi/{981978917})
+[![DOI](https://zenodo.org/badge/981978917.svg)](https://doi.org/10.5281/zenodo.17536971)
 
 # nomad-tutorial-workflows
 
@@ -91,7 +91,7 @@ The push commands will automatically create or overwrite a folder vx.x/ that con
 First, check to make sure the pages were deployed correctly. Now make a release of the repo with the same version name and tag for proper book-keeping.
 
 ## How to cite this work
-Rudzinski, J.F., Albino, A., Daelman, N., Mohr, B., NOMAD Tutorial Workflows (all versions) [Computer software]. https://zenodo.org/doi/10.5281/zenodo.XXX
+Rudzinski, J.F., Albino, A., Daelman, N., Mohr, B., NOMAD Tutorial Workflows (all versions) [Computer software]. https://doi.org/10.5281/zenodo.17536971
 
 ## Main contributors
 | Name | E-mail     |
