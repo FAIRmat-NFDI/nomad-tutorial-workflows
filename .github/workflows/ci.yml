@@ -1,19 +1,24 @@
-name: Deploy docs
+name: Deploy docs (mike)
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'     # e.g., v1.0, v1.1
+
 permissions:
   contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
         with:
-          python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV 
+          fetch-depth: 0          # <-- important for mike/gh-pages history
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
       - uses: actions/cache@v3
         with:
           key: mkdocs-material-${{ env.cache_id }}
@@ -21,17 +26,24 @@ jobs:
           restore-keys: |
             mkdocs-material-
             mkdocs-bibtex-
+
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '14'
-      - name: Install Node.js dependencies
-        run: npm install js-yaml
-      - name: Installing mkdocs-material
-        run: pip install mkdocs-material 
-      - name: Installing mkdocs-bibtex
-        run: pip install mkdocs-bibtex
-      - name: Installing python-markdown-math from repository
-        run: pip install https://github.com/mitya57/python-markdown-math/archive/master.zip
-      - name: Deploying GH page for mkdocs
-        run: mkdocs gh-deploy --force
+          node-version: '18'      # 14 is EOL; bump if you actually need Node
+
+      - name: Install Node.js dependencies (optional)
+        run: npm install js-yaml  # keep only if your build really uses it
+
+      - name: Install Python deps
+        run: |
+          pip install mike mkdocs-material mkdocs-bibtex
+          pip install https://github.com/mitya57/python-markdown-math/archive/master.zip
+
+      - name: Deploy with mike
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          VERSION="${GITHUB_REF_NAME}"            # tag name, e.g. v1.0
+          mike deploy --push --update-aliases "$VERSION" latest
+          mike set-default latest --push
