@@ -76,12 +76,13 @@ mike deploy --push --update-aliases v1.0
 ```
 git checkout origin/main -b vX.X-deployed-<number deployments until finalized>
 mike deploy --push --update-aliases vX.X latest
+`mike set-default latest --push`
 ```
 
 The latest alias ensures that this version is linked to the default git pages for the repo.
 
 > ℹ️ **Tip**
-> Make sure that your local gh-pages branch is up to date or delete it.
+> Make sure that your local gh-pages branch is up to date or delete it.  
 
 > ℹ️ **Note**
 > Use x.x equal to the current version to overwrite the current version with your changes.
