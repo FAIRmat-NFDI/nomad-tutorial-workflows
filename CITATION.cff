@@ -17,7 +17,7 @@ authors:
   - given-names: Bernadette
     family-names: Mohr
     orcid: 'https://orcid.org/0000-0003-0903-0073'
-doi: 10.5281/zenodo.XXX
+doi: 10.5281/zenodo.17536971
 
 repository-code: 'https://github.com/FAIRmat-NFDI/nomad-tutorial-workflows'
 url: 'https://fairmat-nfdi.github.io/nomad-tutorial-workflows/latest'
