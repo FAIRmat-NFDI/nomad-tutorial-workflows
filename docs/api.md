@@ -92,7 +92,7 @@ To demonstrate the basics of the API functionalities within `nomad-utility-workf
 
 You can create a `test-API.ipynb` notebook and copy over the following step by step, or download the prefilled notebook:
 
-[Download test-API.ipynb](assets/test-API.ipynb){:target="_blank" .md-button }
+[Download test-API.ipynb](assets/test-API.ipynb){:target="_blank" .md-button download="test-API.ipynb"}
 
 Import the necessary modules/functions:
 
@@ -215,7 +215,7 @@ Now that you understand some API basics, we can move to working with the data fo
 
 Create a new notebook `Part-2_DFT-calculations.ipynb` to work step by step or download the prefilled notebook:
 
-[Download Part-2_DFT-calculations.ipynb](assets/Part-2_DFT-calculations.ipynb){:target="_blank" .md-button }
+[Download Part-2_DFT-calculations.ipynb](assets/Part-2_DFT-calculations.ipynb){:target="_blank" .md-button download="Part-2_DFT-calculations.ipynb"}
 
 Make all the necessary imports:
 
