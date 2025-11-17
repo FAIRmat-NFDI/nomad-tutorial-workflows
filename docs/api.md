@@ -358,7 +358,7 @@ print(dataset_id)
 
     Make sure to add your name or some unique identifier. Dataset names must be unique.
 
-Copy the `dataset_id` into `PIDs.json`) for later use. (You can always find it by going to [Test Deployment > PUBLISH > Datasets](https://nomad-lab.eu/prod/v1/test/gui/user/datasets) to view all of your created datasets).
+Copy the `dataset_id` into `PIDs.json` for later use. (You can always find it by going to [Test Deployment > PUBLISH > Datasets](https://nomad-lab.eu/prod/v1/test/gui/user/datasets) to view all of your created datasets). We will be using this `dataset_id` throughout the tutorial.
 
 ```json
 {

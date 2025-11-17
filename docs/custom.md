@@ -345,7 +345,7 @@ Create a new notebook `Custom_ELN_Entries.ipynb` to try the steps below on your 
     print(eln_entries_upload_id)
     ```
 
-- Add a title and link to your dataset:
+- Add a title and link to your dataset (same `dataset_id` as in Part 2):
 
 ??? success "Solution"
 
