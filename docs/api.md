@@ -92,7 +92,7 @@ To demonstrate the basics of the API functionalities within `nomad-utility-workf
 
 You can create a `test-API.ipynb` notebook and copy over the following step by step, or download the prefilled notebook:
 
-[Download test-API.ipynb](assets/test-API.ipynb){:target="_blank" .md-button }
+[Download test-API.ipynb](assets/test-API.ipynb){:target="_blank" .md-button download="test-API.ipynb"}
 
 Import the necessary modules/functions:
 
@@ -215,7 +215,7 @@ Now that you understand some API basics, we can move to working with the data fo
 
 Create a new notebook `Part-2_DFT-calculations.ipynb` to work step by step or download the prefilled notebook:
 
-[Download Part-2_DFT-calculations.ipynb](assets/Part-2_DFT-calculations.ipynb){:target="_blank" .md-button }
+[Download Part-2_DFT-calculations.ipynb](assets/Part-2_DFT-calculations.ipynb){:target="_blank" .md-button download="Part-2_DFT-calculations.ipynb"}
 
 Make all the necessary imports:
 
@@ -358,7 +358,7 @@ print(dataset_id)
 
     Make sure to add your name or some unique identifier. Dataset names must be unique.
 
-Copy the `dataset_id` into `PIDs.json`) for later use. (You can always find it by going to [Test Deployment > PUBLISH > Datasets](https://nomad-lab.eu/prod/v1/test/gui/user/datasets) to view all of your created datasets).
+Copy the `dataset_id` into `PIDs.json` for later use. (You can always find it by going to [Test Deployment > PUBLISH > Datasets](https://nomad-lab.eu/prod/v1/test/gui/user/datasets) to view all of your created datasets). We will be using this `dataset_id` throughout the tutorial.
 
 ```json
 {
