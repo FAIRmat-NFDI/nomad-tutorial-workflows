@@ -126,7 +126,7 @@ Workflow Entry:
     </label>
 </div>
 
-We will need both the `upload_id` and the `entry_id` for this entry later (with mainfile `workflow.archive.yaml`). Copy them from the left-hand `MetaData` bar, and place them into a file called `PIDs.json` as follows:
+We will need both the `upload_id` and the `entry_id` for this entry (with mainfile `workflow.archive.yaml`) later. Copy them from the left-hand `MetaData` bar, and place them into a file called `PIDs.json` as follows:
 
 ```json
 {
